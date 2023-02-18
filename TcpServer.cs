@@ -80,7 +80,7 @@ public class TCPTestServer
                 }
 
                 //将收到的数据转换成字符串并输出
-                string messageReceived = System.Text.Encoding.ASCII.GetString(buffer, 0, bytesRead);
+                string messageReceived = System.Text.Encoding.UTF8.GetString(buffer, 0, bytesRead);
                 MelonLogger.Msg("Received: {0}", messageReceived);
 
                 //发送到CommandHandler

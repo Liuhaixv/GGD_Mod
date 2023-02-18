@@ -1,10 +1,9 @@
-﻿using Handlers.GameHandlers.PlayerHandlers;
-using Il2CppSystem;
-using MelonLoader;
-using System;
+﻿using MelonLoader;
 using UnhollowerRuntimeLib;
 using UnityEngine;
 using System.Linq;
+
+using IntPtr = System.IntPtr;
 
 namespace GGD_Hack
 {
@@ -13,7 +12,7 @@ namespace GGD_Hack
     {
         private static CommandHandler instance = null;
 
-        public CommandHandler(System.IntPtr ptr) : base(ptr) { }
+        public CommandHandler(IntPtr ptr) : base(ptr) { }
 
         // Optional, only used in case you want to instantiate this class in the mono-side
         // Don't use this on MonoBehaviours / Components!
