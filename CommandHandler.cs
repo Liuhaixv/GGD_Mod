@@ -40,15 +40,46 @@ namespace GGD_Hack
             //localPlayer.SendFart();
         }
 
-        public static void Handle(System.String command)
+        public static void HandleMessage(System.String message)
         {
-            MelonLogger.Msg("正在处理command: " + command);
 
-            if (command == "sendfart")
+            string[] lines = message.Split(new string[] { "\n", "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
+
+            if(lines.Length == 0)
             {
-                MelonLogger.Msg("command命中: SendFart()");
-                SendFart();
+                //空字符串
+                MelonLogger.Warning("收到的指令为空！");
+                return;
             }
+
+            string command = lines[0];
+
+            MelonLogger.Msg("正在处理command: " + message);
+
+            switch (command)
+            {
+                case "SendFart":
+                    MelonLogger.Msg("command命中: SendFart()");
+                    SendFart();
+                    break;
+                case "SendChat":
+                    MelonLogger.Msg("command命中: SendChat()");
+                    SendChat(lines);
+                    break;
+                default:
+                    MelonLogger.Msg("未知command指令");
+                    break;
+            }
+        }
+
+        private static void SendChat(string[] strings)
+        {
+            if(strings.Length <= 1)
+            {
+                MelonLogger.Warning("SendChat参数过少！");
+            }
+            string chatMessage = strings[1];
+
         }
 
         private static void SendFart()

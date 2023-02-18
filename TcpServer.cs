@@ -80,14 +80,14 @@ public class TCPTestServer
                 }
 
                 //将收到的数据转换成字符串并输出
-                string dataReceived = System.Text.Encoding.ASCII.GetString(buffer, 0, bytesRead);
-                MelonLogger.Msg("Received: {0}", dataReceived);
+                string messageReceived = System.Text.Encoding.ASCII.GetString(buffer, 0, bytesRead);
+                MelonLogger.Msg("Received: {0}", messageReceived);
 
                 //发送到CommandHandler
-                CommandHandler.Handle(dataReceived);
+                CommandHandler.HandleMessage(messageReceived);
 
                 //将收到的数据转换成大写并发送回客户端
-                string dataToSend = dataReceived.ToUpper();
+                string dataToSend = messageReceived.ToUpper();
                 byte[] data = System.Text.Encoding.ASCII.GetBytes(dataToSend);
                 try
                 {
