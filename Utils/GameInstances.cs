@@ -32,5 +32,42 @@ namespace GGD_Hack.Utils
 
             return player.GetComponent<Handlers.GameHandlers.PlayerHandlers.LocalPlayer>();
         }
+
+        /// <summary>
+        /// 无论是否激活
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
+        public static GameObject FindGameObjectByPath(string path)
+        {
+            // 分割路径字符串
+            string[] pathElements = path.Split('/');
+
+            // 从根开始遍历场景层次结构
+            Transform currentTransform = null;
+            for (int i = 0; i < pathElements.Length; i++)
+            {
+                // 获取当前层级的Transform
+                if (currentTransform == null)
+                {
+                    // 如果是根节点
+                    currentTransform = GameObject.Find(pathElements[i]).transform;
+                }
+                else
+                {
+                    // 如果不是根节点
+                    currentTransform = currentTransform.Find(pathElements[i]);
+                }
+
+                // 如果找不到当前层级的Transform，返回 null
+                if (currentTransform == null)
+                {
+                    return null;
+                }
+            }
+
+            // 返回找到的 GameObject
+            return currentTransform.gameObject;
+        }
     }
 }

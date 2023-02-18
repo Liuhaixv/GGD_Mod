@@ -24,11 +24,14 @@ namespace GGD_Hack.Features
             //1.遍历玩家
             Il2CppSystem.Collections.Generic.Dictionary<string, PlayerController> playersList = PlayerController.playersList;
 
-            foreach(var player in playersList)
+            foreach(var playerEntry in playersList)
             {
-                if(player.Value == null) continue;
+                if(playerEntry.Value == null) continue;
 
-                PlayerController playerController = player.Value;
+                PlayerController playerController = playerEntry.Value;
+
+                //不指示幽灵
+                if (playerController.isGhost) continue;
 
                 //添加箭头追踪
                 TaskTargetingHandler.Instance.LFJHJCHMMAJ(playerController, TargetHandler.LGFIADKANCB.None);

@@ -1,4 +1,5 @@
-﻿using MelonLoader;
+﻿using GGD_Hack.Features;
+using MelonLoader;
 using UnityEngine;
 
 namespace GGD_Hack
@@ -82,6 +83,8 @@ namespace GGD_Hack
         {
             CommandHandler.Init();
             UnityMainThreadDispatcher.Init();
+            //初始化小地图点位绘制
+            MinimapESP.Init();
         }
     }
 }
