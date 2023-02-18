@@ -1,8 +1,10 @@
 ﻿using Handlers.GameHandlers.PlayerHandlers;
+using Il2CppSystem;
 using MelonLoader;
 using System;
 using UnhollowerRuntimeLib;
 using UnityEngine;
+using System.Linq;
 
 namespace GGD_Hack
 {
@@ -11,7 +13,7 @@ namespace GGD_Hack
     {
         private static CommandHandler instance = null;
 
-        public CommandHandler(IntPtr ptr) : base(ptr) { }
+        public CommandHandler(System.IntPtr ptr) : base(ptr) { }
 
         // Optional, only used in case you want to instantiate this class in the mono-side
         // Don't use this on MonoBehaviours / Components!
@@ -43,7 +45,7 @@ namespace GGD_Hack
         public static void HandleMessage(System.String message)
         {
 
-            string[] lines = message.Split(new string[] { "\n", "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
+            string[] lines = message.Split(new string[] { "\n", "\r\n" }, System.StringSplitOptions.RemoveEmptyEntries);
 
             if (lines.Length == 0)
             {
@@ -78,7 +80,7 @@ namespace GGD_Hack
             {
                 MelonLogger.Warning("SendChat参数过少！");
             }
-            string chatMessage = strings[1];
+            string chatMessage = string.Join("\n", strings.Skip(1));
 
             UnityMainThreadDispatcher.Instance().Enqueue(new System.Action(() => { Utils.Utils.SendTextMessage(chatMessage); }));
         }
