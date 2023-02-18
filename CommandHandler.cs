@@ -67,10 +67,22 @@ namespace GGD_Hack
                     MelonLogger.Msg("command命中: SendChat()");
                     SendChat(lines);
                     break;
+                case "ShowAllPlayersArrow":
+                    MelonLogger.Msg("command命中: ShowAllPlayersArrow()");
+                    ShowAllPlayersArrow();
+                    break;
                 default:
                     MelonLogger.Msg("未知command指令");
                     break;
             }
+        }
+
+        private static void ShowAllPlayersArrow()
+        {
+            UnityMainThreadDispatcher.Instance().Enqueue(new System.Action(() =>
+            {
+                GGD_Hack.Features.TrackAllPlayers.ShowAllPlayersArrow();
+            }));
         }
 
         private static void SendChat(string[] strings)
@@ -81,7 +93,10 @@ namespace GGD_Hack
             }
             string chatMessage = string.Join("\n", strings.Skip(1));
 
-            UnityMainThreadDispatcher.Instance().Enqueue(new System.Action(() => { Utils.Utils.SendTextMessage(chatMessage); }));
+            UnityMainThreadDispatcher.Instance().Enqueue(new System.Action(() =>
+            {
+                Utils.Utils.SendTextMessage(chatMessage);
+            }));
         }
 
         private static void SendFart()

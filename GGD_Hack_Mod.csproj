@@ -62,6 +62,7 @@
   <ItemGroup>
     <Compile Include="BypassAC.cs" />
     <Compile Include="CommandHandler.cs" />
+    <Compile Include="Features\TrackAllPlayers.cs" />
     <Compile Include="MemoryUtils.cs" />
     <Compile Include="PatternScanner.cs" />
     <Compile Include="Utils\GameInstances.cs" />
