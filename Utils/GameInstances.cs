@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Utils
+namespace GGD_Hack.Utils
 {
     public class GameInstances
     {

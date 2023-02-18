@@ -45,7 +45,7 @@ namespace GGD_Hack
 
             string[] lines = message.Split(new string[] { "\n", "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
 
-            if(lines.Length == 0)
+            if (lines.Length == 0)
             {
                 //空字符串
                 MelonLogger.Warning("收到的指令为空！");
@@ -74,12 +74,13 @@ namespace GGD_Hack
 
         private static void SendChat(string[] strings)
         {
-            if(strings.Length <= 1)
+            if (strings.Length <= 1)
             {
                 MelonLogger.Warning("SendChat参数过少！");
             }
             string chatMessage = strings[1];
 
+            UnityMainThreadDispatcher.Instance().Enqueue(new System.Action(() => { Utils.Utils.SendTextMessage(chatMessage); }));
         }
 
         private static void SendFart()
@@ -90,17 +91,8 @@ namespace GGD_Hack
                 MelonLogger.Msg(localPlayer.Player.nickname);
 
                 //localPlayer.SendFart();
-                UnityMainThreadDispatcher unityMainThreadDispatcher = UnityMainThreadDispatcher.Instance();
-                if (unityMainThreadDispatcher != null)
-                {
-                    unityMainThreadDispatcher.Enqueue(new System.Action(
-                        () =>
-                        {
-                            localPlayer.SendFart();
-                        }
-                    ));
-                }
+                UnityMainThreadDispatcher.Instance().Enqueue(new System.Action(localPlayer.SendFart));
             }
-        }        
+        }
     }
 }

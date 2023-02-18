@@ -69,6 +69,7 @@
     <Compile Include="Main.cs" />
     <Compile Include="TcpServer.cs" />
     <Compile Include="UnityMainThreadDispatcher.cs" />
+    <Compile Include="Utils\Utils.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
