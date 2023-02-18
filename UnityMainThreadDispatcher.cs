@@ -8,7 +8,7 @@ using System.Threading;
 using UnityEngine;
 using UnhollowerRuntimeLib;
 
-namespace TestMod
+namespace GGD_Hack
 {
     [RegisterTypeInIl2Cpp]
     public class UnityMainThreadDispatcher : MonoBehaviour

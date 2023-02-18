@@ -1,7 +1,7 @@
 ﻿using MelonLoader;
 using UnityEngine;
 
-namespace TestMod
+namespace GGD_Hack
 {
     public static class BuildInfo
     {
@@ -20,7 +20,7 @@ namespace TestMod
             MelonLogger.Msg("OnApplicationStart");                        
 
             TCPTestServer testServer= new TCPTestServer(1234);  
-            testServer.Start();
+            testServer.Start();            
         }
 
         public override void OnApplicationLateStart() // Runs after OnApplicationStart.

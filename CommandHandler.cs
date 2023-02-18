@@ -7,7 +7,7 @@ using System.Reflection;
 using UnityEngine.PlayerLoop;
 using static MelonLoader.MelonLogger;
 
-namespace TestMod
+namespace GGD_Hack
 {
     [RegisterTypeInIl2Cpp]
     public class CommandHandler : MonoBehaviour
@@ -56,7 +56,7 @@ namespace TestMod
 
         private static void SendFart()
         {
-            Handlers.GameHandlers.PlayerHandlers.LocalPlayer localPlayer = GetLocalPlayer();
+            Handlers.GameHandlers.PlayerHandlers.LocalPlayer localPlayer = Utils.GameInstances.GetLocalPlayer();
             if (localPlayer != null)
             {
                 MelonLogger.Msg(localPlayer.Player.nickname);
@@ -73,35 +73,6 @@ namespace TestMod
                     ));
                 }
             }
-        }
-
-        //获取LocalPlayer
-        static Handlers.GameHandlers.PlayerHandlers.LocalPlayer GetLocalPlayer()
-        {
-            //通过tag查找玩家
-            GameObject[] gameObjects = GameObject.FindGameObjectsWithTag("Player");
-
-            GameObject player = null;
-            foreach (GameObject gameObject in gameObjects)
-            {
-                if (gameObject.GetComponent<Handlers.GameHandlers.PlayerHandlers.LocalPlayer>() == null)
-                {
-                    continue;
-                }
-                else
-                {
-                    player = gameObject;
-                    break;
-                }
-            }
-
-            //未找到玩家实例
-            if (player == null)
-            {
-                return null;
-            }
-
-            return player.GetComponent<Handlers.GameHandlers.PlayerHandlers.LocalPlayer>();
-        }
+        }        
     }
 }

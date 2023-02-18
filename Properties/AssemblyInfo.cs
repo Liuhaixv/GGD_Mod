@@ -1,15 +1,15 @@
 ﻿using System.Reflection;
 using MelonLoader;
 
-[assembly: AssemblyTitle(TestMod.BuildInfo.Description)]
-[assembly: AssemblyDescription(TestMod.BuildInfo.Description)]
-[assembly: AssemblyCompany(TestMod.BuildInfo.Company)]
-[assembly: AssemblyProduct(TestMod.BuildInfo.Name)]
-[assembly: AssemblyCopyright("Created by " + TestMod.BuildInfo.Author)]
-[assembly: AssemblyTrademark(TestMod.BuildInfo.Company)]
-[assembly: AssemblyVersion(TestMod.BuildInfo.Version)]
-[assembly: AssemblyFileVersion(TestMod.BuildInfo.Version)]
-[assembly: MelonInfo(typeof(TestMod.TestMod), TestMod.BuildInfo.Name, TestMod.BuildInfo.Version, TestMod.BuildInfo.Author, TestMod.BuildInfo.DownloadLink)]
+[assembly: AssemblyTitle(GGD_Hack.BuildInfo.Description)]
+[assembly: AssemblyDescription(GGD_Hack.BuildInfo.Description)]
+[assembly: AssemblyCompany(GGD_Hack.BuildInfo.Company)]
+[assembly: AssemblyProduct(GGD_Hack.BuildInfo.Name)]
+[assembly: AssemblyCopyright("Created by " + GGD_Hack.BuildInfo.Author)]
+[assembly: AssemblyTrademark(GGD_Hack.BuildInfo.Company)]
+[assembly: AssemblyVersion(GGD_Hack.BuildInfo.Version)]
+[assembly: AssemblyFileVersion(GGD_Hack.BuildInfo.Version)]
+[assembly: MelonInfo(typeof(GGD_Hack.TestMod), GGD_Hack.BuildInfo.Name, GGD_Hack.BuildInfo.Version, GGD_Hack.BuildInfo.Author, GGD_Hack.BuildInfo.DownloadLink)]
 [assembly: MelonColor()]
 
 // Create and Setup a MelonGame Attribute to mark a Melon as Universal or Compatible with specific Games.
