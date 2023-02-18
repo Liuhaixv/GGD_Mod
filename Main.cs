@@ -15,17 +15,18 @@ namespace GGD_Hack
 
     public class TestMod : MelonMod
     {
-        public override void OnApplicationStart() // Runs after Game Initialization.
+        public override void OnInitializeMelon()
         {
-            MelonLogger.Msg("OnApplicationStart");                        
+            MelonLogger.Msg("OnInitializeMelon");
+            BypassAC.PatchAssembliesLoadCheck();
+        }
+        public override void OnLateInitializeMelon() // Runs after Game Initialization.
+        {
+            MelonLogger.Msg("OnLateInitializeMelon");                        
 
             TCPTestServer testServer= new TCPTestServer(1234);  
-            testServer.Start();            
-        }
+            testServer.Start();
 
-        public override void OnApplicationLateStart() // Runs after OnApplicationStart.
-        {
-            //MelonLogger.Msg("OnApplicationLateStart");
         }
 
         public override void OnSceneWasLoaded(int buildindex, string sceneName) // Runs when a Scene has Loaded and is passed the Scene's Build Index and Name.
@@ -73,11 +74,6 @@ namespace GGD_Hack
         {
             //MelonLogger.Msg("OnPreferencesLoaded");
         }
-        /*
-        public override void BONEWORKS_OnLoadingScreen() // Runs when BONEWORKS shows the Loading Screen. Only runs if the Melon is used in BONEWORKS.
-        {
-            MelonLogger.Msg("BONEWORKS_OnLoadingScreen");
-        }*/
 
         /// <summary>
         /// 初始化所有需要用到的实例
