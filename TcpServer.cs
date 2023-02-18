@@ -7,9 +7,7 @@ using System.Text;
 using System.Threading;
 
 namespace GGD_Hack
-{
- 
-
+{ 
 public class TCPTestServer
     {
         private TcpListener listener;
@@ -20,6 +18,7 @@ public class TCPTestServer
         {
             IPAddress ipAddress = IPAddress.Parse("127.0.0.1");
             listener = new TcpListener(ipAddress, port);
+            MelonLogger.Msg("TCP服务器监听端口为: " + port.ToString());
         }
 
         public void Start()

@@ -15,6 +15,11 @@ namespace GGD_Hack
             IntPtr intPtr = PatternScanner.OffsetToModule("GameAssembly.dll", 0x8D5FC0);
             MelonLogger.Msg("Start to patch assemblies' loading check at: 0x" + intPtr.ToString("X"));
             MemoryUtils.WriteBytes(intPtr, new byte[1] { 0x0 });
+
+            //TODO:            
+            //intPtr = PatternScanner.OffsetToModule("GameAssembly.dll", 0x7E6D70);
+            //MelonLogger.Msg("Start to patch assemblies' FailFast at: 0x" + intPtr.ToString("X"));
+            //MemoryUtils.WriteBytes(intPtr, new byte[1] { 0xC3 });
         }
 
 
@@ -23,7 +28,7 @@ namespace GGD_Hack
         /// 禁止检测是否存在MelonLoader.dll
         /// </summary>
         [HarmonyPatch(typeof(FNNFIMKCHLH), "MDBKDAJIDJE")]
-        private static class PatchMelonLoaderFileExsistsCheck
+        private static class MelonLoaderFileExsistsCheckPatch
         {
             //原返回值MelonLoader.dll
             static bool Prefix(ref string __result)
@@ -33,6 +38,15 @@ namespace GGD_Hack
 
                 //跳过原函数的执行
                 return false;
+            }
+        }
+
+        [HarmonyPatch(typeof(Environment), "FailFast", typeof(string), typeof(Exception))]
+        class FailFastPatch
+        {
+            static bool Prefix(string message, Exception exception)
+            {
+                return true; // 返回 true 表示完全替换原方法的实现
             }
         }
     }

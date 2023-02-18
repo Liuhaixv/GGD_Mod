@@ -3,9 +3,6 @@ using MelonLoader;
 using System;
 using UnhollowerRuntimeLib;
 using UnityEngine;
-using System.Reflection;
-using UnityEngine.PlayerLoop;
-using static MelonLoader.MelonLogger;
 
 namespace GGD_Hack
 {
