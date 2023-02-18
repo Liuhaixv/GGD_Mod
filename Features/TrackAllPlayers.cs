@@ -18,6 +18,9 @@ namespace GGD_Hack.Features
             //1.遍历玩家
             //2.TaskTargetingHandler调用方法添加玩家箭头
 
+            //停止所有箭头追踪，防止重复添加
+            TaskTargetingHandler.Instance.StopAllTargeting();
+
             //1.遍历玩家
             Il2CppSystem.Collections.Generic.Dictionary<string, PlayerController> playersList = PlayerController.playersList;
 
@@ -30,9 +33,6 @@ namespace GGD_Hack.Features
                 //添加箭头追踪
                 TaskTargetingHandler.Instance.LFJHJCHMMAJ(playerController, TargetHandler.LGFIADKANCB.None);
             }
-
-            //停止所有箭头追踪
-            TaskTargetingHandler.Instance.StopAllTargeting();
         }
     }
 }
