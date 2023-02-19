@@ -2,7 +2,7 @@
 using MelonLoader;
 using UnityEngine;
 
-namespace GGD_Hack
+namespace GGD_Hack.Utils
 {
     public class Utils
     {

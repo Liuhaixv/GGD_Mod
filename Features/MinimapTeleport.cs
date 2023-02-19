@@ -1,11 +1,12 @@
-﻿using Handlers.GameHandlers.PlayerHandlers;
+﻿
+using Handlers.GameHandlers.PlayerHandlers;
 using Handlers.GameHandlers.SpecialBehaviour;
 using MelonLoader;
-using System;
 using UnhollowerRuntimeLib;
 using UnityEngine;
 using UnityEngine.UI;
-using static MelonLoader.MelonLogger;
+using Exception = System.Exception;
+using IntPtr = System.IntPtr;
 
 namespace GGD_Hack.Features
 {
@@ -34,20 +35,15 @@ namespace GGD_Hack.Features
             }
         }
 
-        private void Teleport()
+        private bool GetMouseLocalPositionOnMinimapPanel(out Vector2 localPosition)
         {
-
-        }
-
-        private Vector2? GetMouseLocalPositionOnMinimapPanel()
-        {
-            Vector2 localPoint;
+            localPosition = Vector2.zero;
 
             try
             {
-                GameObject panel = Utils.FindGameObjectByPath("Canvas/MiniMap/Panel");
+                GameObject panel = Utils.GameInstances.FindGameObjectByPath("Canvas/MiniMap/Panel");
 
-                if (panel == null) return null;
+                if (panel == null)                    return false;
 
                 Image image = panel.GetComponent<Image>();
 
@@ -57,35 +53,35 @@ namespace GGD_Hack.Features
                 // 将屏幕坐标转换为相对于Image组件的坐标
                 RectTransform rectTransform = image.GetComponent<RectTransform>();
 
-                if (RectTransformUtility.ScreenPointToLocalPointInRectangle(rectTransform, mousePos, null, out localPoint))
+                if (RectTransformUtility.ScreenPointToLocalPointInRectangle(rectTransform, mousePos, null, out localPosition))
                 {
-                    MelonLogger.Msg("Click position relative to MiniMap panel's image component: " + localPoint.x + ", " + localPoint.y);
-                    return localPoint;
-                }
-                else
-                {
-                    return null;
+                    MelonLogger.Msg("Click position relative to MiniMap panel's image component: " + localPosition.x + ", " + localPosition.y);
+
+                    return true;
                 }
             }
             catch (Exception ex)
             {
                 MelonLogger.Warning(ex.Message);
-                return null;
             }
+
+            return false;
         }
 
-        private Vector3? localPositionOnMinimapToPosition(Vector2 localPosition)
+        private bool LocalPositionOnMinimapToPosition(in Vector2 localPosition, out Vector3 position)
         {
+            position = Vector3.zero;    
+
             MiniMapHandler miniMapHandler = MinimapESP.miniMapHandler;
 
-            if (miniMapHandler == null) return null;
+            if (miniMapHandler == null) return false;
 
-            Vector3 vector3 = new Vector3(
+            position = new Vector3(
                 (float)(localPosition.x - miniMapHandler.xOffset) / miniMapHandler.xFactor,
                 (float)(localPosition.y - miniMapHandler.yOffset) / miniMapHandler.yFactor,
                 0);
 
-            return vector3;
+            return true;
         }
 
         /// <summary>
@@ -93,18 +89,21 @@ namespace GGD_Hack.Features
         /// </summary>
         private void Update()
         {
+
             if (Input.GetMouseButtonDown(0))
             {
-                Vector2? mouseLocalPosition = GetMouseLocalPositionOnMinimapPanel();
+                //小地图未显示
+                if (!GameObject.Find("Canvas/MiniMap")) return;
 
-                if (!mouseLocalPosition.HasValue) return;
+                Vector2 mouseLocalPosition;
+                Vector3 targetTeleportPosition;
 
-                Vector3? targetTeleportPosition = localPositionOnMinimapToPosition(mouseLocalPosition.Value);
+                if (!GetMouseLocalPositionOnMinimapPanel(out mouseLocalPosition)) return;
 
-                if (!targetTeleportPosition.HasValue) return;
+                if (!LocalPositionOnMinimapToPosition(mouseLocalPosition, out targetTeleportPosition)) return;
 
                 //传送
-                LocalPlayer.Instance.transform.position = targetTeleportPosition.Value;
+                LocalPlayer.Instance.transform.position = targetTeleportPosition;
             }
         }
     }

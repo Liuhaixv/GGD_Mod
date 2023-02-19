@@ -62,12 +62,21 @@
       <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Goose Goose Duck with ML\MelonLoader\Managed\UnityEngine.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null" />
+    <Reference Include="UnityEngine.InputLegacyModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Goose Goose Duck with ML\MelonLoader\Managed\UnityEngine.InputLegacyModule.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEngine.UI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
+    <Reference Include="UnityEngine.UIModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Goose Goose Duck with ML\MelonLoader\Managed\UnityEngine.UIModule.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BypassAC.cs" />
     <Compile Include="CommandHandler.cs" />
     <Compile Include="Features\MinimapESP.cs" />
+    <Compile Include="Features\MinimapTeleport.cs" />
     <Compile Include="Features\TrackAllPlayers.cs" />
     <Compile Include="MemoryUtils.cs" />
     <Compile Include="PatternScanner.cs" />
