@@ -54,9 +54,9 @@ namespace GGD_Hack.Features
         /// </summary>
         private static void InstantiateAllPlayers()
         {
-            MelonLogger.Msg("初始化所有玩家的minimap点位");
+            MelonLogger.Msg("正在初始化所有玩家的minimap点位");
             //清空之前的玩家列表
-            MinimapESP.playersOnMinimap.Clear();
+            DestroyAllPlayers();
 
             //准备克隆本地玩家的点位
             GameObject targetMe = Utils.GameInstances.FindGameObjectByPath("Canvas/MiniMap/Panel/Target Me");
@@ -76,30 +76,60 @@ namespace GGD_Hack.Features
                 if (playerController == null || playerController.isLocal) continue;
 
                 GameObject clone = Object.Instantiate(targetMe, targetMe.transform.parent);
+                clone.name = playerController.userId;
 
-                Transform childTransform = clone.transform.Find("You/TMP UI SubObject [JunkDog SDF Material]");
+                SetPlayerName(clone, playerController);
 
-                if (childTransform == null)
-                {
-                    MelonLogger.Warning("找不到 You/TMP UI SubObject [JunkDog SDF Material]");
-                }
-
-                //修改文字
-                if (childTransform != null)
-                {
-                    TMPro.TMP_SubMeshUI tmp_SubMeshUI = childTransform.gameObject.GetComponent<TMPro.TMP_SubMeshUI>();
-                    if (tmp_SubMeshUI != null)
-                    {
-                        tmp_SubMeshUI.textComponent.SetText(playerController.nickname, true);
-                    }
-                }
-
-                //修改颜色
+                //TODO: 修改颜色
 
                 playersOnMinimap.Add(playerController.userId, clone);
+
             }
 
-            instantiatedAllPlayers = true;
+            MelonLogger.Msg("已初始化所有玩家的minimap点位");
+            MinimapESP.instantiatedAllPlayers = true;
+        }
+
+        /// <summary>
+        /// 修改名字
+        /// </summary>
+        /// <param name="playerOnMinimap"></param>
+        /// <param name="playerController"></param>
+        private static void SetPlayerName(GameObject playerOnMinimap, PlayerController playerController)
+        {
+            Transform youTransform = playerOnMinimap.transform.Find("You");
+
+            if (youTransform == null)
+            {
+                MelonLogger.Warning("找不到 You");
+            }
+
+            TMPro.TextMeshProUGUI textMeshProUGUI = youTransform.gameObject.GetComponent<TMPro.TextMeshProUGUI>();
+
+            //修改文字
+            if (textMeshProUGUI != null)
+            {
+                //MelonLogger.Msg("修改玩家姓名为: " + playerController.nickname);
+                textMeshProUGUI.SetText(playerController.nickname, true);
+            }
+        }
+
+        private static void DestroyAllPlayers()
+        {
+            MelonLogger.Msg("正在销毁所有玩家minimap点位");
+            foreach (var entry in MinimapESP.playersOnMinimap)
+            {
+                if (entry.Value != null)
+                {
+                    Destroy(entry.Value);
+                }
+            }
+
+            MinimapESP.playersOnMinimap.Clear();
+            instantiatedAllPlayers = false;
+
+
+            MelonLogger.Msg("已经销毁所有玩家minimap点位");
         }
 
         /// <summary>
@@ -117,25 +147,17 @@ namespace GGD_Hack.Features
                 if (MinimapESP.playersOnMinimap.Count != 0)
                 {
                     MelonLogger.Msg("游戏结束，清除所有玩家的minimap点位");
-                    foreach(var entry in MinimapESP.playersOnMinimap)
-                    {
-                        if(entry.Value != null)
-                        {
-                            Destroy(entry.Value);
-                        }
-                    }
-
-                    MinimapESP.playersOnMinimap.Clear();
+                    DestroyAllPlayers();
                 }
-
-                instantiatedAllPlayers = false;
 
                 return;
             }
 
-            if(!instantiatedAllPlayers)
+            //游戏进行中
+            if (!instantiatedAllPlayers)
             {
                 MinimapESP.InstantiateAllPlayers();
+                return;
             }
 
             foreach (var player in MinimapESP.playersOnMinimap)
@@ -148,7 +170,7 @@ namespace GGD_Hack.Features
                 if (!PlayerController.playersList.ContainsKey(userId)) continue;
 
                 //删除幽灵点位
-                if(PlayerController.playersList[userId].isGhost)
+                if (PlayerController.playersList[userId].isGhost)
                 {
                     Destroy(gameObject);
                     gameObject = null;
@@ -156,7 +178,8 @@ namespace GGD_Hack.Features
                 }
 
                 //获取PlayerController对应的坐标
-                Vector3 position = PlayerController.playersList[userId].JGEIABDOLNO;
+                PlayerController playerController = PlayerController.playersList[userId];
+                Vector3 position = playerController.JGEIABDOLNO;
 
                 //根据PlayerController的坐标计算出GameObject的坐标
                 gameObject.transform.localPosition = new Vector3(
@@ -164,7 +187,12 @@ namespace GGD_Hack.Features
                     (float)(miniMapHandler.yFactor * position.y) + miniMapHandler.yOffset,
                     0.0f
                 );
+
+                //强制修改名称
+                SetPlayerName(gameObject, playerController);
             }
+
+            //MelonLogger.Msg("已经更新所有玩家minimap坐标");
 
             /*
              * this是MiniMapHandler
