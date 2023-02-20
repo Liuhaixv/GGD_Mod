@@ -87,8 +87,9 @@ public class TCPTestServer
                 CommandHandler.HandleMessage(messageReceived);
 
                 //将收到的数据转换成大写并发送回客户端
-                string dataToSend = messageReceived.ToUpper();
-                byte[] data = System.Text.Encoding.ASCII.GetBytes(dataToSend);
+                //string dataToSend = messageReceived.ToUpper();
+
+                byte[] data = System.Text.Encoding.UTF8.GetBytes(messageReceived);
                 try
                 {
                     stream.Write(data, 0, data.Length);
