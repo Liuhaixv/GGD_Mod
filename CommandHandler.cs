@@ -4,6 +4,8 @@ using UnityEngine;
 using System.Linq;
 
 using IntPtr = System.IntPtr;
+using GGD_Hack.Features;
+using GGD_Hack.Hook;
 
 namespace GGD_Hack
 {
@@ -59,22 +61,74 @@ namespace GGD_Hack
 
             switch (command)
             {
+                case "BindHookToSendFart":
+                    MelonLogger.Msg("command命中: BindHookToSendFart(System.Action action)");
+                    BindHookToSendFart(lines);
+                    break;
+                //通用功能
                 case "SendFart":
                     MelonLogger.Msg("command命中: SendFart()");
                     SendFart();
                     break;
                 case "SendChat":
-                    MelonLogger.Msg("command命中: SendChat()");
+                    MelonLogger.Msg("command命中: SendChat(string message)");
                     SendChat(lines);
                     break;
                 case "ShowAllPlayersArrow":
                     MelonLogger.Msg("command命中: ShowAllPlayersArrow()");
                     ShowAllPlayersArrow();
                     break;
+                case "MoveShuttle":
+                    MelonLogger.Msg("command命中: MoveShuttle()");
+                    MoveShuttle();
+                    break;
                 default:
                     MelonLogger.Msg("未知command指令");
                     break;
             }
+        }
+
+        /// <summary>
+        /// 绑定hook函数执行的方法
+        /// </summary>
+        /// <param name="command"></param>
+        /// <exception cref="System.NotImplementedException"></exception>
+        private static void BindHookToSendFart(string[] strings)
+        {
+            if (strings.Length < 2)
+            {
+                MelonLogger.Warning("BindHook参数过少！");
+            }
+            string actionName = string.Join("\n", strings.Skip(1));
+
+            System.Action action = null;
+
+            switch(actionName)
+            {
+                case "MoveShuttle":
+                    action = new System.Action(() =>
+                    {
+                        UnityMainThreadDispatcher.Instance().Enqueue(new System.Action(() =>
+                        {
+                            MiscFunctions.MoveShuttle();
+                        }));
+                    });
+                        
+                    break;
+                default:
+                    MelonLogger.Warning("未知Action name!");
+                    break;
+            }
+
+            SendFartHook.bindAction(action);
+        }
+
+        public static void MoveShuttle()
+        {
+            UnityMainThreadDispatcher.Instance().Enqueue(new System.Action(() =>
+            {
+                MiscFunctions.MoveShuttle();
+            }));
         }
 
         private static void ShowAllPlayersArrow()
@@ -87,7 +141,7 @@ namespace GGD_Hack
 
         private static void SendChat(string[] strings)
         {
-            if (strings.Length <= 1)
+            if (strings.Length < 2)
             {
                 MelonLogger.Warning("SendChat参数过少！");
             }

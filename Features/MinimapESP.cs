@@ -17,14 +17,16 @@ namespace GGD_Hack.Features
     [RegisterTypeInIl2Cpp]
     public class MinimapESP : MonoBehaviour
     {
-        private static MinimapESP instance = null;
+        //是否已经初始化所有玩家的点位
+        public static bool instantiatedAllPlayers = false;
 
-        //玩家userId对应的GameObject，表示地图上的点
-        private static Dictionary<string, GameObject> playersOnMinimap = new Dictionary<string, GameObject>();
-        private static bool instantiatedAllPlayers = false;
+        public static MinimapESP instance = null;
 
         //通过hook更新
         public static MiniMapHandler miniMapHandler = null;
+
+        //玩家userId对应的GameObject，表示地图上的点
+        private static Dictionary<string, GameObject> playersOnMinimap = new Dictionary<string, GameObject>();
 
         public MinimapESP(IntPtr ptr) : base(ptr) { }
 
@@ -204,7 +206,7 @@ namespace GGD_Hack.Features
     }
 
 
-    [HarmonyPatch(typeof(MiniMapHandler), "Update")]
+    [HarmonyPatch(typeof(MiniMapHandler),nameof(MiniMapHandler.Update))]
     class MiniMapHandlerUpdateHook
     {
         //更新实例
@@ -214,6 +216,7 @@ namespace GGD_Hack.Features
             {
                 MelonLogger.Msg("已成功Hook获取到MinimapHandler");
                 MinimapESP.miniMapHandler = __instance;
+                MinimapESP.instantiatedAllPlayers = false;
             }
         }
     }

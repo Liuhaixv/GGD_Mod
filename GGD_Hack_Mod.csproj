@@ -77,7 +77,9 @@
     <Compile Include="CommandHandler.cs" />
     <Compile Include="Features\MinimapESP.cs" />
     <Compile Include="Features\MinimapTeleport.cs" />
+    <Compile Include="Features\MiscFunctions.cs" />
     <Compile Include="Features\TrackAllPlayers.cs" />
+    <Compile Include="Hook\SendFart.cs" />
     <Compile Include="MemoryUtils.cs" />
     <Compile Include="PatternScanner.cs" />
     <Compile Include="Utils\GameInstances.cs" />
