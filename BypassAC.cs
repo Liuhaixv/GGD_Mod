@@ -22,12 +22,10 @@ namespace GGD_Hack
             //MemoryUtils.WriteBytes(intPtr, new byte[1] { 0xC3 });
         }
 
-
-
         /// <summary>
         /// 禁止检测是否存在MelonLoader.dll
         /// </summary>
-        [HarmonyPatch(typeof(FNNFIMKCHLH), "MDBKDAJIDJE")]
+        [HarmonyPatch(typeof(FNNFIMKCHLH),nameof(FNNFIMKCHLH.MDBKDAJIDJE))]
         private static class MelonLoaderFileExsistsCheckPatch
         {
             //原返回值MelonLoader.dll
@@ -41,12 +39,12 @@ namespace GGD_Hack
             }
         }
 
-        [HarmonyPatch(typeof(Environment), "FailFast", typeof(string), typeof(Exception))]
+        [HarmonyPatch(typeof(Environment), nameof(Environment.FailFast), typeof(string), typeof(Exception))]
         class FailFastPatch
         {
             static bool Prefix(string message, Exception exception)
             {
-                return true; // 返回 true 表示完全替换原方法的实现
+                return false;
             }
         }
     }

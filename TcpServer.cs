@@ -84,15 +84,23 @@ public class TCPTestServer
                 MelonLogger.Msg("Received: {0}", messageReceived);
 
                 //发送到CommandHandler
-                CommandHandler.HandleMessage(messageReceived);
+                bool success = CommandHandler.HandleMessage(messageReceived);
 
                 //将收到的数据转换成大写并发送回客户端
                 //string dataToSend = messageReceived.ToUpper();
-
-                byte[] data = System.Text.Encoding.UTF8.GetBytes(messageReceived);
-                try
+                string responseString = null;
+                if (success)
                 {
-                    stream.Write(data, 0, data.Length);
+                    responseString = "success";
+                }else
+                {
+                    responseString= "error";
+                }
+
+                byte[] data = System.Text.Encoding.UTF8.GetBytes(responseString);
+                try
+                {                    
+                    stream.Write(data, 0, data.Length);                    
                 }
                 catch
                 {

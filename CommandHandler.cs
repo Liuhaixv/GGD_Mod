@@ -43,7 +43,7 @@ namespace GGD_Hack
             //localPlayer.SendFart();
         }
 
-        public static void HandleMessage(System.String message)
+        public static bool HandleMessage(System.String message)
         {
 
             string[] lines = message.Split(new string[] { "\n", "\r\n" }, System.StringSplitOptions.RemoveEmptyEntries);
@@ -52,7 +52,7 @@ namespace GGD_Hack
             {
                 //空字符串
                 MelonLogger.Warning("收到的指令为空！");
-                return;
+                return true;
             }
 
             string command = lines[0];
@@ -87,10 +87,15 @@ namespace GGD_Hack
                     MelonLogger.Msg("command命中: Suicide()");
                     Suicide();
                     break;
+                //测试连接
+                case "TestConnection":
+                    MelonLogger.Msg("测试TCP服务器连接成功");
+                    return true;
                 default:
                     MelonLogger.Msg("未知command指令");
-                    break;
+                    return false;
             }
+            return true;
         }
 
         /// <summary>
