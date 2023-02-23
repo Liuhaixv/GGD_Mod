@@ -61,6 +61,7 @@ namespace GGD_Hack
 
             switch (command)
             {
+                //绑定功能
                 case "BindHookToSendFart":
                     MelonLogger.Msg("command命中: BindHookToSendFart(System.Action action)");
                     BindHookToSendFart(lines);
@@ -82,10 +83,26 @@ namespace GGD_Hack
                     MelonLogger.Msg("command命中: MoveShuttle()");
                     MoveShuttle();
                     break;
+                case "Suicide":
+                    MelonLogger.Msg("command命中: Suicide()");
+                    Suicide();
+                    break;
                 default:
                     MelonLogger.Msg("未知command指令");
                     break;
             }
+        }
+
+        /// <summary>
+        /// 自杀
+        /// </summary>
+        /// <exception cref="System.NotImplementedException"></exception>
+        private static void Suicide()
+        {
+            UnityMainThreadDispatcher.Instance().Enqueue(new System.Action(() =>
+            {
+                MiscFunctions.Suicide();
+            }));
         }
 
         /// <summary>

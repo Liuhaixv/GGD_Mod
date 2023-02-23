@@ -15,6 +15,14 @@ namespace GGD_Hack.Features
         {
             SendEventToPlugin.MOVE_SHUTTLE();
         }
+
+        /// <summary>
+        /// 自杀
+        /// </summary>
+        public static void Suicide()
+        {
+            SendEventToPlugin.SPECIAL_KILL(7);
+        }
     }
 }
 
