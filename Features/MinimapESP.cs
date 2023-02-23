@@ -20,7 +20,7 @@ namespace GGD_Hack.Features
         //是否已经初始化所有玩家的点位
         public static bool instantiatedAllPlayers = false;
 
-        public static MinimapESP instance = null;
+        public static MinimapESP Instance = null;
 
         //通过hook更新
         public static MiniMapHandler miniMapHandler = null;
@@ -46,7 +46,7 @@ namespace GGD_Hack.Features
 
             if (ML_Manager.GetComponent<MinimapESP>() == null)
             {
-                instance = ML_Manager.AddComponent<MinimapESP>();
+                Instance = ML_Manager.AddComponent<MinimapESP>();
             }
         }
 

@@ -10,8 +10,9 @@ namespace GGD_Hack.Hook
         [HarmonyPatch(typeof(DeathStingerSplash), nameof(DeathStingerSplash.StartDeathStinger))]
         class StartDeathStingerHook
         {
-            static bool Prefix()
+            static bool Prefix(ref DeathStingerSplash __instance)
             {
+                __instance.CloseThisShitSequence();
                 //跳过执行
                 return false;
             }

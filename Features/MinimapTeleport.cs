@@ -13,7 +13,7 @@ namespace GGD_Hack.Features
     [RegisterTypeInIl2Cpp]
     public class MinimapTeleport : MonoBehaviour
     {
-        private static MinimapTeleport instance;
+        private static MinimapTeleport Instance;
         public MinimapTeleport(IntPtr ptr) : base(ptr) { }
 
         // Optional, only used in case you want to instantiate this class in the mono-side
@@ -31,7 +31,7 @@ namespace GGD_Hack.Features
 
             if (ML_Manager.GetComponent<MinimapTeleport>() == null)
             {
-                instance = ML_Manager.AddComponent<MinimapTeleport>();
+                Instance = ML_Manager.AddComponent<MinimapTeleport>();
             }
         }
 

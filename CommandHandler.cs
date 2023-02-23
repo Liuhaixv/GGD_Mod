@@ -87,6 +87,10 @@ namespace GGD_Hack
                     MelonLogger.Msg("command命中: Suicide()");
                     Suicide();
                     break;
+                case "RemoteKill":
+                    MelonLogger.Msg("command命中: RemoteKill(string userId)");
+                    RemoteKill(lines);
+                    break;
                 //测试连接
                 case "TestConnection":
                     MelonLogger.Msg("测试TCP服务器连接成功");
@@ -96,6 +100,47 @@ namespace GGD_Hack
                     return false;
             }
             return true;
+        }
+
+        private static void RemoteKill(string[] strings)
+        {
+            if (strings.Length < 2)
+            {
+                MelonLogger.Warning("RemoteKill参数过少！");
+                return;
+            }
+
+            string targetUserId = null;
+            string killDelay = null;
+
+            switch(strings.Length)
+            {
+                case 2:
+                    targetUserId = strings[1];
+                    break;
+                case 3:
+                    targetUserId = strings[1];
+                    killDelay = strings[2];
+                    break;
+                default:
+                    MelonLogger.Warning("RemoteKill参数过多！");
+                    return;
+            }
+
+            UnityMainThreadDispatcher.Instance().Enqueue(new System.Action(() =>
+            {
+                //远程杀人
+                bool result = Features.RemoteKillPlayer.TeleportAndKill(targetUserId, killDelay);
+
+                if (result)
+                {
+                    MelonLogger.Msg("正在进行远程击杀任务");
+                }
+                else
+                {
+                    MelonLogger.Warning("远程击杀失败！");
+                }
+            }));
         }
 
         /// <summary>
@@ -120,6 +165,7 @@ namespace GGD_Hack
             if (strings.Length < 2)
             {
                 MelonLogger.Warning("BindHook参数过少！");
+                return;
             }
             string actionName = string.Join("\n", strings.Skip(1));
 
