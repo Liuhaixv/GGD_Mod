@@ -20,17 +20,13 @@ namespace GGD_Hack.Hook
         [HarmonyPatch(typeof(PhotonNetwork), nameof(PhotonNetwork.RaiseEvent))]
         class RaiseEvent_
         {
-            static bool Prefix(byte eventCode, object eventContent, RaiseEventOptions raiseEventOptions, SendOptions sendOptions)
+            static bool Prefix(byte eventCode, Il2CppSystem.Object eventContent, RaiseEventOptions raiseEventOptions, SendOptions sendOptions)
             {
                 MelonLogger.Msg("[RaiseEvent-eventCode] " + Convert.ToChar(eventCode).ToString());
 
                 string eventContentString = eventContent.ToString();
-                if(eventContentString == "Il2CppSystem.Object")
-                {
-                    eventContentString = (eventContent as Il2CppSystem.Object).ToString();
-                }
-
-                MelonLogger.Msg("[RaiseEvent-eventContent] " + eventContentString + '\n');
+                               
+                MelonLogger.Msg("[RaiseEvent-eventContent] " + eventContentString);
 
                 return true;
             }

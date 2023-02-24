@@ -56,7 +56,7 @@ namespace GGD_Hack.Hook
                 switch (code)
                 {   //反作弊
                     case (int)EventDataCodeEnum.AntiCheat:
-                    case (int)EventDataCodeEnum.PropertiesChanged:
+                    //case (int)EventDataCodeEnum.PropertiesChanged:
                         //测试
                         //case 226:
                         shouldBlockEvent = true;

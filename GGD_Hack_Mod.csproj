@@ -108,12 +108,15 @@
     <Compile Include="Features\RemoteKillPlayer.cs" />
     <Compile Include="Features\TrackAllPlayers.cs" />
     <Compile Include="Hook\Debug.cs" />
+    <Compile Include="Hook\Network\PhotonCallbacksAPI.cs" />
     <Compile Include="Hook\Network\PhotonNetwork.cs" />
     <Compile Include="Hook\PhotonEventAPI.cs" />
     <Compile Include="Hook\DeathStingerSplash.cs" />
     <Compile Include="Hook\MenuSceneHandler.cs" />
     <Compile Include="Hook\HookExample.cs" />
     <Compile Include="Hook\PlayerCustomizationPanelHandler.cs" />
+    <Compile Include="Hook\PlayerPropertiesManager.cs" />
+    <Compile Include="Hook\SpawnedPlayerHandler.cs" />
     <Compile Include="Hook\SendFart.cs" />
     <Compile Include="MemoryUtils.cs" />
     <Compile Include="PatternScanner.cs" />
