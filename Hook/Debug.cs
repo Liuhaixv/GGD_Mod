@@ -12,7 +12,7 @@ namespace GGD_Hack.Hook
         {
             static void Postfix(Il2CppSystem.Object __0)
             {
-                MelonLogger.Msg("<color=green>[UnityEngine.Debug.Log] </color>" + __0.ToString());
+                MelonLogger.Msg("[UnityEngine.Debug.Log] " + __0.ToString());
             }
         }
 
@@ -21,7 +21,7 @@ namespace GGD_Hack.Hook
         {
             static void Postfix(Il2CppSystem.Object __0)
             {
-                MelonLogger.Msg("<color=yellow>[UnityEngine.Debug.LogWarning] <color=yellow>" + __0.ToString());
+                MelonLogger.Warning("[UnityEngine.Debug.LogWarning] " + __0.ToString());
             }
         }
     }

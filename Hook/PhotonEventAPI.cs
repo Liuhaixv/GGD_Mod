@@ -6,6 +6,17 @@ using System;
 using System.Diagnostics;
 using Enum = System.Enum;
 
+//发送给服务器调用的api为Photon_Realtime_LoadBalancingClient__OpRaiseEvent ->
+//      //向同一房间的其他玩家发送带有自定义代码/类型和任何内容的事件
+//      bool __stdcall Photon_Realtime_LoadBalancingPeer__OpRaiseEvent(
+//        Photon_Realtime_LoadBalancingPeer_o * this,
+//        uint8_t eventCode,
+//        Il2CppObject *customEventContent,
+//        Photon_Realtime_RaiseEventOptions_o *raiseEventOptions,
+//        ExitGames_Client_Photon_SendOptions_o sendOptions,
+//        const MethodInfo *method)
+//高一级有SendEventToPlugin
+
 namespace GGD_Hack.Hook
 {
     public class PhotonEventAPI_
@@ -39,12 +50,13 @@ namespace GGD_Hack.Hook
                 }
 
                 MelonLogger.Msg("接收到事件: " + eventName);
-                MelonLogger.Msg(__0.ToStringFull() + '\n');
+                MelonLogger.Msg(__0.ToStringFull());
 
                 //屏蔽事件
                 switch (code)
                 {   //反作弊
                     case (int)EventDataCodeEnum.AntiCheat:
+                    case (int)EventDataCodeEnum.PropertiesChanged:
                         //测试
                         //case 226:
                         shouldBlockEvent = true;
@@ -52,7 +64,7 @@ namespace GGD_Hack.Hook
                 }
 
                 //打印追踪栈
-                switch(code)
+                switch (code)
                 {
                     //case (int)EventDataCodeEnum.PropertiesChanged:
                     case 666666:
@@ -68,7 +80,7 @@ namespace GGD_Hack.Hook
                 //开始屏蔽事件
                 if (shouldBlockEvent)
                 {
-                    MelonLogger.Warning("已屏蔽事件: " + eventName);
+                    MelonLogger.Warning("已屏蔽事件: " + eventName + '\n');
                     return false;
                 }
                 else
