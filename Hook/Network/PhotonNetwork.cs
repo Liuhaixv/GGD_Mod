@@ -1,4 +1,5 @@
-﻿using ExitGames.Client.Photon;
+﻿#if Developer
+using ExitGames.Client.Photon;
 using Handlers.GameHandlers.PlayerHandlers;
 using HarmonyLib;
 using MelonLoader;
@@ -33,3 +34,4 @@ namespace GGD_Hack.Hook
         }
     }
 }
+#endif

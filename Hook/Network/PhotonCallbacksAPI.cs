@@ -7,6 +7,8 @@ using System;
 
 //OnPlayerPropertiesUpdate -> Handlers_GameHandlers_PlayerHandlers_SpawnedPlayerHandler__UpdatePlayerProperties
 
+//继承了MonoBehaviourPunCallbacks的类有很多事件可用
+
 namespace GGD_Hack.Hook
 {
     /// <summary>

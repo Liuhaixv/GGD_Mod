@@ -9,7 +9,7 @@ using MelonLoader;
 [assembly: AssemblyTrademark(GGD_Hack.BuildInfo.Company)]
 [assembly: AssemblyVersion(GGD_Hack.BuildInfo.Version)]
 [assembly: AssemblyFileVersion(GGD_Hack.BuildInfo.Version)]
-[assembly: MelonInfo(typeof(GGD_Hack.TestMod), GGD_Hack.BuildInfo.Name, GGD_Hack.BuildInfo.Version, GGD_Hack.BuildInfo.Author, GGD_Hack.BuildInfo.DownloadLink)]
+[assembly: MelonInfo(typeof(GGD_Hack.GGDHack_Mod), GGD_Hack.BuildInfo.Name, GGD_Hack.BuildInfo.Version, GGD_Hack.BuildInfo.Author, GGD_Hack.BuildInfo.DownloadLink)]
 [assembly: MelonColor()]
 
 // Create and Setup a MelonGame Attribute to mark a Melon as Universal or Compatible with specific Games.

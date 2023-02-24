@@ -91,6 +91,10 @@ namespace GGD_Hack
                     MelonLogger.Msg("command命中: RemoteKill(string userId)");
                     RemoteKill(lines);
                     break;
+                case "UnlockAllItems":
+                    MelonLogger.Msg("command命中: UnlockAllItems()");
+                    UnlockAllItems_();
+                    break;
                 //测试连接
                 case "TestConnection":
                     MelonLogger.Msg("测试TCP服务器连接成功");
@@ -100,6 +104,12 @@ namespace GGD_Hack
                     return false;
             }
             return true;
+        }
+
+        private static void UnlockAllItems_()
+        {
+            UnlockAllItems.Enabled.Value = true;
+            //TODO: 目前默认启用解锁所有物品功能
         }
 
         private static void RemoteKill(string[] strings)

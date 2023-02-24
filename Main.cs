@@ -19,12 +19,15 @@ namespace GGD_Hack
         public const string DownloadLink = null; // Download Link for the Mod.  (Set as null if none)
     }
 
-    public class TestMod : MelonMod
+    public class GGDHack_Mod : MelonMod
     {
         public override void OnInitializeMelon()
         {
             MelonLogger.Msg("OnInitializeMelon");
             BypassAC.PatchAssembliesLoadCheck();
+
+            //配置持久化
+            MelonPreferences.CreateCategory("GGDH");
         }
         public override void OnLateInitializeMelon() // Runs after Game Initialization.
         {
