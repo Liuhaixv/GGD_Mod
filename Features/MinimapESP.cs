@@ -181,7 +181,7 @@ namespace GGD_Hack.Features
 
                 //获取PlayerController对应的坐标
                 PlayerController playerController = PlayerController.playersList[userId];
-                Vector3 position = playerController.JGEIABDOLNO;
+                Vector3 position = playerController.PMPPIFBLAPL;
 
                 //根据PlayerController的坐标计算出GameObject的坐标
                 gameObject.transform.localPosition = new Vector3(

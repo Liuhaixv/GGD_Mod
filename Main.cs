@@ -11,7 +11,7 @@ namespace GGD_Hack
         public const string Description = "Mod for cheating"; // Description for the Mod.  (Set as null if none)
         public const string Author = "Liuhaixv"; // Author of the Mod.  (MUST BE SET)
         public const string Company = null; // Company that made the Mod.  (Set as null if none)
-        public const string Version = "0.9.5"; // Version of the Mod.  (MUST BE SET)
+        public const string Version = "0.9.6"; // Version of the Mod.  (MUST BE SET)
         public const string DownloadLink = null; // Download Link for the Mod.  (Set as null if none)
     }
 

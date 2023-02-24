@@ -25,6 +25,13 @@ namespace GGD_Hack.Features
         {
             SendEventToPlugin.SPECIAL_KILL(7);
         }
+
+        /*2.17.01
+        public static void JoinRandomRoom()
+        {
+            Il2CppSystem.Collections.Generic.List<string> roomsList = MFLEJLLJKBN.PLAHBPDMINK;            
+        }
+        */
     }
 }
 

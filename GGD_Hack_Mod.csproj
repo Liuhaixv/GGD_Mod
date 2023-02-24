@@ -37,43 +37,54 @@
     <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="0Harmony">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Goose Goose Duck with ML\MelonLoader\0Harmony.dll</HintPath>
+    <Reference Include="0Harmony, Version=2.9.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Goose Goose Duck\MelonLoader\0Harmony.dll</HintPath>
     </Reference>
-    <Reference Include="Assembly-CSharp">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Goose Goose Duck with ML\MelonLoader\Managed\Assembly-CSharp.dll</HintPath>
+    <Reference Include="Assembly-CSharp, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Goose Goose Duck\MelonLoader\Managed\Assembly-CSharp.dll</HintPath>
     </Reference>
     <Reference Include="Cinemachine, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Goose Goose Duck with ML\MelonLoader\Managed\Cinemachine.dll</HintPath>
+      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Goose Goose Duck\MelonLoader\Managed\Cinemachine.dll</HintPath>
     </Reference>
-    <Reference Include="Il2Cppmscorlib">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Goose Goose Duck with ML\MelonLoader\Managed\Il2Cppmscorlib.dll</HintPath>
+    <Reference Include="Il2Cppmscorlib, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Goose Goose Duck\MelonLoader\Managed\Il2Cppmscorlib.dll</HintPath>
     </Reference>
-    <Reference Include="MelonLoader">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Goose Goose Duck with ML\MelonLoader\MelonLoader.dll</HintPath>
-      <Private>False</Private>
+    <Reference Include="MelonLoader, Version=0.5.7.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Goose Goose Duck\MelonLoader\MelonLoader.dll</HintPath>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="UnhollowerBaseLib">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Goose Goose Duck with ML\MelonLoader\Managed\UnhollowerBaseLib.dll</HintPath>
+    <Reference Include="UnhollowerBaseLib, Version=0.4.18.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Goose Goose Duck\MelonLoader\Managed\UnhollowerBaseLib.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Goose Goose Duck with ML\MelonLoader\Managed\Unity.TextMeshPro.dll</HintPath>
+      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Goose Goose Duck\MelonLoader\Managed\Unity.TextMeshPro.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEngine">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Goose Goose Duck with ML\MelonLoader\Managed\UnityEngine.dll</HintPath>
+    <Reference Include="UnityEngine, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Goose Goose Duck\MelonLoader\Managed\UnityEngine.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null" />
+    <Reference Include="UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Goose Goose Duck\MelonLoader\Managed\UnityEngine.CoreModule.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEngine.InputLegacyModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Goose Goose Duck with ML\MelonLoader\Managed\UnityEngine.InputLegacyModule.dll</HintPath>
+      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Goose Goose Duck\MelonLoader\Managed\UnityEngine.InputLegacyModule.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEngine.UI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
+    <Reference Include="UnityEngine.UI, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Goose Goose Duck\MelonLoader\Managed\UnityEngine.UI.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEngine.UIModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Goose Goose Duck with ML\MelonLoader\Managed\UnityEngine.UIModule.dll</HintPath>
+      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Goose Goose Duck\MelonLoader\Managed\UnityEngine.UIModule.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -85,6 +96,7 @@
     <Compile Include="Features\RemoteKillPlayer.cs" />
     <Compile Include="Features\TrackAllPlayers.cs" />
     <Compile Include="Hook\DeathStingerSplash.cs" />
+    <Compile Include="Hook\MenuSceneHandler.cs" />
     <Compile Include="Hook\HookExample.cs" />
     <Compile Include="Hook\SendFart.cs" />
     <Compile Include="MemoryUtils.cs" />
