@@ -7,6 +7,7 @@ namespace GGD_Hack.Hook
         /// <summary>
         /// 跳过死亡动画
         /// </summary>
+        /// TODO: 优化
         [HarmonyPatch(typeof(DeathStingerSplash), nameof(DeathStingerSplash.StartDeathStinger))]
         class StartDeathStingerHook
         {

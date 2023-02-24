@@ -6,41 +6,19 @@ using System.Collections.Generic;
 /*https://harmony.pardeike.net/articles/patching.html
 namespace GGD_Hack.Hook
 {
-    [HarmonyPatch(typeof(LocalPlayer), nameof(LocalPlayer.SendFart))]
-    class SendFartHook
+    public class DeathStingerSplashHook
     {
-        private static readonly Queue<System.Action> executionQueue = new Queue<System.Action>();
-
-        //更新实例
-        static void Postfix()
-        {
-            MelonLogger.Msg("正在放屁...");
-
-            if (executionQueue.Count > 0)
-            {
-                foreach (var action in executionQueue)
-                {
-                    MelonLogger.Msg("正在执行action");
-                    action.Invoke();
-                }
-            }
-        }
-
         /// <summary>
-        /// 清楚所有绑定的函数并指定新的Action
+        /// 跳过死亡动画
         /// </summary>
-        /// <param name="action"></param>
-        public static void bindAction(System.Action action)
+        [HarmonyPatch(typeof(DeathStingerSplash), nameof(DeathStingerSplash.StartDeathStinger))]
+        class StartDeathStingerHook
         {
-            lock (executionQueue)
+            static bool Prefix(ref DeathStingerSplash __instance)
             {
-                if (action == null)
-                {
-                    return;
-                }
-
-                executionQueue.Clear();
-                executionQueue.Enqueue(action);
+                __instance.CloseThisShitSequence();
+                //跳过执行
+                return false;
             }
         }
     }

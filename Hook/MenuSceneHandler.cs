@@ -13,7 +13,7 @@ namespace GGD_Hack.Hook
         /// <summary>
         /// 跳过公开游戏警告
         /// </summary>
-        [HarmonyPatch(typeof(MenuSceneHandler), nameof(MenuSceneHandler.AttachPublicGameWarning))]
+        //[HarmonyPatch(typeof(MenuSceneHandler), nameof(MenuSceneHandler.AttachPublicGameWarning))]
        class AttachPublicGameWarningHook
         {
             static bool Prefix(ref UnityAction __result)
@@ -26,7 +26,7 @@ namespace GGD_Hack.Hook
         /// <summary>
         ///  跳过教程警告
         /// </summary>
-        [HarmonyPatch(typeof(MenuSceneHandler), nameof(MenuSceneHandler.AttachTutorialUnfinishedWarning))]
+        //[HarmonyPatch(typeof(MenuSceneHandler), nameof(MenuSceneHandler.AttachTutorialUnfinishedWarning))]
         class AttachTutorialUnfinishedWarningHook
         {
             static bool Prefix(ref UnityAction __result)

@@ -7,12 +7,16 @@ namespace GGD_Hack
 {
     public static class BuildInfo
     {
+#if Developer
+        public const string Name = "[开发者专用版]Liuhaixv's GGD_Hack mod"; // Name of the Mod.  (MUST BE SET)
+#else
         public const string Name = "Liuhaixv's GGD_Hack mod"; // Name of the Mod.  (MUST BE SET)
+#endif
         public const string Description = "Mod for cheating"; // Description for the Mod.  (Set as null if none)
         public const string Author = "Liuhaixv"; // Author of the Mod.  (MUST BE SET)
         public const string Company = null; // Company that made the Mod.  (Set as null if none)
-        public const string Version = "0.9.6"; // Version of the Mod.  (MUST BE SET)
-        public const string DownloadLink = "https://github.com/Liuhaixv/GGDH_ML/releases/tag/v0.9.6"; // Download Link for the Mod.  (Set as null if none)
+        public const string Version = "1.0.0"; // Version of the Mod.  (MUST BE SET)
+        public const string DownloadLink = "https://github.com/Liuhaixv/GGDH_ML/releases/tag/v0.9.7"; // Download Link for the Mod.  (Set as null if none)
     }
 
     public class TestMod : MelonMod
@@ -83,12 +87,18 @@ namespace GGD_Hack
         private void Init()
         {
             CommandHandler.Init();
+
+            //Unity主线程调度
             UnityMainThreadDispatcher.Init();
+
             //初始化小地图点位绘制
             MinimapESP.Init();
+            //初始化小地图传送
             MinimapTeleport.Init();
             //初始化远程杀人
             RemoteKillPlayer.Init();
+            //初始化小地图坐标记录器
+            MinimapRecorder.Init();
 
             SendFartHook.bindAction(CommandHandler.MoveShuttle);
         }

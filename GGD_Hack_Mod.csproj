@@ -8,24 +8,10 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>GGD_Hack</RootNamespace>
-    <AssemblyName>GGD_Hack</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
     <TargetFrameworkProfile />
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugSymbols>false</DebugSymbols>
-    <DebugType>None</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>$(SolutionDir)Output\</OutputPath>
-    <DefineConstants>
-    </DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <Prefer32Bit>false</Prefer32Bit>
-    <DebugSymbols>false</DebugSymbols>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|ARM64'">
     <OutputPath>bin\ARM64\Release\</OutputPath>
@@ -35,6 +21,19 @@
     <PlatformTarget>ARM64</PlatformTarget>
     <LangVersion>7.3</LangVersion>
     <ErrorReport>prompt</ErrorReport>
+    <AssemblyName>$(MSBuildProjectName)</AssemblyName>
+    <DefineConstants>Release</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Developer|ARM64'">
+    <OutputPath>bin\ARM64\Developer\</OutputPath>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Optimize>true</Optimize>
+    <DebugType>None</DebugType>
+    <PlatformTarget>ARM64</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <AssemblyName>$(MSBuildProjectName)_Developer</AssemblyName>
+    <DefineConstants>Developer</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="0Harmony, Version=2.9.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -56,6 +55,10 @@
     <Reference Include="MelonLoader, Version=0.5.7.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Goose Goose Duck\MelonLoader\MelonLoader.dll</HintPath>
+    </Reference>
+    <Reference Include="Photon3Unity3D, Version=4.1.6.11, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Goose Goose Duck\MelonLoader\Managed\Photon3Unity3D.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="UnhollowerBaseLib, Version=0.4.18.0, Culture=neutral, processorArchitecture=MSIL">
@@ -91,13 +94,17 @@
     <Compile Include="BypassAC.cs" />
     <Compile Include="CommandHandler.cs" />
     <Compile Include="Features\MinimapESP.cs" />
+    <Compile Include="Features\MinimapRecorder.cs" />
     <Compile Include="Features\MinimapTeleport.cs" />
     <Compile Include="Features\MiscFunctions.cs" />
     <Compile Include="Features\RemoteKillPlayer.cs" />
     <Compile Include="Features\TrackAllPlayers.cs" />
+    <Compile Include="Hook\Debug.cs" />
+    <Compile Include="Hook\PhotonEventAPI.cs" />
     <Compile Include="Hook\DeathStingerSplash.cs" />
     <Compile Include="Hook\MenuSceneHandler.cs" />
     <Compile Include="Hook\HookExample.cs" />
+    <Compile Include="Hook\PlayerCustomizationPanelHandler.cs" />
     <Compile Include="Hook\SendFart.cs" />
     <Compile Include="MemoryUtils.cs" />
     <Compile Include="PatternScanner.cs" />
