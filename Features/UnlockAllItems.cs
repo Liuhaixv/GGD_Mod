@@ -1,9 +1,6 @@
-﻿using MelonLoader;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using BestHTTP;
+using HarmonyLib;
+using MelonLoader;
 
 namespace GGD_Hack.Features
 {
@@ -19,6 +16,16 @@ namespace GGD_Hack.Features
             }
             else
                 Enabled = MelonPreferences.GetEntry<bool>("GGDH", nameof(UnlockAllItems));
+        }
+    }
+
+    [HarmonyPatch(typeof(HTTPManager), nameof(HTTPManager.SendRequest),typeof(HTTPRequest))]
+    class HTTPManager_SendRequest_Patch
+    {
+        static void Postfix(HTTPRequest request)
+        {
+            //string a = request.Uri.ToString(); 
+            MelonLogger.Msg("HTTPManager.SendRequest: " );
         }
     }
 }
