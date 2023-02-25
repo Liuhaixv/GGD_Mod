@@ -10,8 +10,14 @@ namespace GGD_Hack.Hook
         [HarmonyPatch(typeof(SpawnedPlayerHandler), nameof(SpawnedPlayerHandler.UpdatePlayerProperties))]
         class UpdatePlayerProperties_
         {
-            static bool Prefix(PlayerProperties __0)
+            static bool Prefix(SpawnedPlayerHandler __instance, PlayerProperties __0)
             {
+                //跳过非本地玩家
+                if(!__instance.playerController.isLocal)
+                {
+                    return true;
+                }
+
                 if (UnlockAllItems.Enabled.Value)
                 {   //判断PlayerProperties是否要设置全为empty
                     if (__0.hat == "empty_Hats" &&

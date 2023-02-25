@@ -105,6 +105,7 @@
     <Compile Include="Features\MinimapRecorder.cs" />
     <Compile Include="Features\MinimapTeleport.cs" />
     <Compile Include="Features\MiscFunctions.cs" />
+    <Compile Include="Features\RandomJoinRoom.cs" />
     <Compile Include="Features\RemoteKillPlayer.cs" />
     <Compile Include="Features\TrackAllPlayers.cs" />
     <Compile Include="Features\UnlockAllItems.cs" />
@@ -113,7 +114,7 @@
     <Compile Include="Hook\Network\PhotonNetwork.cs" />
     <Compile Include="Hook\PhotonEventAPI.cs" />
     <Compile Include="Hook\DeathStingerSplash.cs" />
-    <Compile Include="Hook\MenuSceneHandler.cs" />
+    <Compile Include="Hook\BlockShit\BlockShit.cs" />
     <Compile Include="Hook\HookExample.cs" />
     <Compile Include="Hook\PlayerCustomizationPanelHandler.cs" />
     <Compile Include="Hook\PlayerPropertiesManager.cs" />
