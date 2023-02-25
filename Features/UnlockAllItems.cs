@@ -30,16 +30,35 @@ namespace GGD_Hack.Features
     {
         static void Postfix(BestHTTP.OnRequestFinishedDelegate __instance, BestHTTP.HTTPRequest __0, BestHTTP.HTTPResponse __1)
         {
-            //打印HTTPRequest的Uri
-           
-            
-                //var uri = typeof(HTTPRequest).GetProperty("Uri").GetValue(__0, null);
-                //string uriString = uri.GetType().GetMethod("ToString").Invoke(uri, null) as string;
-                //MelonLogger.Msg("HTTPManager.SendRequest: " + uriString);
-                MelonLogger.Msg("HTTPManager.SendRequest: " + __0.ToString());
-            
+            try
+            {
+                /*
+                if (__0 == null || __1 == null)
+                {
+                    return;
+                }
+                //打印HTTPRequest的Uri
+                System.Reflection.PropertyInfo propertyInfo = typeof(HTTPRequest).GetProperty("Uri");
 
-            //MelonLogger.Msg(__0.Uri..DataAsText);
+                if (propertyInfo == null) return;
+
+                var uri = propertyInfo.GetValue(__0, null);
+
+                if (uri == null) return;
+
+                System.Reflection.MethodInfo methodInfo = uri.GetType().GetMethod("ToString");
+
+                if (methodInfo == null) return;
+
+                string uriString = methodInfo.Invoke(uri, null) as string;
+
+                MelonLogger.Msg("HTTPManager.SendRequest: " + uriString);
+                */
+            }
+            catch (System.Exception ex)
+            {
+                MelonLogger.Error("反射获取Uri异常：" + ex);
+            }
         }
 
     }
