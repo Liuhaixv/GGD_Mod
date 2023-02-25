@@ -1,10 +1,17 @@
-﻿
+﻿extern alias System_;
+
 using BestHTTP;
 using ExitGames.Client.Photon;
 using HarmonyLib;
 using MelonLoader;
 using Il2CppSystem;
+using System.Reflection;
 using UnhollowerBaseLib;
+
+using Uri = System_::System.Uri;
+using Managers.InfoManagers;
+using Objects;
+using Il2CppSystem.Collections.Generic;
 
 //using HTTPResponse = BestHTTP.HTTPResponse;
 
@@ -18,50 +25,50 @@ namespace GGD_Hack.Features
         {
             if (!MelonPreferences.HasEntry("GGDH", nameof(UnlockAllItems)))
             {
-                Enabled = MelonPreferences.CreateEntry<bool>("GGDH", nameof(UnlockAllItems), false);
+                Enabled = MelonPreferences.CreateEntry<bool>("GGDH", nameof(UnlockAllItems), true);
             }
             else
                 Enabled = MelonPreferences.GetEntry<bool>("GGDH", nameof(UnlockAllItems));
         }
     }
 
-    [HarmonyPatch(typeof(OnRequestFinishedDelegate), nameof(OnRequestFinishedDelegate.Invoke))]
-    public static class HTTPResponse_Data_Getter_Patch
+    //ggdUnlockables 所有可用物品
+    //userUnlockables 玩家已拥有物品
+    [HarmonyPatch(typeof(UnlockablesManager), nameof(UnlockablesManager.ProcessGGDDataAndContinue))]
+    class ProcessGGDDataAndContinue_
     {
-        static void Postfix(BestHTTP.OnRequestFinishedDelegate __instance, BestHTTP.HTTPRequest __0, BestHTTP.HTTPResponse __1)
+        static void Prefix(ref GGDDataBody __0)
         {
-            try
+            MelonLogger.Msg("开始处理GGDDataBody");
+
+            GGDDataBody dataBody = __0;
+
+            UnlockablesInfoBody ggdUnlockables = dataBody.ggdUnlockables;
+            Il2CppReferenceArray<UnlockableInfo> unlockableInfos = ggdUnlockables.unlockableInfo;
+
+            //List<string> categoryIds = new List<string>();
+            //所有物品
+            foreach(UnlockableInfo unlockableInfo in unlockableInfos)
             {
-                /*
-                if (__0 == null || __1 == null)
-                {
-                    return;
-                }
-                //打印HTTPRequest的Uri
-                System.Reflection.PropertyInfo propertyInfo = typeof(HTTPRequest).GetProperty("Uri");
+               
 
-                if (propertyInfo == null) return;
+                unlockableInfo.isAvailable = true;
+                //unlockableInfo.isOnSale = true;
+                unlockableInfo.isAvailableExpiringSoon = false;
+                unlockableInfo.isOnSaleExpiringSoon = false;
 
-                var uri = propertyInfo.GetValue(__0, null);
+                Unlockable rawUnlockable = unlockableInfo.rawUnlockable;
 
-                if (uri == null) return;
+                rawUnlockable.requirements = null;
+                rawUnlockable.recipes = null;
+                //rawUnlockable.onSale = false;
 
-                System.Reflection.MethodInfo methodInfo = uri.GetType().GetMethod("ToString");
-
-                if (methodInfo == null) return;
-
-                string uriString = methodInfo.Invoke(uri, null) as string;
-
-                MelonLogger.Msg("HTTPManager.SendRequest: " + uriString);
-                */
-            }
-            catch (System.Exception ex)
-            {
-                MelonLogger.Error("反射获取Uri异常：" + ex);
+                //categoryIds.Add(rawUnlockable.categoryId);
             }
         }
-
     }
+
+
     /*
     //BestHttp 2.5.4
     //[HarmonyPatch(typeof(HTTPManager), nameof(HTTPManager.SendRequest), typeof(string), typeof(HTTPMethods), typeof(bool), typeof(bool), typeof(OnRequestFinishedDelegate))]

@@ -76,6 +76,10 @@
       <HintPath>..\CPP2IL\cpp2il_out\PhotonUnityNetworking.Demos.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System_">
+      <HintPath>..\CPP2IL\cpp2il_out\System_.dll</HintPath>
+      <Aliases>System_</Aliases>
+    </Reference>
     <Reference Include="UnhollowerBaseLib, Version=0.4.18.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Goose Goose Duck\MelonLoader\Managed\UnhollowerBaseLib.dll</HintPath>
