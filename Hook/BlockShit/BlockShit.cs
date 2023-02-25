@@ -56,7 +56,8 @@ namespace GGD_Hack.Hook
 
                     return true;
                 }
-#endif
+#endif                
+                
                 //跳过恶心的弹窗
                 static bool Prefix(UnityAction __3, UnityAction __5)
                 {
@@ -76,9 +77,8 @@ namespace GGD_Hack.Hook
                     {
                         return true;
                     }
-                }
+                }                
             }
-
         }
     }
 }

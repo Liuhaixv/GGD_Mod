@@ -1,18 +1,55 @@
-﻿using Handlers.MenuSceneHandlers;
+﻿using APIs.Photon;
+using Handlers.GameHandlers.PlayerHandlers;
 using HarmonyLib;
+using Managers;
 using MelonLoader;
+using Objects.UI;
+using Photon.Realtime;
+using System.Collections.Generic;
 using TMPro;
+using UnhollowerRuntimeLib;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+using IntPtr = System.IntPtr;
+using RoomInfo = Photon.Realtime.RoomInfo;
+
 namespace GGD_Hack.Features
 {
     //Mode Select - Safe zone H
-    public class RandomJoinRoom
+    [RegisterTypeInIl2Cpp]
+    public class RandomJoinRoom : MonoBehaviour
     {
+        public static List<Photon.Realtime.RoomInfo> roomInfos = null;
+
         public static GameObject randomJoin = null;
+        public static GameObject findButton = null;
+
+        public static RandomJoinRoom Instance;
+        public RandomJoinRoom(IntPtr ptr) : base(ptr) { }
+
+        // Optional, only used in case you want to instantiate this class in the mono-side
+        // Don't use this on MonoBehaviours / Components!
+        public RandomJoinRoom() : base(ClassInjector.DerivedConstructorPointer<RandomJoinRoom>()) => ClassInjector.DerivedConstructorBody(this);
+        public static void Init()
+        {
+            GameObject ML_Manager = GameObject.Find("ML_Manager");
+            if (ML_Manager == null)
+            {
+                ML_Manager = new GameObject("ML_Manager");
+                DontDestroyOnLoad(ML_Manager);
+            }
+
+            if (ML_Manager.GetComponent<RandomJoinRoom>() == null)
+            {
+                Instance = ML_Manager.AddComponent<RandomJoinRoom>();
+            }
+
+            //更新房间数据
+            APIs.Photon.PhotonCallbacksAPI.AddOnRoomListUpdateListener((Il2CppSystem.Action<Il2CppSystem.Collections.Generic.List<RoomInfo>>)UpdateRoomsInfo, true);
+        }
 
         //调整按钮的位置，向上挪动
         //主持游戏、查找游戏
@@ -37,6 +74,8 @@ namespace GGD_Hack.Features
             Transform host_1 = goose.Find("Host (1)");
             Transform find_1 = goose.Find("Find (1)");
 
+            RandomJoinRoom.findButton = find.gameObject;
+
             // 计算间隔
             float gap = join.localPosition.y - find.localPosition.y;
 
@@ -49,33 +88,79 @@ namespace GGD_Hack.Features
             find_1.localPosition -= new Vector3(0, gap, 0);
 
             // 克隆Find按钮
-            GameObject findClone = GameObject.Instantiate(find.gameObject, goose);
-            findClone.name = "Find(clone)";
-            findClone.transform.SetSiblingIndex(find.GetSiblingIndex() + 1);
+            randomJoin = GameObject.Instantiate(find.gameObject, goose);
 
-            // 修改Find(clone)的显示文本
-            Button findCloneButton = findClone.GetComponent<Button>();
+            randomJoin.name = "JoinRandomRoom";
+            randomJoin.transform.SetSiblingIndex(find.GetSiblingIndex() + 1);
 
-            //修改按钮的点击事件
-
-            findCloneButton.onClick.AddListener((UnityEngine.Events.UnityAction)DoRandomJoinRoom);
+            //添加按钮监听器
+            GameObject.Destroy(randomJoin.GetComponent<Button>());
 
             // 修改Find(clone)的TextMeshProUGUI组件中的文本
-            TextMeshProUGUI findCloneTMP = findClone.transform.Find("Font").GetComponent<TextMeshProUGUI>();
+            TextMeshProUGUI findCloneTMP = randomJoin.transform.Find("Font").GetComponent<TextMeshProUGUI>();
             findCloneTMP.text = "随机加入";
-
-            randomJoin = findClone;
 
             return true;
         }
 
-        private static void DoRandomJoinRoom()
+        public static void DoRandomJoinRoom()
         {
-            MenuSceneHandler.Instance.JoinRandomRoom(0);
+            //1.获取所有房间号
+            if (roomInfos == null || roomInfos.Count == 0)
+            {
+                MelonLogger.Warning("当前无可用房间可加入！");
+                return;
+            }
+
+            int randomIndex = Random.RandomRangeInt(0, roomInfos.Count);
+            Photon.Realtime.RoomInfo roomInfo = roomInfos[randomIndex];
+
+            MelonLogger.Msg("随机房间:" + roomInfo.ToStringFull());
+
+
+            //房间号
+            string roomName = roomInfo.Name;
+            string nickname = PlayerPrefs.GetString("nick name");
+
+            //设置要加入的房间号
+            //Parameter 0 'EILJAJOKPMD': PWCVTBS
+            //-Parameter 1 'LMEPJAHBAOD': nickname
+            //-Parameter 2 'OPGMBEOPKBL':
+            //-Parameter 3 'FOBJLMIAMJA':
+            //-Parameter 4 'FNFFFOIGHLM': True
+            MainManager.Instance.roomManager.JoinRoom(roomName, nickname, "", "", true);
+        }
+
+        private static void UpdateRoomsInfo(Il2CppSystem.Collections.Generic.List<RoomInfo> roomInfos)
+        {
+            List<Photon.Realtime.RoomInfo> newList = new List<Photon.Realtime.RoomInfo>();
+
+            foreach (var room in roomInfos)
+            {
+                //MelonLogger.Msg(room.ToStringFull());
+                newList.Add(room);
+            }
+
+            RandomJoinRoom.roomInfos = newList;
+        }
+
+        private void Update()
+        {
+
+            if (randomJoin != null && randomJoin.GetComponent<Button>() == null)
+            {
+
+                Button button = randomJoin.AddComponent<Button>();
+
+                button.onClick.AddListener(new System.Action(() =>
+                {
+                    DoRandomJoinRoom();
+                }));
+            }
         }
     }
 
-    [HarmonyPatch(typeof(SceneManager), "Internal_SceneLoaded")]
+    [HarmonyPatch(typeof(SceneManager), nameof(SceneManager.Internal_SceneLoaded))]
     class SceneManager_
     {
         private static void Postfix(Scene scene)
@@ -83,7 +168,6 @@ namespace GGD_Hack.Features
             if (scene.name == "MenuScene")
             {
                 MelonLogger.Msg("场景MenuScene" + "已加载");
-
                 bool success = RandomJoinRoom.AdujstButtonsPositions();
 
                 if (success)
@@ -93,4 +177,24 @@ namespace GGD_Hack.Features
             }
         }
     }
+
+    /*
+    //APIs.Photon.PhotonCallbacksAPI.OnRoomListUpdate
+    [HarmonyPatch(typeof(PhotonCallbacksAPI), nameof(PhotonCallbacksAPI.OnRoomListUpdate))]
+    class OnRoomListUpdate_
+    {
+        static void Prefix(List<Photon.Realtime.RoomInfo> __0)
+        {
+            List<Photon.Realtime.RoomInfo> newList = new List<Photon.Realtime.RoomInfo>();
+
+            foreach (var room in __0)
+            {
+                MelonLogger.Msg(room.ToString());
+                newList.Add(room);
+            }
+
+            RandomJoinRoom.roomInfos = newList;
+        }
+    }
+    */
 }

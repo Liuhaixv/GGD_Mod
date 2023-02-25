@@ -68,6 +68,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\CPP2IL\cpp2il_out\PhotonUnityNetworking.dll</HintPath>
     </Reference>
+    <Reference Include="PhotonUnityNetworking.Demos">
+      <HintPath>..\CPP2IL\cpp2il_out\PhotonUnityNetworking.Demos.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="UnhollowerBaseLib, Version=0.4.18.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>

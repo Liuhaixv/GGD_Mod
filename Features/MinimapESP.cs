@@ -130,7 +130,6 @@ namespace GGD_Hack.Features
             MinimapESP.playersOnMinimap.Clear();
             instantiatedAllPlayers = false;
 
-
             MelonLogger.Msg("已经销毁所有玩家minimap点位");
         }
 
