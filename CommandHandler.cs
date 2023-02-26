@@ -95,6 +95,10 @@ namespace GGD_Hack
                     MelonLogger.Msg("command命中: UnlockAllItems()");
                     UnlockAllItems_();
                     break;
+                case "UpdateTempUserUnlockables":
+                    MelonLogger.Msg("command命中: UpdateTempUserUnlockables()");
+                    UpdateTempUserUnlockables();
+                    break;
                 //测试连接
                 case "TestConnection":
                     MelonLogger.Msg("测试TCP服务器连接成功");
@@ -104,6 +108,14 @@ namespace GGD_Hack
                     return false;
             }
             return true;
+        }
+
+        private static void UpdateTempUserUnlockables()
+        {
+            UnityMainThreadDispatcher.Instance().Enqueue(new System.Action(() =>
+            {
+                UnlockAllItems.UpdateTempUserUnlockables();
+            }));
         }
 
         private static void UnlockAllItems_()

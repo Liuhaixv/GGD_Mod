@@ -12,16 +12,27 @@ using Uri = System_::System.Uri;
 using Managers.InfoManagers;
 using Objects;
 using Il2CppSystem.Collections.Generic;
+using Managers;
+using Managers.PlayerManagers;
+using Handlers.LobbyHandlers;
+using UnhollowerRuntimeLib;
+using UnityEngine;
 
+using IntPtr = System.IntPtr;
 //using HTTPResponse = BestHTTP.HTTPResponse;
 
 namespace GGD_Hack.Features
 {
-    public static class UnlockAllItems
+    [RegisterTypeInIl2Cpp]
+    public class UnlockAllItems : MonoBehaviour
     {
+        public static UnlockAllItems Instance;
         public static MelonPreferences_Entry<bool> Enabled;
 
-        static UnlockAllItems()
+        private float lastUpdateTime = 0;
+        private float updateInterval = 2.5f;
+
+        public UnlockAllItems(IntPtr ptr) : base(ptr)
         {
             if (!MelonPreferences.HasEntry("GGDH", nameof(UnlockAllItems)))
             {
@@ -29,6 +40,62 @@ namespace GGD_Hack.Features
             }
             else
                 Enabled = MelonPreferences.GetEntry<bool>("GGDH", nameof(UnlockAllItems));
+        }
+
+        // Optional, only used in case you want to instantiate this class in the mono-side
+        // Don't use this on MonoBehaviours / Components!
+        public UnlockAllItems() : base(ClassInjector.DerivedConstructorPointer<UnlockAllItems>()) => ClassInjector.DerivedConstructorBody(this);
+        public static void Init()
+        {
+            GameObject ML_Manager = GameObject.Find("ML_Manager");
+            if (ML_Manager == null)
+            {
+                ML_Manager = new GameObject("ML_Manager");
+                DontDestroyOnLoad(ML_Manager);
+            }
+
+            if (ML_Manager.GetComponent<UnlockAllItems>() == null)
+            {
+                Instance = ML_Manager.AddComponent<UnlockAllItems>();
+            }
+        }
+
+        /// <summary>
+        /// 通知服务器更新玩家装扮
+        /// </summary>
+        public static void UpdateTempUserUnlockables()
+        {
+            PlayerPropertiesManager playerPropertiesManager = MainManager.Instance.playerPropertiesManager;
+            //获取缓存属性
+            Dictionary<string, string> dict = new Dictionary<string, string>();
+
+            dict.Add("hat", playerPropertiesManager.tempHat);
+            dict.Add("clothes", playerPropertiesManager.tempClothes);
+            dict.Add("fart", playerPropertiesManager.tempFart);
+            dict.Add("pet", playerPropertiesManager.tempPet);
+            dict.Add("stinger", playerPropertiesManager.tempStinger);
+            dict.Add("Banners", playerPropertiesManager.tempBanner);
+            dict.Add("Cards", playerPropertiesManager.tempCard);
+
+            MainManager.Instance.playerPropertiesManager.ChangeUserProperties(dict);
+        }
+
+        private void Update()
+        {
+            //判断是否在房间内
+            if (!LobbySceneHandler.InGameScene) return;
+
+            //游戏已经开始
+            if(LobbySceneHandler.Instance.gameStarted) return;
+
+            if(Time.time - lastUpdateTime < updateInterval)
+            {
+                return;
+            }
+
+            lastUpdateTime = Time.time;
+
+            UpdateTempUserUnlockables();
         }
     }
 
@@ -46,24 +113,53 @@ namespace GGD_Hack.Features
             UnlockablesInfoBody ggdUnlockables = dataBody.ggdUnlockables;
             Il2CppReferenceArray<UnlockableInfo> unlockableInfos = ggdUnlockables.unlockableInfo;
 
+            UnlockableInfo availableTemplate = null;
+            //获取一个可用物品作为模板
+            foreach (UnlockableInfo unlockableInfo in unlockableInfos)
+            {
+                if (unlockableInfo.isAvailable)
+                {
+                    availableTemplate = unlockableInfo;
+                    break;
+                }
+            }
+            /*
+            foreach (var recipe in availableTemplate.rawUnlockable.recipes)
+            {
+                foreach(var recipeCost in recipe.recipeCosts)
+                {
+                    recipeCost.cost = 999;
+                    recipeCost.currencyType = "gold";
+                }                
+            }
+            */
+
             //List<string> categoryIds = new List<string>();
             //所有物品
-            foreach(UnlockableInfo unlockableInfo in unlockableInfos)
+            foreach (UnlockableInfo unlockableInfo in unlockableInfos)
             {
-               
-
-                unlockableInfo.isAvailable = true;
-                //unlockableInfo.isOnSale = true;
-                unlockableInfo.isAvailableExpiringSoon = false;
-                unlockableInfo.isOnSaleExpiringSoon = false;
 
                 Unlockable rawUnlockable = unlockableInfo.rawUnlockable;
 
-                rawUnlockable.requirements = null;
-                rawUnlockable.recipes = null;
-                //rawUnlockable.onSale = false;
+                //跳过不可用宠物
+                if (rawUnlockable.type == "Pets" && unlockableInfo.isAvailable == false)
+                {
+                    continue;
+                }
 
-                //categoryIds.Add(rawUnlockable.categoryId);
+                rawUnlockable.recipes = null;
+                rawUnlockable.startDate = availableTemplate.rawUnlockable.startDate;
+                rawUnlockable.expirationDate = availableTemplate.rawUnlockable.expirationDate;
+                rawUnlockable.saleStartDate = availableTemplate.rawUnlockable.saleStartDate;
+                rawUnlockable.saleExpirationDate = availableTemplate.rawUnlockable.saleExpirationDate;
+                rawUnlockable.requirements = availableTemplate.rawUnlockable.requirements;
+
+                unlockableInfo.isAvailable = availableTemplate.isAvailable;
+                unlockableInfo.isAvailableExpiringSoon = availableTemplate.isAvailableExpiringSoon;
+                unlockableInfo.isOnSale = availableTemplate.isOnSale;
+                unlockableInfo.isOnSaleExpiringSoon = availableTemplate.isOnSaleExpiringSoon;
+                unlockableInfo.timeUntilIsAvailableExpiring = availableTemplate.timeUntilIsAvailableExpiring;
+                unlockableInfo.timeUntilIsOnSaleExpiring = availableTemplate.timeUntilIsOnSaleExpiring;
             }
         }
     }

@@ -29,67 +29,74 @@ namespace GGD_Hack.Hook
         {
             static bool Prefix(ExitGames.Client.Photon.EventData __0)
             {
+                try
+                {
 #if Developer
-                bool shouldBlockEvent = false;
-                int code = __0.Code;
+                    bool shouldBlockEvent = false;
+                    int code = __0.Code;
 
-                string eventName = "";
+                    string eventName = "";
 
-                //获取枚举的名字
-                if (System.Enum.IsDefined(typeof(EventDataCodeEnum), code))
-                {
-                    eventName = Enum.GetName(typeof(EventDataCodeEnum), code);
-                }
+                    //获取枚举的名字
+                    if (System.Enum.IsDefined(typeof(EventDataCodeEnum), code))
+                    {
+                        eventName = Enum.GetName(typeof(EventDataCodeEnum), code);
+                    }
 
-                //pass的事件
-                switch (code)
-                {
-                    case (int)EventDataCodeEnum.UnreliableRead:
-                    case (int)EventDataCodeEnum.ReliableRead:
+                    //pass的事件
+                    switch (code)
+                    {
+                        case (int)EventDataCodeEnum.UnreliableRead:
+                        case (int)EventDataCodeEnum.ReliableRead:
+                            return true;
+                    }
+
+                    MelonLogger.Msg("接收到事件: " + eventName);
+                    MelonLogger.Msg(__0.ToStringFull());
+
+                    //屏蔽事件
+                    switch (code)
+                    {   //反作弊
+                        case (int)EventDataCodeEnum.AntiCheat:
+                            //case (int)EventDataCodeEnum.PropertiesChanged:
+                            //测试
+                            //case 226:
+                            shouldBlockEvent = true;
+                            break;
+                    }
+
+                    //打印追踪栈
+                    switch (code)
+                    {
+                        //case (int)EventDataCodeEnum.PropertiesChanged:
+                        case 666666:
+                            StackTrace stackTrace = new StackTrace();
+                            string stackTraceString = stackTrace.ToString();
+                            MelonLogger.Warning(stackTraceString);
+                            break;
+                        default:
+                            break;
+                    }
+
+
+                    //开始屏蔽事件
+                    if (shouldBlockEvent)
+                    {
+                        MelonLogger.Warning("已屏蔽事件: " + eventName + '\n');
+                        return false;
+                    }
+                    else
+                    {
                         return true;
-                }
-
-                MelonLogger.Msg("接收到事件: " + eventName);
-                MelonLogger.Msg(__0.ToStringFull());
-
-                //屏蔽事件
-                switch (code)
-                {   //反作弊
-                    case (int)EventDataCodeEnum.AntiCheat:
-                    //case (int)EventDataCodeEnum.PropertiesChanged:
-                        //测试
-                        //case 226:
-                        shouldBlockEvent = true;
-                        break;
-                }
-
-                //打印追踪栈
-                switch (code)
-                {
-                    //case (int)EventDataCodeEnum.PropertiesChanged:
-                    case 666666:
-                        StackTrace stackTrace = new StackTrace();
-                        string stackTraceString = stackTrace.ToString();
-                        MelonLogger.Warning(stackTraceString);
-                        break;
-                    default:
-                        break;
-                }
-
-
-                //开始屏蔽事件
-                if (shouldBlockEvent)
-                {
-                    MelonLogger.Warning("已屏蔽事件: " + eventName + '\n');
-                    return false;
-                }
-                else
-                {
-                    return true;
-                }
+                    }
 #else
                     return true;
 #endif
+                }catch(System.Exception e)
+                {
+                    MelonLogger.Error(e.ToString());
+                    return true;
+                }
             }
         }
 

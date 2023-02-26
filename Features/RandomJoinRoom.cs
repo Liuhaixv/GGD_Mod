@@ -1,15 +1,10 @@
-﻿using APIs.Photon;
-using Handlers.GameHandlers.PlayerHandlers;
-using HarmonyLib;
+﻿using HarmonyLib;
 using Managers;
 using MelonLoader;
-using Objects.UI;
-using Photon.Realtime;
 using System.Collections.Generic;
 using TMPro;
 using UnhollowerRuntimeLib;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -105,30 +100,57 @@ namespace GGD_Hack.Features
 
         public static void DoRandomJoinRoom()
         {
-            //1.获取所有房间号
-            if (roomInfos == null || roomInfos.Count == 0)
+            try
             {
-                MelonLogger.Warning("当前无可用房间可加入！");
-                return;
+                //1.获取所有房间号
+                if (roomInfos == null || roomInfos.Count == 0)
+                {
+                    MelonLogger.Warning("当前无可用房间可加入！");
+                    return;
+                }
+
+                List<RoomInfo> filterdRoomInfos = new List<RoomInfo>();
+
+                //筛选2/3人数以内的房间
+                foreach (var room in roomInfos)
+                {
+                    int playerCount = room.PlayerCount;
+                    int maxPlayers = room.MaxPlayers;
+
+                    if (((playerCount / (float)(maxPlayers)) < (2.0 / 3.0)))
+                    {
+                        filterdRoomInfos.Add(room);
+                    }
+                }
+
+                if (filterdRoomInfos.Count == 0)
+                {
+                    MelonLogger.Warning("筛选后无可用房间可加入！");
+                    return;
+                }
+
+
+                int randomIndex = Random.RandomRangeInt(0, filterdRoomInfos.Count);
+                RoomInfo roomInfo = filterdRoomInfos[randomIndex];
+
+                MelonLogger.Msg("随机房间:" + roomInfo.ToStringFull());
+
+                //房间号
+                string roomName = roomInfo.Name;
+                string nickname = PlayerPrefs.GetString("nick name");
+
+                //设置要加入的房间号
+                //Parameter 0 'EILJAJOKPMD': PWCVTBS
+                //-Parameter 1 'LMEPJAHBAOD': nickname
+                //-Parameter 2 'OPGMBEOPKBL':
+                //-Parameter 3 'FOBJLMIAMJA':
+                //-Parameter 4 'FNFFFOIGHLM': True
+                MainManager.Instance.roomManager.JoinRoom(roomName, nickname, "", "", true);
             }
-
-            int randomIndex = Random.RandomRangeInt(0, roomInfos.Count);
-            Photon.Realtime.RoomInfo roomInfo = roomInfos[randomIndex];
-
-            MelonLogger.Msg("随机房间:" + roomInfo.ToStringFull());
-
-
-            //房间号
-            string roomName = roomInfo.Name;
-            string nickname = PlayerPrefs.GetString("nick name");
-
-            //设置要加入的房间号
-            //Parameter 0 'EILJAJOKPMD': PWCVTBS
-            //-Parameter 1 'LMEPJAHBAOD': nickname
-            //-Parameter 2 'OPGMBEOPKBL':
-            //-Parameter 3 'FOBJLMIAMJA':
-            //-Parameter 4 'FNFFFOIGHLM': True
-            MainManager.Instance.roomManager.JoinRoom(roomName, nickname, "", "", true);
+            catch (System.Exception e)
+            {
+                MelonLogger.Warning("DoRandomJoinRoom失败: " + e.ToString());
+            }
         }
 
         private static void UpdateRoomsInfo(Il2CppSystem.Collections.Generic.List<RoomInfo> roomInfos)

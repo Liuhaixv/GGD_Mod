@@ -18,16 +18,26 @@ namespace GGD_Hack.Hook
         /// <summary>
         /// 在房间内发送完全可定制的事件。事件至少包含一个 EventCode (0..199)，并且可以包含内容。
         /// </summary>
-        [HarmonyPatch(typeof(PhotonNetwork), nameof(PhotonNetwork.RaiseEvent))]
+        //[HarmonyPatch(typeof(PhotonNetwork), nameof(PhotonNetwork.RaiseEvent))]
         class RaiseEvent_
         {
             static bool Prefix(byte eventCode, Il2CppSystem.Object eventContent, RaiseEventOptions raiseEventOptions, SendOptions sendOptions)
             {
-                MelonLogger.Msg("[RaiseEvent-eventCode] " + Convert.ToChar(eventCode).ToString());
+                try
+                {
+                    MelonLogger.Msg("============================");
+                    MelonLogger.Msg("[RaiseEvent-eventCode] " + Convert.ToChar(eventCode).ToString());
 
-                string eventContentString = eventContent.ToString();
-                               
-                MelonLogger.Msg("[RaiseEvent-eventContent] " + eventContentString);
+                    string eventContentString = eventContent.ToString();
+
+                    MelonLogger.Msg("[RaiseEvent-eventContent] " + eventContentString);
+                    MelonLogger.Msg("============================");
+
+                }
+                catch(Exception e)
+                {
+                    MelonLogger.Error(e.ToString());
+                }                
 
                 return true;
             }

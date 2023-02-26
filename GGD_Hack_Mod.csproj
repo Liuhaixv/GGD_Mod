@@ -121,6 +121,7 @@
     <Compile Include="Features\TrackAllPlayers.cs" />
     <Compile Include="Features\UnlockAllItems.cs" />
     <Compile Include="Hook\Debug.cs" />
+    <Compile Include="Hook\IncreaseSkillRange.cs" />
     <Compile Include="Hook\Network\PhotonCallbacksAPI.cs" />
     <Compile Include="Hook\Network\PhotonNetwork.cs" />
     <Compile Include="Hook\PhotonEventAPI.cs" />
