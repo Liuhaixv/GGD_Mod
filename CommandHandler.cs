@@ -99,6 +99,11 @@ namespace GGD_Hack
                     MelonLogger.Msg("command命中: UpdateTempUserUnlockables()");
                     UpdateTempUserUnlockables();
                     break;
+                    //静音所有其他玩家
+                case "SilenceAllOtherPlayers":
+                    MelonLogger.Msg("command命中: SilenceAllOtherPlayers()");
+                    SilenceAllOtherPlayers();
+                    break;
                 //测试连接
                 case "TestConnection":
                     MelonLogger.Msg("测试TCP服务器连接成功");
@@ -108,6 +113,17 @@ namespace GGD_Hack
                     return false;
             }
             return true;
+        }
+
+        /// <summary>
+        /// 静音所有其他玩家
+        /// </summary>
+        private static void SilenceAllOtherPlayers()
+        {
+            UnityMainThreadDispatcher.Instance().Enqueue(new System.Action(() =>
+            {
+                GGD_Hack.Features.SilenceAllPlayers.SilenceAllOtherPlayers();
+            }));
         }
 
         private static void UpdateTempUserUnlockables()
