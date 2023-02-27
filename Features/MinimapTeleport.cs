@@ -89,8 +89,8 @@ namespace GGD_Hack.Features
         /// </summary>
         private void Update()
         {
-
-            if (Input.GetMouseButtonDown(0))
+            //右键被点击
+            if (Input.GetMouseButtonDown(1))
             {
                 //小地图未显示
                 if (!GameObject.Find("Canvas/MiniMap")) return;

@@ -30,7 +30,7 @@ namespace GGD_Hack.Features
         public static MelonPreferences_Entry<bool> Enabled;
 
         private float lastUpdateTime = 0;
-        private float updateInterval = 2.5f;
+        private float updateInterval = 10.0f;
 
         public UnlockAllItems(IntPtr ptr) : base(ptr)
         {
@@ -95,7 +95,12 @@ namespace GGD_Hack.Features
 
             lastUpdateTime = Time.time;
 
-            UpdateTempUserUnlockables();
+            //如果功能被启用
+            if(Enabled.Value == true)
+            {
+                //更新玩家装扮
+                UpdateTempUserUnlockables();
+            }
         }
     }
 

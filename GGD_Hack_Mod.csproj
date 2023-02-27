@@ -112,14 +112,19 @@
   <ItemGroup>
     <Compile Include="BypassAC.cs" />
     <Compile Include="CommandHandler.cs" />
+    <Compile Include="Features\DragAllBodies.cs" />
     <Compile Include="Features\MinimapESP.cs" />
     <Compile Include="Features\MinimapRecorder.cs" />
     <Compile Include="Features\MinimapTeleport.cs" />
     <Compile Include="Features\MiscFunctions.cs" />
     <Compile Include="Features\RandomJoinRoom.cs" />
     <Compile Include="Features\RemoteKillPlayer.cs" />
+    <None Include="Features\Test\吃尸体.cs" />
+    <None Include="Features\Test\派对鸭子.cs" />
+    <None Include="Features\Test\超能力技能.cs" />
     <Compile Include="Features\TrackAllPlayers.cs" />
     <Compile Include="Features\UnlockAllItems.cs" />
+    <Compile Include="Hook\BodyHandler.cs" />
     <Compile Include="Hook\Debug.cs" />
     <Compile Include="Hook\IncreaseSkillRange.cs" />
     <Compile Include="Hook\Network\PhotonCallbacksAPI.cs" />

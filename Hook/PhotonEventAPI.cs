@@ -58,9 +58,10 @@ namespace GGD_Hack.Hook
                     switch (code)
                     {   //反作弊
                         case (int)EventDataCodeEnum.AntiCheat:
-                            //case (int)EventDataCodeEnum.PropertiesChanged:
-                            //测试
-                            //case 226:
+                        //case (int)EventDataCodeEnum.PropertiesChanged:
+                        //测试
+                        //case 226:
+                        //case (int)EventDataCodeEnum.RECEIVE_KILL:
                             shouldBlockEvent = true;
                             break;
                     }
@@ -92,7 +93,8 @@ namespace GGD_Hack.Hook
 #else
                     return true;
 #endif
-                }catch(System.Exception e)
+                }
+                catch (System.Exception e)
                 {
                     MelonLogger.Error(e.ToString());
                     return true;
