@@ -137,6 +137,7 @@
     <Compile Include="Hook\PlayerPropertiesManager.cs" />
     <Compile Include="Hook\SpawnedPlayerHandler.cs" />
     <Compile Include="Hook\SendFart.cs" />
+    <Compile Include="Internal\Buttons\KillCooldownButton.cs" />
     <Compile Include="MemoryUtils.cs" />
     <Compile Include="PatternScanner.cs" />
     <Compile Include="Utils\GameInstances.cs" />

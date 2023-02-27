@@ -13,7 +13,6 @@ namespace GGD_Hack.Features
         //将所有尸体移动到某处
         public void MoveAllBodiesTo(Vector3 targetPosition)
         {
-            Handlers.GameHandlers.PlayerHandlers.PlayerController controller = Handlers.GameHandlers.PlayerHandlers.PlayerController.playersList[playerToBind];
 
             //遍历所有玩家
             foreach (var entry in Handlers.GameHandlers.PlayerHandlers.PlayerController.playersList)

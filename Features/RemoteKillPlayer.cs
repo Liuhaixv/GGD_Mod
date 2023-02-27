@@ -31,8 +31,8 @@ namespace GGD_Hack.Features
         private bool hasStartedToKill = false;//标志是否已经开始击杀任务
         private float killTimer = 0;
         private float teleportTimer = 0;
-        static private float killDelay = 0.5f;//击杀延迟 ms
-        static private float teleportDuration = 0.5f;//传送回到原来位置的延迟
+        static private float killDelay = 0.2f;//击杀延迟(秒)
+        static private float teleportDuration = 0.5f;//持续传送回原先位置的时间
 
         public RemoteKillPlayer(IntPtr ptr) : base(ptr) { }
 
