@@ -82,12 +82,19 @@ namespace GGD_Hack.Internal.Buttons
             return true;
         }
 
+        //普通刀人
         private static void Click(UICooldownButton cooldownButton)
         {
             KLNOEKIODEE killCooldownButton = new KLNOEKIODEE();
             killCooldownButton.INBJCHPPLJF = cooldownButton;
 
             killCooldownButton.GKFGGONFDFJ();
+        }
+
+        private static void 正义使者刀人()
+        {
+
+            //GINKHAEBFAF__GKFGGONFDFJ
         }
     }
     public class AvengerKillCooldownButton
@@ -132,6 +139,17 @@ namespace GGD_Hack.Internal.Buttons
         public static void Telepat()
         {
         }
+
+    }
+    /*
+     * 
+     * 
+     */
+
+
+    //MBFPLDLFKNO.MFKOEDBMPAH
+    public class SilenceCooldownButton
+    {
 
     }
 

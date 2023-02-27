@@ -85,7 +85,6 @@ namespace GGD_Hack.Features
                 //TODO: 修改颜色
 
                 playersOnMinimap.Add(playerController.userId, clone);
-
             }
 
             MelonLogger.Msg("已初始化所有玩家的minimap点位");
