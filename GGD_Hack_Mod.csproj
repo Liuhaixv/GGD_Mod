@@ -137,7 +137,6 @@
     <Compile Include="Hook\PlayerPropertiesManager.cs" />
     <Compile Include="Hook\SpawnedPlayerHandler.cs" />
     <Compile Include="Hook\SendFart.cs" />
-    <Compile Include="Internal\Buttons\KillCooldownButton.cs" />
     <Compile Include="MemoryUtils.cs" />
     <Compile Include="PatternScanner.cs" />
     <Compile Include="Utils\GameInstances.cs" />
@@ -146,6 +145,9 @@
     <Compile Include="TcpServer.cs" />
     <Compile Include="UnityMainThreadDispatcher.cs" />
     <Compile Include="Utils\Utils.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Internal\Buttons\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
