@@ -99,7 +99,16 @@ namespace GGD_Hack
                     MelonLogger.Msg("command命中: UpdateTempUserUnlockables()");
                     UpdateTempUserUnlockables();
                     break;
-                    //静音所有其他玩家
+                case "RingBell":
+                    MelonLogger.Msg("command命中: RingBell()");
+                    RingBell();
+                    break;
+                case "ThrowAllBodiesAwayFromMap":
+                    MelonLogger.Msg("command命中: ThrowAllBodiesAwayFromMap()");
+                    ThrowAllBodiesAwayFromMap();
+                    break;
+
+                //静音所有其他玩家
                 case "SilenceAllOtherPlayers":
                     MelonLogger.Msg("command命中: SilenceAllOtherPlayers()");
                     SilenceAllOtherPlayers();
@@ -113,6 +122,22 @@ namespace GGD_Hack
                     return false;
             }
             return true;
+        }
+
+        private static void ThrowAllBodiesAwayFromMap()
+        {
+            UnityMainThreadDispatcher.Instance().Enqueue(new System.Action(() =>
+            {
+                GGD_Hack.Features.ClearAllBodies.ThrowAllBodiesAwayFromMap();
+            }));
+        }
+
+        private static void RingBell()
+        {
+            UnityMainThreadDispatcher.Instance().Enqueue(new System.Action(() =>
+            {
+                PluginEventsManager.RingBell();
+            }));
         }
 
         /// <summary>

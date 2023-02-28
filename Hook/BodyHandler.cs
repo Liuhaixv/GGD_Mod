@@ -1,9 +1,9 @@
 ﻿using Handlers.GameHandlers;
-using static MelonLoader.MelonLogger;
 using UnityEngine;
-using MelonLoader;
 using HarmonyLib;
 using Handlers.GameHandlers.PlayerHandlers;
+using GGD_Hack.Features;
+using Handlers.GameHandlers.TaskHandlers;
 
 namespace GGD_Hack.Hook
 {
@@ -12,6 +12,21 @@ namespace GGD_Hack.Hook
     /// </summary>
     public class BodyHandler_
     {
+        /// <summary>
+        /// 自动追踪尸体
+        /// </summary>
+        [HarmonyPatch(typeof(BodyHandler), nameof(BodyHandler.Start))]
+        public class Start_
+        {
+            static void Postfix(BodyHandler __instance)
+            {
+                //自动追踪尸体
+                if (AutoTrackBodies.Enabled.Value == true)
+                {
+                    TaskTargetingHandler.Instance.TargetBody(__instance);
+                }
+            }
+        }
         /// <summary>
         /// 
         /// </summary>

@@ -123,15 +123,39 @@ namespace GGD_Hack.Features
                     }
                 }
 
-                if (filterdRoomInfos.Count == 0)
+                int maxRoomPlayerCount = 0;
+
+                //获取最大人数
+                foreach (var room in filterdRoomInfos)
+                {
+                    int playerCount = room.PlayerCount;
+
+                    if(playerCount >= maxRoomPlayerCount)
+                    {
+                        maxRoomPlayerCount = playerCount;
+                    }
+                }
+
+                List<RoomInfo> filterdRoomInfos2 = new List<RoomInfo>();
+
+                foreach (var room in filterdRoomInfos)
+                {
+                    int playerCount = room.PlayerCount;
+
+                    if (playerCount == maxRoomPlayerCount)
+                    {
+                        filterdRoomInfos2.Add(room);
+                    }
+                }
+
+                if (filterdRoomInfos2.Count == 0)
                 {
                     MelonLogger.Warning("筛选后无可用房间可加入！");
                     return;
                 }
 
-
-                int randomIndex = Random.RandomRangeInt(0, filterdRoomInfos.Count);
-                RoomInfo roomInfo = filterdRoomInfos[randomIndex];
+                int randomIndex = Random.RandomRangeInt(0, filterdRoomInfos2.Count);
+                RoomInfo roomInfo = filterdRoomInfos2[randomIndex];
 
                 MelonLogger.Msg("随机房间:" + roomInfo.ToStringFull());
 

@@ -6,8 +6,7 @@ using Handlers.GameHandlers.PlayerHandlers;
 //通过UnityEngine.Events.InvokableCall.Invoke断点跟进追踪方法流，查找按钮点击后被点击的方法
 //所有的带冷却按钮都是通过PlayerButtonController.RegisterCooldownButton来动态注册的，所有没有按钮的静态变量
 namespace GGD_Hack.Internal.Buttons
-{
-    /*
+{    
     public class KillCooldownButton
     {
         public static UICooldownButton kill = null;
@@ -91,8 +90,7 @@ namespace GGD_Hack.Internal.Buttons
 
             killCooldownButton.GKFGGONFDFJ();
         }
-    }
-    */
+    } 
     
     public class AvengerKillCooldownButton
     {
@@ -135,6 +133,18 @@ namespace GGD_Hack.Internal.Buttons
         //TODO: 开始一阶段
         public static void Telepat()
         {
+        }
+
+    }
+
+    //鹈鹕吃人按钮
+    public class PelicanCooldownButton
+    {
+
+        //EPFILBHLDML.EKDKJNOFGCA
+        public static void Eat()
+        {
+
         }
 
     }

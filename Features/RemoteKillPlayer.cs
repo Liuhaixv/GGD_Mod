@@ -122,9 +122,16 @@ namespace GGD_Hack.Features
                     MelonLogger.Msg("正在击杀目标: " + killTarget.nickname);
                     try
                     {
-                        if(killTarget.timeOfDeath == 0)
+                        if(killTarget.timeOfDeath == 0 && !killTarget.isInPelican)
                         {
-                            LocalPlayer.Instance.Kill(killTarget);
+                            if(LocalPlayer.Instance.Player.playerRole.NFLEPDLAINI == KGMFMNBCLEA.Pelican)
+                            {
+                                PluginEventsManager.PelicanEat(killTarget.userId);
+                            } else
+                            {
+                                //LocalPlayer.Instance.Kill(killTarget);
+                                PluginEventsManager.Kill(killTarget.userId);
+                            }
                         }
                     }
                     catch (Exception e)

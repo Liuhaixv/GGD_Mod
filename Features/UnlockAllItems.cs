@@ -30,7 +30,8 @@ namespace GGD_Hack.Features
         public static MelonPreferences_Entry<bool> Enabled;
 
         private float lastUpdateTime = 0;
-        private float updateInterval = 10.0f;//更新皮肤的时间间隔
+        //更新皮肤的时间间隔
+        private float updateInterval = 10.0f;
 
         public UnlockAllItems(IntPtr ptr) : base(ptr)
         {

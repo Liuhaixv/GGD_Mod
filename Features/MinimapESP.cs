@@ -34,7 +34,6 @@ namespace GGD_Hack.Features
         // Don't use this on MonoBehaviours / Components!
         public MinimapESP() : base(ClassInjector.DerivedConstructorPointer<MinimapESP>()) => ClassInjector.DerivedConstructorBody(this);
 
-
         public static void Init()
         {
             GameObject ML_Manager = GameObject.Find("ML_Manager");
@@ -49,7 +48,6 @@ namespace GGD_Hack.Features
                 Instance = ML_Manager.AddComponent<MinimapESP>();
             }
         }
-
 
         /// <summary>
         /// 初始化所有玩家在地图上的点位（除了本地玩家）
@@ -85,6 +83,7 @@ namespace GGD_Hack.Features
                 //TODO: 修改颜色
 
                 playersOnMinimap.Add(playerController.userId, clone);
+
             }
 
             MelonLogger.Msg("已初始化所有玩家的minimap点位");
@@ -110,11 +109,24 @@ namespace GGD_Hack.Features
             //修改文字
             if (textMeshProUGUI != null)
             {
+                //鹈鹕粉色
+                if (playerController.isInPelican)
+                {
+                    textMeshProUGUI.SetFaceColor(new Color32(255, 255, 255, 150));
+                    textMeshProUGUI.SetOutlineColor(new Color32(255, 0, 255, 255));
+                }
+                //死亡红色
+                if (playerController.timeOfDeath > 0)
+                {
+                    textMeshProUGUI.SetFaceColor(new Color32(255, 255, 255, 150));
+                    textMeshProUGUI.SetOutlineColor(new Color32(255, 0, 0, 255));
+                }
                 //MelonLogger.Msg("修改玩家姓名为: " + playerController.nickname);
                 textMeshProUGUI.SetText(playerController.nickname, true);
+                textMeshProUGUI.UpdateFontAsset();
+
             }
         }
-
         private static void DestroyAllPlayers()
         {
             MelonLogger.Msg("正在销毁所有玩家minimap点位");
@@ -160,6 +172,9 @@ namespace GGD_Hack.Features
                 return;
             }
 
+            //检测是否打开地图
+            if (!GameObject.Find("Canvas/MiniMap")) return;
+
             foreach (var player in MinimapESP.playersOnMinimap)
             {
                 string userId = player.Key;
@@ -169,23 +184,47 @@ namespace GGD_Hack.Features
 
                 if (!PlayerController.playersList.ContainsKey(userId)) continue;
 
-                //删除幽灵点位
-                if (PlayerController.playersList[userId].isGhost)
-                {
-                    Destroy(gameObject);
-                    gameObject = null;
-                    continue;
-                }
-
                 //获取PlayerController对应的坐标
                 PlayerController playerController = PlayerController.playersList[userId];
                 Vector3 position = playerController.PMPPIFBLAPL;
 
+                //玩家死亡
+                if (playerController.timeOfDeath != 0)
+                {
+                    //没有标签就加上标签
+                    if (!playerController.nickname.Contains("[尸体]"))
+                    {
+                        playerController.nickname = "[尸体]" + playerController.nickname;
+                    }
+                    //获取尸体
+                    Handlers.GameHandlers.BodyHandler bodyHandler = Managers.MainManager.Instance.gameManager.BodyFromUserId(playerController.userId);
+                    //如果尸体存在只想尸体的坐标
+                    if (bodyHandler != null)
+                        position = bodyHandler.transform.position;
+                    else
+                    {
+                        //如果尸体不存在就删除
+                        Destroy(gameObject);
+                        gameObject = null;
+                        continue;
+                    }
+
+                }
+                //是否被鹈鹕吃
+                if (playerController.isInPelican)
+                {
+                    //没有标签就加上标签
+                    if (!playerController.nickname.Contains("[被吃]"))
+                    {
+                        playerController.nickname = "[被吃]" + playerController.nickname;
+                    }
+                }
+
                 //根据PlayerController的坐标计算出GameObject的坐标
                 gameObject.transform.localPosition = new Vector3(
-                    (float)(miniMapHandler.xFactor * position.x) + miniMapHandler.xOffset,
-                    (float)(miniMapHandler.yFactor * position.y) + miniMapHandler.yOffset,
-                    0.0f
+                (float)(miniMapHandler.xFactor * position.x) + miniMapHandler.xOffset,
+                (float)(miniMapHandler.yFactor * position.y) + miniMapHandler.yOffset,
+                0.0f
                 );
 
                 //强制修改名称
@@ -203,8 +242,7 @@ namespace GGD_Hack.Features
         }
     }
 
-
-    [HarmonyPatch(typeof(MiniMapHandler),nameof(MiniMapHandler.Update))]
+    [HarmonyPatch(typeof(MiniMapHandler), nameof(MiniMapHandler.Update))]
     class MiniMapHandlerUpdateHook
     {
         //更新实例
@@ -212,7 +250,7 @@ namespace GGD_Hack.Features
         {
             if (MinimapESP.miniMapHandler == null)
             {
-                MelonLogger.Msg("已成功Hook获取到MinimapHandler");
+                MelonLogger.Msg(System.ConsoleColor.Green, "已成功Hook获取到MinimapHandler");
                 MinimapESP.miniMapHandler = __instance;
                 MinimapESP.instantiatedAllPlayers = false;
             }
