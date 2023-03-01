@@ -9,11 +9,14 @@ using HarmonyLib;
 using MelonLoader;
 
 //正义使者无限刀人次数
+
 namespace GGD_Hack.Features
 {
+    /*TODO
+         
     public class VigilanteInfiniteKill
     {
-
+        
         //屏蔽次数限制
         [HarmonyPatch(typeof(GINKHAEBFAF), nameof(GINKHAEBFAF.GKFGGONFDFJ))]
         class IgnoreKillTimes
@@ -23,7 +26,8 @@ namespace GGD_Hack.Features
                 try
                 {
                     MelonLogger.Msg("正在屏蔽正义使者刀人限制次数...");
-                    //__instance.INBJCHPPLJF.onReady.Invoke();
+
+                    //
                     __instance.ENBFPPHFCIN = false;
 
                     //恢复CD
@@ -31,6 +35,8 @@ namespace GGD_Hack.Features
                     ObscuredFloat cooldown = gameSettings.killCooldown;
 
                     UICooldownButton iNBJCHPPLJF = __instance.INBJCHPPLJF;
+                    //调用invokes
+                    //iNBJCHPPLJF.onReady.Invoke();
                     iNBJCHPPLJF.PNOFONFGGCO(cooldown);//set_cooldown
 
                     __instance.INBJCHPPLJF.Paused = false;
@@ -42,4 +48,6 @@ namespace GGD_Hack.Features
             }
         }        
     }
+
+    */
 }

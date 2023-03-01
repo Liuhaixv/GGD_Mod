@@ -26,7 +26,7 @@ namespace GGD_Hack.Hook
             {
                 foreach (var action in executionQueue)
                 {
-                    MelonLogger.Msg("正在执行action");
+                    MelonLogger.Msg("正在执行放屁绑定的所有action");
                     action.Invoke();
                 }
             }                    

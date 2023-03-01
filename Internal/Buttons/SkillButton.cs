@@ -45,7 +45,7 @@ namespace GGD_Hack.Internal.Buttons
 
                 if (playerController.timeOfDeath == 0) continue;
 
-                float distance = Vector3.Distance(localPlayerPosition, playerController.PMPPIFBLAPL);
+                float distance = Vector3.Distance(localPlayerPosition, playerController.DDKEEHDDBDF);
                 if (distance > farestDistance)
                 {
                     target = playerController;
@@ -85,10 +85,12 @@ namespace GGD_Hack.Internal.Buttons
         //普通刀人
         private static void Click(UICooldownButton cooldownButton)
         {
+            /*TODO: 2.18.00
             KLNOEKIODEE killCooldownButton = new KLNOEKIODEE();
             killCooldownButton.INBJCHPPLJF = cooldownButton;
 
             killCooldownButton.GKFGGONFDFJ();
+            */
         }
     } 
     
@@ -164,7 +166,7 @@ namespace GGD_Hack.Internal.Buttons
     [HarmonyPatch(typeof(PlayerButtonController), nameof(PlayerButtonController.RegisterCooldownButton))]
     class RegisterCooldownButton_
     {
-        static void Postfix(PlayerButtonController __instance, UICooldownButton __result, string __0, JGEEBFIBHGD __1, UnityEngine.Transform __2, float __3, bool __4)
+        static void Postfix(PlayerButtonController __instance, UICooldownButton __result, string __0, MLMBAOFNNBL __1, UnityEngine.Transform __2, float __3, bool __4)
         {
             /*
              --------------------

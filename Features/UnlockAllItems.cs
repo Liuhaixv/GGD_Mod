@@ -173,7 +173,7 @@ namespace GGD_Hack.Features
 
     /*
     //BestHttp 2.5.4
-    //[HarmonyPatch(typeof(HTTPManager), nameof(HTTPManager.SendRequest), typeof(string), typeof(HTTPMethods), typeof(bool), typeof(bool), typeof(OnRequestFinishedDelegate))]
+    [HarmonyPatch(typeof(HTTPManager), nameof(HTTPManager.SendRequest), typeof(string), typeof(HTTPMethods), typeof(bool), typeof(bool), typeof(OnRequestFinishedDelegate))]
     [HarmonyPatch(typeof(HTTPResponse), nameof(HTTPResponse.))]
     class HTTPManager_SendRequest_Patch
     {
@@ -219,5 +219,6 @@ namespace GGD_Hack.Features
         {
             return "";
         }
-    }*/
+    }
+    */
 }

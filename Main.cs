@@ -8,15 +8,15 @@ namespace GGD_Hack
     public static class BuildInfo
     {
 #if Developer
-        public const string Name = "[开发者专用版]Liuhaixv's GGD_Hack mod"; // Name of the Mod.  (MUST BE SET)
+        public const string Name = "[开发者专用版] Liuhaixv's GGD_Hack mod"; // Name of the Mod.  (MUST BE SET)
 #else
         public const string Name = "Liuhaixv's GGD_Hack mod"; // Name of the Mod.  (MUST BE SET)
 #endif
-        public const string Description = "Mod for cheating"; // Description for the Mod.  (Set as null if none)
+        public const string Description = "免费mod辅助 Free Mod for cheating"; // Description for the Mod.  (Set as null if none)
         public const string Author = "Liuhaixv"; // Author of the Mod.  (MUST BE SET)
-        public const string Company = null; // Company that made the Mod.  (Set as null if none)
-        public const string Version = "1.3.0"; // Version of the Mod.  (MUST BE SET)
-        public const string DownloadLink = null; // Download Link for the Mod.  (Set as null if none)
+        public const string Company = "Liuhaixv"; // Company that made the Mod.  (Set as null if none)
+        public const string Version = "1.3.0.8"; // Version of the Mod.  (MUST BE SET)
+        public const string DownloadLink = "https://github.com/Liuhaixv/GGDH_ML"; // Download Link for the Mod.  (Set as null if none)
     }
 
     public class GGDHack_Mod : MelonMod

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
+﻿using UnityEngine;
 
 //将所有尸体扔出地图外
 namespace GGD_Hack.Features
@@ -13,7 +8,7 @@ namespace GGD_Hack.Features
         //将所有尸体扔到地图外
         public static void ThrowAllBodiesAwayFromMap()
         {
-            DragAllBodies.MoveAllBodiesTo(new Vector3(666.0f, 777.0f, 888.0f), true);
+            DragAllBodies.MoveAllBodiesTo(new Vector3(0.0f, 0.0f, 0.0f));
         }
     }
 }

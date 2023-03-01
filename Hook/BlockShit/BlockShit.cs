@@ -12,22 +12,26 @@ using UnityEngine.Events;
 namespace GGD_Hack.Hook
 {
     class BlockShit
-    {
+    {   
+        /*
         /// <summary>
         /// 附加公开游戏警告
         /// </summary>
-        //[HarmonyPatch(typeof(MenuSceneHandler), nameof(MenuSceneHandler.AttachPublicGameWarning))]
+        [HarmonyPatch(typeof(MenuSceneHandler), nameof(MenuSceneHandler.AttachPublicGameWarning))]
         class AttachPublicGameWarningHook
         {
         }
+        */
 
+        /*
         /// <summary>
         ///  附加教程警告
         /// </summary>
-        //[HarmonyPatch(typeof(MenuSceneHandler), nameof(MenuSceneHandler.AttachTutorialUnfinishedWarning))]
+        [HarmonyPatch(typeof(MenuSceneHandler), nameof(MenuSceneHandler.AttachTutorialUnfinishedWarning))]
         class AttachTutorialUnfinishedWarningHook
         {
         }
+        */
 
         class GlobalPanelsHandler_
         {
@@ -65,14 +69,20 @@ namespace GGD_Hack.Hook
                     UnityAction confirm = __5;
 
                     if (__5.Method.Name.Contains("AttachPublicGameWarning") ||
-                       __5.Method.Name.Contains("AttachHangingOutMatureWarning") ||
-                       __5.Method.Name.Contains("AttachTutorialUnfinishedWarning")
+                       __5.Method.Name.Contains("AttachHangingOutMatureWarning")
                            )
                     {
-                        MelonLogger.Msg("已屏蔽游戏弹窗");
+                        MelonLogger.Msg("已屏蔽游戏警告弹窗");
                         confirm.Invoke();
                         return false;
                     }
+
+                    if (__5.Method.Name.Contains("AttachTutorialUnfinishedWarning") ){
+                        MelonLogger.Msg("已屏蔽教程游戏弹窗");
+                        reject.Invoke();
+                        return false;
+                    }
+
                     else
                     {
                         return true;

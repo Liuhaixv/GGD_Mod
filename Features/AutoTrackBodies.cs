@@ -1,8 +1,5 @@
 ﻿extern alias System_;
 
-using BestHTTP;
-using ExitGames.Client.Photon;
-using HarmonyLib;
 using MelonLoader;
 
 

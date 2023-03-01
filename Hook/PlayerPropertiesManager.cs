@@ -11,6 +11,7 @@ namespace GGD_Hack.Hook
     public class PlayerPropertiesManager_
     {
 
+        /*
         /// <summary>
         /// 回滚玩家的装扮
         /// </summary>
@@ -19,6 +20,7 @@ namespace GGD_Hack.Hook
         {                     
 
         }
+        */
 
         /// <summary>
         /// 清除玩家的装扮缓存

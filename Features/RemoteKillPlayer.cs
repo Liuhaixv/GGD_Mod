@@ -124,7 +124,7 @@ namespace GGD_Hack.Features
                     {
                         if(killTarget.timeOfDeath == 0 && !killTarget.isInPelican)
                         {
-                            if(LocalPlayer.Instance.Player.playerRole.NFLEPDLAINI == KGMFMNBCLEA.Pelican)
+                            if(LocalPlayer.Instance.Player.playerRole.HJPHLDMNBOP == FJCKNAJLDIG.Pelican)
                             {
                                 PluginEventsManager.PelicanEat(killTarget.userId);
                             } else

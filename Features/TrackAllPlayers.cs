@@ -32,9 +32,9 @@ namespace GGD_Hack.Features
 
                 //不指示幽灵
                 if (playerController.isGhost) continue;
-
+                
                 //添加箭头追踪
-                TaskTargetingHandler.Instance.EBDNBLGNMPI(playerController, TargetHandler.OPHJIHLGMNA.Stalk);
+                TaskTargetingHandler.Instance.TargetPlayer(playerController, TargetHandler.MACBFFFFHOA.Stalk);
             }
         }
     }
