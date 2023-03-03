@@ -123,6 +123,7 @@
     <Compile Include="Features\AutoTrackBodies.cs" />
     <Compile Include="Features\ClearAllBodies.cs" />
     <Compile Include="Features\DragAllBodies.cs" />
+    <Compile Include="Features\Invisible.cs" />
     <Compile Include="Features\MinimapESP.cs" />
     <Compile Include="Features\MinimapRecorder.cs" />
     <Compile Include="Features\MinimapTeleport.cs" />
@@ -134,8 +135,10 @@
     <Compile Include="Features\TrackAllPlayers.cs" />
     <Compile Include="Features\UnlockAllItems.cs" />
     <Compile Include="Features\VigilanteInfiniteKill.cs" />
+    <Compile Include="GameData\EventDataCode.cs" />
     <Compile Include="GameData\RoleId.cs" />
     <Compile Include="Hook\BodyHandler.cs" />
+    <Compile Include="Hook\CheatingManager.cs" />
     <Compile Include="Hook\Debug.cs" />
     <Compile Include="Hook\IncreaseSkillRange.cs" />
     <Compile Include="Hook\InvokableCall.cs" />

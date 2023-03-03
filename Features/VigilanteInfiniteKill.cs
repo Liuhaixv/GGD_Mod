@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CodeStage.AntiCheat.ObscuredTypes;
+﻿using CodeStage.AntiCheat.ObscuredTypes;
 using Handlers.SettingsHandler;
 using HarmonyLib;
 using MelonLoader;
@@ -12,42 +7,42 @@ using MelonLoader;
 
 namespace GGD_Hack.Features
 {
-    /*TODO
-         
+
     public class VigilanteInfiniteKill
     {
-        
+
+        //void UnityEngine.Events.InvokableCall::Invoke()
+        //- 方法名: ELCAEGJNILK
+        //- 完整方法名: .IBGBHJCDMIP.ELCAEGJNILK
         //屏蔽次数限制
-        [HarmonyPatch(typeof(GINKHAEBFAF), nameof(GINKHAEBFAF.GKFGGONFDFJ))]
+        [HarmonyPatch(typeof(LGJGPPKKBPD), nameof(LGJGPPKKBPD.KIMGDDNPHOH))]
         class IgnoreKillTimes
         {
-            static void Postfix(ref GINKHAEBFAF __instance)
+            static void Postfix(ref LGJGPPKKBPD __instance)
             {
                 try
                 {
                     MelonLogger.Msg("正在屏蔽正义使者刀人限制次数...");
 
                     //
-                    __instance.ENBFPPHFCIN = false;
+                    __instance.NFICBOMPFIH = false;
 
                     //恢复CD
                     Objects.GameSettings gameSettings = NewSettingsPanelHandler.Instance.gameSettings;
                     ObscuredFloat cooldown = gameSettings.killCooldown;
 
-                    UICooldownButton iNBJCHPPLJF = __instance.INBJCHPPLJF;
+                    UICooldownButton iNBJCHPPLJF = __instance.ANEHHKMJNCO;
                     //调用invokes
                     //iNBJCHPPLJF.onReady.Invoke();
-                    iNBJCHPPLJF.PNOFONFGGCO(cooldown);//set_cooldown
+                    iNBJCHPPLJF.OFFHJJNJKBE(cooldown);//UICooldownButton$$set_cooldown
 
-                    __instance.INBJCHPPLJF.Paused = false;
+                    __instance.ANEHHKMJNCO.Paused = false;
                 }
                 catch (System.Exception ex)
                 {
                     MelonLogger.Msg(ex.Message);
                 }
             }
-        }        
+        }
     }
-
-    */
 }

@@ -11,7 +11,10 @@ using UnityEngine.UI;
 namespace GGD_Hack.Features
 {
     //刺客开始射击 TODO: 
-    //[HarmonyPatch(typeof(AssassinPanelHandler), nameof(AssassinPanelHandler.BCFLIFKEILI))]
+    [HarmonyPatch(typeof(AssassinPanelHandler),
+        nameof(AssassinPanelHandler.EFFKBFILFCG),
+        new System.Type[] {typeof(FJCKNAJLDIG)
+        })]
     public class AssasinInfiniteBullets
     {
         //射击后将按钮改为可交互
@@ -19,9 +22,8 @@ namespace GGD_Hack.Features
         {
             try
             {
-
                 VotingPanelHandler instance = VotingPanelHandler.Instance;
-                if(instance == null)
+                if (instance == null)
                 {
                     MelonLogger.Warning("[刺客无限子弹] 未找到VotingPanelHandler!");
                     return;
@@ -47,7 +49,7 @@ namespace GGD_Hack.Features
             {
                 UnhollowerBaseLib.Il2CppStructArray<FJCKNAJLDIG> temp = new UnhollowerBaseLib.Il2CppStructArray<FJCKNAJLDIG>(__result.Count + 2);
 
-                for(int i = 0; i < __result.Count; i++)
+                for (int i = 0; i < __result.Count; i++)
                 {
                     temp[i] = __result[i];
                 }
@@ -56,18 +58,6 @@ namespace GGD_Hack.Features
                 temp[__result.Count + 1] = FJCKNAJLDIG.Goose;
 
                 __result = temp;
-
-                /*
-                List<FJCKNAJLDIG> roleIds = new List<FJCKNAJLDIG>();
-
-                 foreach(var role in __result)
-                {
-                    roleIds.Add(role);
-                }
-
-                roleIds.Add(FJCKNAJLDIG.Bounty);
-                roleIds.Add(FJCKNAJLDIG.Goose);
-                */
             }
             catch (System.Exception ex)
             {

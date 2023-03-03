@@ -26,7 +26,7 @@ namespace GGD_Hack.Hook
                 try
                 {
                     MelonLogger.Msg("============================");
-                    MelonLogger.Msg("[RaiseEvent-eventCode] " + Convert.ToChar(eventCode).ToString());
+                    MelonLogger.Msg("[RaiseEvent-eventCode] " + eventCode);
 
                     string eventContentString = eventContent.ToString();
 
