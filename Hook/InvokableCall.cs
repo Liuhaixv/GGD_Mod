@@ -15,6 +15,7 @@ namespace GGD_Hack.Hook
         [HarmonyPatch(typeof(InvokableCall), nameof(InvokableCall.Invoke), new System.Type[] { })]
         public class Invoke_
         {
+
             static void Prefix(UnityEngine.Events.InvokableCall __instance)
             {
 

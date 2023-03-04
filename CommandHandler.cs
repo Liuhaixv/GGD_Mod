@@ -6,6 +6,7 @@ using System.Linq;
 using IntPtr = System.IntPtr;
 using GGD_Hack.Features;
 using GGD_Hack.Hook;
+using BestHTTP.SecureProtocol.Org.BouncyCastle.Utilities;
 
 namespace GGD_Hack
 {
@@ -103,15 +104,19 @@ namespace GGD_Hack
                     MelonLogger.Msg("command命中: RingBell()");
                     RingBell();
                     break;
-                case "ThrowAllBodiesAwayFromMap":
-                    MelonLogger.Msg("command命中: ThrowAllBodiesAwayFromMap()");
-                    ThrowAllBodiesAwayFromMap();
+                case "PickUpAllBodies":
+                    MelonLogger.Msg("command命中: PickUpAllBodies()");
+                    PickUpAllBodies();
+                    break;
+                case "RemoteEat":
+                    MelonLogger.Msg("command命中: RemoteEat()");
+                    RemoteEat();
                     break;
 
-                //静音所有其他玩家
-                case "SilenceAllOtherPlayers":
-                    MelonLogger.Msg("command命中: SilenceAllOtherPlayers()");
-                    SilenceAllOtherPlayers();
+                //静音其他玩家
+                case "SilencePlayer":
+                    MelonLogger.Msg("command命中: SilencePlayer(string userId)");
+                    SilencePlayer(lines);
                     break;
                 //测试连接
                 case "TestConnection":
@@ -124,11 +129,22 @@ namespace GGD_Hack
             return true;
         }
 
-        private static void ThrowAllBodiesAwayFromMap()
+        private static void RemoteEat()
         {
             UnityMainThreadDispatcher.Instance().Enqueue(new System.Action(() =>
             {
-                GGD_Hack.Features.ClearAllBodies.ThrowAllBodiesAwayFromMap();
+                GGD_Hack.Features.RemoteEat.EatRandomBody();
+            }));
+        }
+
+        /// <summary>
+        /// 捡起所有尸体
+        /// </summary>
+        private static void PickUpAllBodies()
+        {
+            UnityMainThreadDispatcher.Instance().Enqueue(new System.Action(() =>
+            {
+                GGD_Hack.Features.ClearAllBodies.PickUpAllBodies();
             }));
         }
 
@@ -143,11 +159,32 @@ namespace GGD_Hack
         /// <summary>
         /// 静音所有其他玩家
         /// </summary>
-        private static void SilenceAllOtherPlayers()
+        private static void SilencePlayer(string[] lines)
         {
+            if (lines.Length < 2)
+            {
+                MelonLogger.Warning("SilencePlayer参数过少！");
+                return;
+            }
+
+            string targetUserId = null;
+
+            switch (lines.Length)
+            {
+                case 2:
+                    targetUserId = lines[1];
+                    break;
+                default:
+                    MelonLogger.Warning("SilencePlayer参数过多！");
+                    return;
+            }
+
             UnityMainThreadDispatcher.Instance().Enqueue(new System.Action(() =>
             {
-                GGD_Hack.Features.SilenceAllPlayers.SilenceAllOtherPlayers();
+                //远程杀人
+                PluginEventsManager.Silence(targetUserId);
+
+                MelonLogger.Msg("正在执行静音玩家任务: " + targetUserId);
             }));
         }
 
@@ -161,8 +198,8 @@ namespace GGD_Hack
 
         private static void UnlockAllItems_()
         {
-            UnlockAllItems.Enabled.Value = true;
             //TODO: 目前默认启用解锁所有物品功能
+            UnlockAllItems.Enabled.Value = true;
         }
 
         private static void RemoteKill(string[] strings)
@@ -176,7 +213,7 @@ namespace GGD_Hack
             string targetUserId = null;
             string killDelay = null;
 
-            switch(strings.Length)
+            switch (strings.Length)
             {
                 case 2:
                     targetUserId = strings[1];
@@ -234,7 +271,7 @@ namespace GGD_Hack
 
             System.Action action = null;
 
-            switch(actionName)
+            switch (actionName)
             {
                 case "MoveShuttle":
                     action = new System.Action(() =>
@@ -244,7 +281,7 @@ namespace GGD_Hack
                             MiscFunctions.MoveShuttle();
                         }));
                     });
-                        
+
                     break;
                 default:
                     MelonLogger.Warning("未知Action name!");

@@ -45,7 +45,7 @@ namespace GGD_Hack.Hook
             }
         }
 
-        [HarmonyPatch(typeof(BodyHandler), nameof(BodyHandler.PKHODMNCLNG))]
+        //TODO:2.18.00更新 [HarmonyPatch(typeof(BodyHandler), nameof(BodyHandler.PKHODMNCLNG))]
         public class AMFDOIDPDKK_
         {
             [HarmonyPrefix]
@@ -59,7 +59,7 @@ namespace GGD_Hack.Hook
             }
         }
 
-        [HarmonyPatch(typeof(BodyHandler), nameof(BodyHandler.BIEHLHPJFFB))]
+        //TODO:2.18.00更新 [HarmonyPatch(typeof(BodyHandler), nameof(BodyHandler.BIEHLHPJFFB))]
         public class HFHGEKGODNG_
         {
             [HarmonyPrefix]
@@ -73,7 +73,7 @@ namespace GGD_Hack.Hook
             }
         }
 
-        [HarmonyPatch(typeof(BodyHandler), nameof(BodyHandler.EMGBALAKMOM))]
+        //TODO:2.18.00更新 [HarmonyPatch(typeof(BodyHandler), nameof(BodyHandler.EMGBALAKMOM))]
         public class IJECFDHCFIN_
         {
             [HarmonyPrefix]

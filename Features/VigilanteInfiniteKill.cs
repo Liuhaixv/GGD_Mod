@@ -15,7 +15,8 @@ namespace GGD_Hack.Features
         //- 方法名: ELCAEGJNILK
         //- 完整方法名: .IBGBHJCDMIP.ELCAEGJNILK
         //屏蔽次数限制
-        [HarmonyPatch(typeof(LGJGPPKKBPD), nameof(LGJGPPKKBPD.KIMGDDNPHOH))]
+        //TODO:2.18.01[HarmonyPatch(typeof(LGJGPPKKBPD), nameof(LGJGPPKKBPD.KIMGDDNPHOH))]
+        /*
         class IgnoreKillTimes
         {
             static void Postfix(ref LGJGPPKKBPD __instance)
@@ -43,6 +44,6 @@ namespace GGD_Hack.Features
                     MelonLogger.Msg(ex.Message);
                 }
             }
-        }
+        }*/
     }
 }

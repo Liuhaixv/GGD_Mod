@@ -80,6 +80,7 @@
       <HintPath>..\CPP2IL\cpp2il_out\PhotonUnityNetworking.Demos.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System_">
       <HintPath>..\CPP2IL\cpp2il_out\System_.dll</HintPath>
       <Aliases>System_</Aliases>
@@ -130,6 +131,7 @@
     <Compile Include="Features\MiscFunctions.cs" />
     <Compile Include="Features\PartyAllPlayers.cs" />
     <Compile Include="Features\RandomJoinRoom.cs" />
+    <Compile Include="Features\RemoteEat.cs" />
     <Compile Include="Features\RemoteKillPlayer.cs" />
     <Compile Include="Features\SilenceAllPlayers.cs" />
     <Compile Include="Features\TrackAllPlayers.cs" />

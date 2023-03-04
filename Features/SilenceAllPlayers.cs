@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if false
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,6 +10,11 @@ namespace GGD_Hack.Features
 {
     public class SilenceAllPlayers
     {
+        /*
+        /// <summary>
+        /// 2.18.00已修复
+        /// </summary>
+        /// <returns></returns>
         public static bool SilenceAllOtherPlayers()
         {
             foreach (var entry in Handlers.GameHandlers.PlayerHandlers.PlayerController.playersList)
@@ -29,6 +35,7 @@ namespace GGD_Hack.Features
             }
 
             return true;
-        }
+        }*/
     }
 }
+#endif

@@ -13,13 +13,15 @@ namespace GGD_Hack.Features
             //调用本地取消隐身函数
         }
 
+
         /// <summary>
         /// 获取当前场景中的随机管道id
         /// </summary>
         /// <returns></returns>
         private string RandomVentId()
         {
-
+            //TODO:
+            return "";
         }
     }
 }

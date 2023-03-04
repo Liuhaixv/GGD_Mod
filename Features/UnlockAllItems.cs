@@ -31,13 +31,13 @@ namespace GGD_Hack.Features
 
         private float lastUpdateTime = 0;
         //更新皮肤的时间间隔
-        private float updateInterval = 10.0f;
+        private MelonPreferences_Entry<float> updateInterval = MelonPreferences.CreateEntry("GGDH", nameof(UnlockAllItems.updateInterval), 10.0f);
 
         public UnlockAllItems(IntPtr ptr) : base(ptr)
         {
             if (!MelonPreferences.HasEntry("GGDH", nameof(UnlockAllItems)))
             {
-                Enabled = MelonPreferences.CreateEntry<bool>("GGDH", nameof(UnlockAllItems), true);
+                Enabled = MelonPreferences.CreateEntry<bool>("GGDH", nameof(UnlockAllItems), false);
             }
             else
                 Enabled = MelonPreferences.GetEntry<bool>("GGDH", nameof(UnlockAllItems));
@@ -89,7 +89,7 @@ namespace GGD_Hack.Features
             //游戏已经开始
             if(LobbySceneHandler.Instance.gameStarted) return;
 
-            if(Time.time - lastUpdateTime < updateInterval)
+            if(Time.time - lastUpdateTime < updateInterval.Value)
             {
                 return;
             }

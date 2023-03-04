@@ -45,7 +45,7 @@ namespace GGD_Hack.Internal.Buttons
 
                 if (playerController.timeOfDeath == 0) continue;
 
-                float distance = Vector3.Distance(localPlayerPosition, playerController.DDKEEHDDBDF);
+                float distance = Vector3.Distance(localPlayerPosition, playerController.FDOPPIPKKPI);
                 if (distance > farestDistance)
                 {
                     target = playerController;
@@ -161,33 +161,33 @@ namespace GGD_Hack.Internal.Buttons
     {
 
     }
-
+    /*
     //通过hook注册按钮的函数来动态更新
-    [HarmonyPatch(typeof(PlayerButtonController), nameof(PlayerButtonController.RegisterCooldownButton))]
+    //TODO:2.18.00更新  [HarmonyPatch(typeof(PlayerButtonController), nameof(PlayerButtonController.RegisterCooldownButton))]
     class RegisterCooldownButton_
     {
         static void Postfix(PlayerButtonController __instance, UICooldownButton __result, string __0, MLMBAOFNNBL __1, UnityEngine.Transform __2, float __3, bool __4)
         {
-            /*
-             --------------------
-                UICooldownButton PlayerButtonController::RegisterCooldownButton(string AKMFDDABJMI, JGEEBFIBHGD KIDEMMMFKPP, UnityEngine.Transform AJHOFGOFCKM, float PMPIAPCEKCO, bool LPAEPADMEFM)
-                - __instance: UIButtons (PlayerButtonController)
-                - Parameter 0 'AKMFDDABJMI': bomb
-                - Parameter 1 'KIDEMMMFKPP': Use
-                - Parameter 2 'AJHOFGOFCKM': UseAnchor (UnityEngine.RectTransform)
-                - Parameter 3 'PMPIAPCEKCO': 3
-                - Parameter 4 'LPAEPADMEFM': True
-                - Return value: bomb (UICooldownButton)
-            --------------------
-                UICooldownButton PlayerButtonController::RegisterCooldownButton(string AKMFDDABJMI, JGEEBFIBHGD KIDEMMMFKPP, UnityEngine.Transform AJHOFGOFCKM, float PMPIAPCEKCO, bool LPAEPADMEFM)
-                - __instance: UIButtons (PlayerButtonController)
-                - Parameter 0 'AKMFDDABJMI': kill
-                - Parameter 1 'KIDEMMMFKPP': Primary
-                - Parameter 2 'AJHOFGOFCKM': PrimaryRoleActionAnchor (UnityEngine.RectTransform)
-                - Parameter 3 'PMPIAPCEKCO': 10
-                - Parameter 4 'LPAEPADMEFM': True
-                - Return value: kill (UICooldownButton)
-             */
+           //
+           //  --------------------
+            //    UICooldownButton PlayerButtonController::RegisterCooldownButton(string AKMFDDABJMI, JGEEBFIBHGD KIDEMMMFKPP, UnityEngine.Transform AJHOFGOFCKM, float PMPIAPCEKCO, bool LPAEPADMEFM)
+            //    - __instance: UIButtons (PlayerButtonController)
+           //     - Parameter 0 'AKMFDDABJMI': bomb
+           //     - Parameter 1 'KIDEMMMFKPP': Use
+           //     - Parameter 2 'AJHOFGOFCKM': UseAnchor (UnityEngine.RectTransform)
+           //     - Parameter 3 'PMPIAPCEKCO': 3
+           //     - Parameter 4 'LPAEPADMEFM': True
+          //      - Return value: bomb (UICooldownButton)
+          //  --------------------
+          //      UICooldownButton PlayerButtonController::RegisterCooldownButton(string AKMFDDABJMI, JGEEBFIBHGD KIDEMMMFKPP, UnityEngine.Transform AJHOFGOFCKM, float PMPIAPCEKCO, bool LPAEPADMEFM)
+          //      - __instance: UIButtons (PlayerButtonController)
+         //       - Parameter 0 'AKMFDDABJMI': kill
+         //       - Parameter 1 'KIDEMMMFKPP': Primary
+         //       - Parameter 2 'AJHOFGOFCKM': PrimaryRoleActionAnchor (UnityEngine.RectTransform)
+         //       - Parameter 3 'PMPIAPCEKCO': 10
+         //       - Parameter 4 'LPAEPADMEFM': True
+        //        - Return value: kill (UICooldownButton)
+             
             try
             {
                 string gameObjectName = __0;
@@ -231,7 +231,7 @@ namespace GGD_Hack.Internal.Buttons
                 MelonLogger.Warning(ex.Message);
             }
         }
-    }
+    }*/
 
     public enum ButtonType
     {

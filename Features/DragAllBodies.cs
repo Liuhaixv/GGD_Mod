@@ -1,4 +1,5 @@
 ﻿
+using MelonLoader;
 using UnityEngine;
 
 namespace GGD_Hack.Features
@@ -6,13 +7,15 @@ namespace GGD_Hack.Features
     //拖拽所有尸体
     public class DragAllBodies
     {
+
+        /*
         //1.获取一具尸体的BodyHandler
         //2.获取LocalPlayer的PlayerController
         //3.调用函数：bodyHandler.StartDragginBody(playerController);
 
         public static void MoveBodyTo(Handlers.GameHandlers.BodyHandler bodyHandler, Vector3 targetPosition)
         {
-
+            
             //开始拖拽尸体
             //本地
             //bodyHandler.StartDraggingBody(LocalPlayer.Instance.Player);
@@ -20,7 +23,7 @@ namespace GGD_Hack.Features
 
             //发送网络事件
             //开始拖拽尸体
-            //TODO:2.18.00更新 Managers.MainManager.Instance.pluginEventsManager.FCDELIMBDAE(bodyHandler);
+            Managers.MainManager.Instance.pluginEventsManager.FCDELIMBDAE(bodyHandler);
 
             //放下尸体
 
@@ -31,11 +34,12 @@ namespace GGD_Hack.Features
             bodyHandler.gameObject.transform.position = targetPosition;
 
             //放下尸体的事件
-            //TODO:2.18.00更新  Managers.MainManager.Instance.pluginEventsManager.ACNEFCPPDLP(bodyHandler);
+            Managers.MainManager.Instance.pluginEventsManager.ACNEFCPPDLP(bodyHandler);
 
             bodyHandler.gameObject.active = true;
         }
 
+        //2.18.00更新已失效
         //将所有尸体移动到某处
         public static void MoveAllBodiesTo(Vector3 targetPosition)
         {
@@ -61,6 +65,32 @@ namespace GGD_Hack.Features
                 Handlers.GameHandlers.BodyHandler bodyHandler = Managers.MainManager.Instance.gameManager.BodyFromUserId(playerController.userId);
 
                 MoveBodyTo(bodyHandler, targetPosition);
+            }
+        }*/
+
+        public static void PickupAllBodies()
+        {
+            //遍历所有玩家
+            foreach (var entry in Handlers.GameHandlers.PlayerHandlers.PlayerController.playersList)
+            {
+                string userId = entry.Key;
+                Handlers.GameHandlers.PlayerHandlers.PlayerController playerController = entry.Value;
+
+                //跳过无效玩家
+                if (userId == null || userId == "" || playerController == null || playerController.isLocal)
+                {
+                    continue;
+                }
+
+                //玩家未死亡
+                if (playerController.timeOfDeath == 0)
+                {
+                    continue;
+                }
+
+                Handlers.GameHandlers.BodyHandler bodyHandler = Managers.MainManager.Instance.gameManager.BodyFromUserId(playerController.userId);
+                MelonLogger.Msg("已捡起尸体：" + bodyHandler.bodyUserId);
+                PluginEventsManager.Drag_Body(bodyHandler);
             }
         }
     }

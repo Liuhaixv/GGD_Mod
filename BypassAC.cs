@@ -9,6 +9,7 @@ namespace GGD_Hack
 {
     public static class BypassAC
     {
+        /*
         ///在MainManager的Awake方法末尾中
         /// <summary>
         /// 2.18.00
@@ -24,6 +25,7 @@ namespace GGD_Hack
             //MelonLogger.Msg("Start to patch assemblies' FailFast at: 0x" + intPtr.ToString("X"));
             //MemoryUtils.WriteBytes(intPtr, new byte[1] { 0xC3 });
         }
+        */
 
         /// <summary>
         /// 2.18.00
@@ -40,7 +42,7 @@ namespace GGD_Hack
             {
                 //System.Collections.Generic.List<string> list = AccessTools.GetMethodNames(typeof(AKCCGGKHPIA));
                 
-                return AccessTools.TypeByName("NLEGIDCIHIG").GetMethods()
+                return AccessTools.TypeByName("PJAKIMMOKMJ").GetMethods()
                     .Where(method => method.ReturnType == typeof(string))//返回值为string的方法
                     .Cast<MethodBase>();
             }
@@ -62,6 +64,16 @@ namespace GGD_Hack
         class FailFastPatch
         {
             static bool Prefix(string message, Exception exception)
+            {
+                return false;
+            }
+        }
+
+        ///在MainManager的Awake方法末尾中，调用了两次
+        [HarmonyPatch(typeof(GLCJNLDGABJ), nameof(GLCJNLDGABJ.CHAALDNEKKE))]
+        class PreloadCheckPatch
+        {
+            static bool Prefix()
             {
                 return false;
             }

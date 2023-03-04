@@ -1,6 +1,7 @@
 ﻿using GGD_Hack.Features;
 using GGD_Hack.Hook;
 using MelonLoader;
+using System.Windows.Forms;
 using UnityEngine;
 
 namespace GGD_Hack
@@ -15,7 +16,8 @@ namespace GGD_Hack
         public const string Description = "免费mod辅助 Free Mod for cheating"; // Description for the Mod.  (Set as null if none)
         public const string Author = "Liuhaixv"; // Author of the Mod.  (MUST BE SET)
         public const string Company = "Liuhaixv"; // Company that made the Mod.  (Set as null if none)
-        public const string Version = "1.3.0.8"; // Version of the Mod.  (MUST BE SET)
+        public const string Version = "1.4.0"; // Version of the Mod.  (MUST BE SET)
+        public const string gameVersion = "2.18.00.02";//version of the GGD
         public const string DownloadLink = "https://github.com/Liuhaixv/GGDH_ML"; // Download Link for the Mod.  (Set as null if none)
     }
 
@@ -24,7 +26,7 @@ namespace GGD_Hack
         public override void OnInitializeMelon()
         {
             MelonLogger.Msg("OnInitializeMelon");
-            BypassAC.PatchAssembliesLoadCheck();
+            //BypassAC.PatchAssembliesLoadCheck();
 
             //配置持久化
             MelonPreferences.CreateCategory("GGDH");
@@ -36,6 +38,14 @@ namespace GGD_Hack
             TCPTestServer testServer= new TCPTestServer(29241);  
             testServer.Start();
 
+            // Pause the game
+            Time.timeScale = 0;
+
+            // Show a message box
+            MessageBox.Show("This is a message box.");
+
+            // Resume the game
+            Time.timeScale = 1;
         }
 
         public override void OnSceneWasLoaded(int buildindex, string sceneName) // Runs when a Scene has Loaded and is passed the Scene's Build Index and Name.

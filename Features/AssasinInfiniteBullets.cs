@@ -6,19 +6,19 @@ using Managers;
 using Managers.PlayerManagers;
 using MelonLoader;
 using UnhollowerBaseLib;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace GGD_Hack.Features
 {
-    //刺客开始射击 TODO: 
-    [HarmonyPatch(typeof(AssassinPanelHandler),
-        nameof(AssassinPanelHandler.EFFKBFILFCG),
-        new System.Type[] {typeof(FJCKNAJLDIG)
-        })]
+#if Developer
+    //刺客开始射击 
+    //作用为在射击后重新激活点击射击的按钮
+    [HarmonyPatch(typeof(AssassinPanelHandler),        nameof(AssassinPanelHandler.FGOIENBGLJJ),        new System.Type[] {typeof(OBBMCDJMMOK)  })]
     public class AssasinInfiniteBullets
     {
         //射击后将按钮改为可交互
-        static void Postfix(AssassinPanelHandler __instance, FJCKNAJLDIG __0)
+        static void Postfix(AssassinPanelHandler __instance, OBBMCDJMMOK __0)
         {
             try
             {
@@ -39,23 +39,36 @@ namespace GGD_Hack.Features
             }
         }
     }
+#endif
 
+    /*
+    [HarmonyPatch(typeof(GameObject), nameof(GameObject.SetActive)]
+    public class InfiniteBulletsPatch_v2
+    {
+        static bool Prefix(GameObject __instance)
+        {
+            if(__instance.name)
+        }
+    }*/
+
+
+#if Developer
     [HarmonyPatch(typeof(PlayerRolesManager), nameof(PlayerRolesManager.GetPossibleAssassinTargets))]
     public class EnableToShootAllRoles
     {
-        static void Postfix(ref UnhollowerBaseLib.Il2CppStructArray<FJCKNAJLDIG> __result)
+        static void Postfix(ref UnhollowerBaseLib.Il2CppStructArray<OBBMCDJMMOK> __result)
         {
             try
             {
-                UnhollowerBaseLib.Il2CppStructArray<FJCKNAJLDIG> temp = new UnhollowerBaseLib.Il2CppStructArray<FJCKNAJLDIG>(__result.Count + 2);
+                UnhollowerBaseLib.Il2CppStructArray<OBBMCDJMMOK> temp = new UnhollowerBaseLib.Il2CppStructArray<OBBMCDJMMOK>(__result.Count + 2);
 
                 for (int i = 0; i < __result.Count; i++)
                 {
                     temp[i] = __result[i];
                 }
 
-                temp[__result.Count] = FJCKNAJLDIG.Bounty;
-                temp[__result.Count + 1] = FJCKNAJLDIG.Goose;
+                temp[__result.Count] = OBBMCDJMMOK.Bounty;
+                temp[__result.Count + 1] = OBBMCDJMMOK.Goose;
 
                 __result = temp;
             }
@@ -66,4 +79,5 @@ namespace GGD_Hack.Features
         }
 
     }
+#endif
 }
