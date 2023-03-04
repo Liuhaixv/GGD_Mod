@@ -1,6 +1,4 @@
-﻿extern alias System_;
-
-using MelonLoader;
+﻿using MelonLoader;
 
 
 namespace GGD_Hack.Features

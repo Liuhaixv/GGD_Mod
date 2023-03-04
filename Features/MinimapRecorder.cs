@@ -103,7 +103,7 @@ namespace GGD_Hack.Features
                     continue;
                 }
 
-                Vector3 position = playerController.FDOPPIPKKPI;
+                Vector3 position = playerController.KHBIIPKLJNF;
 
                 positions[userId] = (nickname, position);
             }

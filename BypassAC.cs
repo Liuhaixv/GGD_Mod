@@ -4,31 +4,16 @@ using HarmonyLib;
 using System.Linq;
 using System.Collections.Generic;
 using System.Reflection;
+using Managers;
 
 namespace GGD_Hack
 {
     public static class BypassAC
     {
-        /*
-        ///在MainManager的Awake方法末尾中
-        /// <summary>
-        /// 2.18.00
-        /// 禁止检查Assemblies是否被提前加载
-        /// </summary>
-        public static void PatchAssembliesLoadCheck()
-        {
-            IntPtr intPtr = PatternScanner.OffsetToModule("GameAssembly.dll", 0xA8E23E+2);
-            MelonLogger.Msg("Start to patch assemblies' loading check at: 0x" + intPtr.ToString("X"));
-            MemoryUtils.WriteBytes(intPtr, new byte[1] { 0x0 });
-            
-            //intPtr = PatternScanner.OffsetToModule("GameAssembly.dll", 0x7E6D70);
-            //MelonLogger.Msg("Start to patch assemblies' FailFast at: 0x" + intPtr.ToString("X"));
-            //MemoryUtils.WriteBytes(intPtr, new byte[1] { 0xC3 });
-        }
-        */
+       
 
         /// <summary>
-        /// 2.18.00
+        /// 2.18.00.02
         /// 禁止检测是否存在MelonLoader.dll
         /// 该类调用了Mono.Math.BigInteger$$GetBytes_6494408592
         /// </summary>
@@ -42,7 +27,7 @@ namespace GGD_Hack
             {
                 //System.Collections.Generic.List<string> list = AccessTools.GetMethodNames(typeof(AKCCGGKHPIA));
                 
-                return AccessTools.TypeByName("PJAKIMMOKMJ").GetMethods()
+                return AccessTools.TypeByName("AGDMJOPNPID").GetMethods()
                     .Where(method => method.ReturnType == typeof(string))//返回值为string的方法
                     .Cast<MethodBase>();
             }
@@ -69,8 +54,31 @@ namespace GGD_Hack
             }
         }
 
-        ///在MainManager的Awake方法末尾中，调用了两次
-        [HarmonyPatch(typeof(GLCJNLDGABJ), nameof(GLCJNLDGABJ.CHAALDNEKKE))]
+
+        /*
+       ///在MainManager的Awake方法末尾中
+       /// <summary>
+       /// 2.18.00
+       /// 禁止检查Assemblies是否被提前加载
+       /// </summary>
+       public static void PatchAssembliesLoadCheck()
+       {
+           IntPtr intPtr = PatternScanner.OffsetToModule("GameAssembly.dll", 0xA8E23E+2);
+           MelonLogger.Msg("Start to patch assemblies' loading check at: 0x" + intPtr.ToString("X"));
+           MemoryUtils.WriteBytes(intPtr, new byte[1] { 0x0 });
+
+           //intPtr = PatternScanner.OffsetToModule("GameAssembly.dll", 0x7E6D70);
+           //MelonLogger.Msg("Start to patch assemblies' FailFast at: 0x" + intPtr.ToString("X"));
+           //MemoryUtils.WriteBytes(intPtr, new byte[1] { 0xC3 });
+       }
+       */
+
+        //2.18.00.02
+        ///在MainManager的Awake方法末尾中，调用了两次 
+        ///<summary>
+        /// 在MainManager的Awake方法末尾中，调用了两次。检查dll是否提前加载等操作
+        /// </summary>
+        [HarmonyPatch(typeof(HDNHALFENFJ), nameof(HDNHALFENFJ.FAFIBNFFHLD))]
         class PreloadCheckPatch
         {
             static bool Prefix()

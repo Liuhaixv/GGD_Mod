@@ -186,7 +186,7 @@ namespace GGD_Hack.Features
 
                 //获取PlayerController对应的坐标
                 PlayerController playerController = PlayerController.playersList[userId];
-                Vector3 position = playerController.FDOPPIPKKPI;
+                Vector3 position = playerController.KHBIIPKLJNF;
 
                 //玩家死亡
                 if (playerController.timeOfDeath != 0)

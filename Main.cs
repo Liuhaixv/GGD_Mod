@@ -1,6 +1,11 @@
-﻿using GGD_Hack.Features;
+﻿using BestHTTP.SecureProtocol.Org.BouncyCastle.Asn1.Crmf;
+using GGD_Hack.Features;
 using GGD_Hack.Hook;
+using GGD_Hack.Utils;
+using Il2CppSystem.Security.Cryptography;
 using MelonLoader;
+using System.Diagnostics;
+using System.Security.Cryptography;
 using System.Windows.Forms;
 using UnityEngine;
 
@@ -33,19 +38,13 @@ namespace GGD_Hack
         }
         public override void OnLateInitializeMelon() // Runs after Game Initialization.
         {
-            MelonLogger.Msg("OnLateInitializeMelon");                        
+            MelonLogger.Msg("OnLateInitializeMelon");
 
-            TCPTestServer testServer= new TCPTestServer(29241);  
+            TCPTestServer testServer = new TCPTestServer(29241);
             testServer.Start();
 
-            // Pause the game
-            Time.timeScale = 0;
-
-            // Show a message box
-            MessageBox.Show("This is a message box.");
-
-            // Resume the game
-            Time.timeScale = 1;
+            CheckModVersion();
+            WarningFree();
         }
 
         public override void OnSceneWasLoaded(int buildindex, string sceneName) // Runs when a Scene has Loaded and is passed the Scene's Build Index and Name.
@@ -118,6 +117,124 @@ namespace GGD_Hack
             UnlockAllItems.Init();
 
             SendFartHook.bindAction(CommandHandler.MoveShuttle);
+        }
+
+        private void CheckModVersion()
+        {
+            //检查游戏版本
+            {
+                // Pause the game
+                Time.timeScale = 0;
+
+                if (BuildInfo.gameVersion != UnityEngine.Application.version)
+                {
+                    string eng = "Mod works only game version:" + BuildInfo.gameVersion +
+                        "\nCurrent game version:" + UnityEngine.Application.version +
+                        "\nMod out dated already!";
+                    string cn = "Mod对应游戏版本:" + BuildInfo.gameVersion +
+                        "\n当前游戏版本:" + UnityEngine.Application.version +
+                        "\nMod已过期!";
+
+                    string show = IsChineseSystem() ? cn : eng;
+
+                    MyForms.MyMessageBox.Show(show);
+                    UnityEngine.Application.Quit();
+                }
+
+                // Resume the game
+                Time.timeScale = 1;
+            }
+        }
+
+        /// <summary>
+        /// 弹出免费警告
+        /// </summary>
+        private void WarningFree()
+        {
+            // Pause the game
+            Time.timeScale = 0;
+
+            //检查是否警告过
+            //将游戏版本号和mod版本号相加后md5存储在Melon配置
+            if (!HasWarnedFree)
+            {
+                string eng = "This mod was developed by Liuhaixv@github.com\n" +
+                    "The mod is free, if you bought it somewhere, you are scammed";
+                string cn = "本mod由Liuhaixv@github.com开发\n" +
+                    "该mod完全免费，如果你从别处购买到，那你就是大冤种";
+                string show = IsChineseSystem() ? cn : eng;
+                MyForms.MyMessageBox.Show(show);
+                HasWarnedFree = true;
+            }
+
+            // Resume the game
+            Time.timeScale = 1;
+        }
+
+
+        /// <summary>
+        /// 是否已经警告过
+        /// </summary>
+        private bool HasWarnedFree
+        {
+        get
+            {
+                string key = nameof(HasWarnedFree);
+                string correctMd5 = MD5Util.GetMd5Hash(BuildInfo.Version + BuildInfo.gameVersion + UnityEngine.Application.version);
+                bool result = false;
+
+                MelonPreferences_Entry<string> value = MelonPreferences.GetEntry<string>("GGDH", key);
+                if (value == null)
+                {
+                    value = MelonPreferences.CreateEntry<string>("GGDH", key, "");
+                    result =  false;
+                }
+                result = correctMd5 == value.Value;
+#if Developer
+                MelonLogger.Msg("HasWarnedFree正确的版本MD5为:" + correctMd5);
+                MelonLogger.Msg("HasWarnedFree配置读取的MD5为:" + value.Value);
+                MelonLogger.Msg("验证结果:" + result);
+#endif
+                return result;
+            }
+            set
+            {
+                string key = nameof(HasWarnedFree);
+                MelonLogger.Msg("正在设置已提示过免费警告:" + key);
+                MelonPreferences_Entry<string> melonPreferences_Entry = MelonPreferences.GetEntry<string>("GGDH", key);
+                if (melonPreferences_Entry == null)
+                {
+                    melonPreferences_Entry = MelonPreferences.CreateEntry<string>("GGDH", key, "");
+                }
+
+                if (value == true)
+                {
+                    string md5 = MD5Util.GetMd5Hash(BuildInfo.Version + BuildInfo.gameVersion + UnityEngine.Application.version);
+                    melonPreferences_Entry.Value = md5;
+                }
+                else
+                {
+                    melonPreferences_Entry.Value = "";
+                }
+            }
+        }
+
+        private bool IsChineseSystem()
+        {
+            SystemLanguage systemLanguage = UnityEngine.Application.systemLanguage;
+#if Developer
+            MelonLogger.Msg("当前系统语言:" + systemLanguage);
+#endif
+            if (systemLanguage == SystemLanguage.Chinese ||
+                systemLanguage == SystemLanguage.ChineseSimplified ||
+                systemLanguage == SystemLanguage.ChineseTraditional)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

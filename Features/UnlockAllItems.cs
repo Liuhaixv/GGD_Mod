@@ -1,6 +1,4 @@
-﻿extern alias System_;
-
-using BestHTTP;
+﻿using BestHTTP;
 using ExitGames.Client.Photon;
 using HarmonyLib;
 using MelonLoader;
@@ -8,7 +6,6 @@ using Il2CppSystem;
 using System.Reflection;
 using UnhollowerBaseLib;
 
-using Uri = System_::System.Uri;
 using Managers.InfoManagers;
 using Objects;
 using Il2CppSystem.Collections.Generic;
