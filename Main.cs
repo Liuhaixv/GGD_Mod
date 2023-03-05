@@ -21,8 +21,8 @@ namespace GGD_Hack
         public const string Description = "免费mod辅助 Free Mod for cheating"; // Description for the Mod.  (Set as null if none)
         public const string Author = "Liuhaixv"; // Author of the Mod.  (MUST BE SET)
         public const string Company = "Liuhaixv"; // Company that made the Mod.  (Set as null if none)
-        public const string Version = "1.4.0"; // Version of the Mod.  (MUST BE SET)
-        public const string gameVersion = "2.18.00.02";//version of the GGD
+        public const string Version = "1.4.3.1"; // Version of the Mod.  (MUST BE SET)
+        public const string gameVersion = "2.18.02";//version of the GGD
         public const string DownloadLink = "https://github.com/Liuhaixv/GGDH_ML"; // Download Link for the Mod.  (Set as null if none)
     }
 
@@ -43,8 +43,13 @@ namespace GGD_Hack
             TCPTestServer testServer = new TCPTestServer(29241);
             testServer.Start();
 
-            CheckModVersion();
-            WarningFree();
+            //检查当前游戏版本是否匹配
+            bool correctGameVersion = CheckModVersion();
+            if (correctGameVersion)
+            {
+                //弹出免费警告弹窗
+                WarningFree();
+            }
         }
 
         public override void OnSceneWasLoaded(int buildindex, string sceneName) // Runs when a Scene has Loaded and is passed the Scene's Build Index and Name.
@@ -119,7 +124,11 @@ namespace GGD_Hack
             SendFartHook.bindAction(CommandHandler.MoveShuttle);
         }
 
-        private void CheckModVersion()
+        /// <summary>
+        /// 检查版本是否匹配
+        /// </summary>
+        /// <returns></returns>
+        private bool CheckModVersion()
         {
             //检查游戏版本
             {
@@ -139,10 +148,12 @@ namespace GGD_Hack
 
                     MyForms.MyMessageBox.Show(show);
                     UnityEngine.Application.Quit();
+                    return false;
                 }
 
                 // Resume the game
                 Time.timeScale = 1;
+                return true;
             }
         }
 
@@ -177,17 +188,17 @@ namespace GGD_Hack
         /// </summary>
         private bool HasWarnedFree
         {
-        get
+            get
             {
                 string key = nameof(HasWarnedFree);
-                string correctMd5 = MD5Util.GetMd5Hash(BuildInfo.Version + BuildInfo.gameVersion + UnityEngine.Application.version);
+                string correctMd5 = MD5Util.GetMd5Hash(BuildInfo.Version + BuildInfo.gameVersion + UnityEngine.Application.version + "");
                 bool result = false;
 
                 MelonPreferences_Entry<string> value = MelonPreferences.GetEntry<string>("GGDH", key);
                 if (value == null)
                 {
                     value = MelonPreferences.CreateEntry<string>("GGDH", key, "");
-                    result =  false;
+                    result = false;
                 }
                 result = correctMd5 == value.Value;
 #if Developer

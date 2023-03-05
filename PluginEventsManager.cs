@@ -12,7 +12,7 @@ namespace GGD_Hack
         //40 53 48 83 EC 20 80 3D ?? ?? ?? ?? ?? 48 8B DA 75 13 48 8D 0D ?? ?? ?? ?? E8 ?? ?? ?? ?? C6 05 ?? ?? ?? ?? ?? 48 8B 0D ?? ?? ?? ?? 83 B9 E0 00 00 00 00 75 05 E8 ?? ?? ?? ?? 45 33 C9 45 33 C0 48 8B D3 B1 30
         public static void Throw_Bomb(string userId)
         {
-            Managers.MainManager.Instance.pluginEventsManager.BOMMMIDHHDG(userId);
+            Managers.MainManager.Instance.pluginEventsManager.JLNNEDGBBMD(userId);
         }
 
         //静音鸭子技能
@@ -20,7 +20,7 @@ namespace GGD_Hack
         //40 53 48 83 EC 20 80 3D ?? ?? ?? ?? ?? 48 8B DA 75 13 48 8D 0D ?? ?? ?? ?? E8 ?? ?? ?? ?? C6 05 ?? ?? ?? ?? ?? 48 8B 0D ?? ?? ?? ?? 83 B9 E0 00 00 00 00 75 05 E8 ?? ?? ?? ?? 45 33 C9 45 33 C0 48 8B D3 B1 18
         public static void Silence(string userId)
         {
-            Managers.MainManager.Instance.pluginEventsManager.PAGGMABMEDC(userId);
+            Managers.MainManager.Instance.pluginEventsManager.OEAFMOLGPEN(userId);
         }
 
         //派对鸭技能
@@ -28,7 +28,7 @@ namespace GGD_Hack
         //40 53 48 83 EC 20 80 3D ?? ?? ?? ?? ?? 48 8B DA 75 13 48 8D 0D ?? ?? ?? ?? E8 ?? ?? ?? ?? C6 05 ?? ?? ?? ?? ?? 48 8B 0D ?? ?? ?? ?? 83 B9 E0 00 00 00 00 75 05 E8 ?? ?? ?? ?? 45 33 C9 45 33 C0 48 8B D3 B1 2E
         public static void Helium(string userId)
         {
-            Managers.MainManager.Instance.pluginEventsManager.GKNEHHPMCGF(userId);
+            Managers.MainManager.Instance.pluginEventsManager.JPFONGOBCHL(userId);
         }
 
         //Handlers_GameHandlers_PlayerHandlers_LocalPlayer__Kill
@@ -36,7 +36,7 @@ namespace GGD_Hack
         public static void Kill(string userId)
         {
             string[] strs = { userId };
-            Managers.MainManager.Instance.pluginEventsManager.DNEAADFIBOJ(strs, LocalPlayer.Instance.Player.stingerId);
+            Managers.MainManager.Instance.pluginEventsManager.NBKKKHJKFMC(strs, LocalPlayer.Instance.Player.stingerId);
             //播放杀人音效
 
             Handlers.CommonHandlers.SoundHandler.Instance.PlayKillTarget();
@@ -49,7 +49,7 @@ namespace GGD_Hack
         ///40 53 48 83 EC 20 80 3D ?? ?? ?? ?? ?? 48 8B DA 75 13 48 8D 0D ?? ?? ?? ?? E8 ?? ?? ?? ?? C6 05 ?? ?? ?? ?? ?? 48 8B 0D ?? ?? ?? ?? 83 B9 E0 00 00 00 00 75 05 E8 ?? ?? ?? ?? 45 33 C9 45 33 C0 48 8B D3 B1 13
         public static void Eat(string userId)
         {
-            Managers.MainManager.Instance.pluginEventsManager.GDHELPGCDPM(userId);
+            Managers.MainManager.Instance.pluginEventsManager.LGMLOFAOGBI(userId);
         }
 
         //鹈鹕吃人
@@ -58,7 +58,7 @@ namespace GGD_Hack
         {
             string[] strs = { userId };
 
-            Managers.MainManager.Instance.pluginEventsManager.CNKEFCCFGJF(strs);
+            Managers.MainManager.Instance.pluginEventsManager.AHNKHDMCGJC(strs);
 
             //播放吃人音效
             Handlers.CommonHandlers.SoundHandler.Instance.PlayChompEat();
@@ -68,7 +68,7 @@ namespace GGD_Hack
         //40 53 55 48 83 EC 28 80 3D ?? ?? ?? ?? ?? 48 8B EA 0F
         public static void Esper(string userId)
         {
-            Managers.MainManager.Instance.pluginEventsManager.MFDDKNBFEPH(userId);
+            Managers.MainManager.Instance.pluginEventsManager.CMMKBJOOONP(userId);
         }
 
         //40 53 48 83 EC 20 80 3D ?? ?? ?? ?? ?? 48 8B DA 75 13 48 8D 0D ?? ?? ?? ?? E8 ?? ?? ?? ?? C6 05 ?? ?? ?? ?? ?? 48 85 DB 74 2E 48 8B 0D ?? ?? ?? ?? 48 8B 5B 18 83 B9 E0 00 00 00 00 75 05 E8 ?? ?? ?? ?? 45 33 C9 45 33 C0 48 8B D3 B1 3B
@@ -76,23 +76,23 @@ namespace GGD_Hack
         {
             //PDAHABHMDFE.ALALGHGDAAN
 
-            Managers.MainManager.Instance.pluginEventsManager.GCLCEOLHNKB(body);
+            Managers.MainManager.Instance.pluginEventsManager.PMAKOBNMHBE(body);
         }
 
         //40 53 48 83 EC 20 80 3D ?? ?? ?? ?? ?? 48 8B DA 75 2B 48 8D 0D ?? ?? ?? ?? E8 ?? ?? ?? ?? 48 8D 0D ?? ?? ?? ?? E8 ?? ?? ?? ?? 48 8D 0D ?? ?? ?? ?? E8 ?? ?? ?? ?? C6 05 ?? ?? ?? ?? ?? 48 89 6C
         public static void Drop_Body(BodyHandler body)
         {
-            Managers.MainManager.Instance.pluginEventsManager.LDNHCGAPPOO(body);
+            Managers.MainManager.Instance.pluginEventsManager.MCEPEDADCNO(body);
         }
 
         /// <summary>
         /// 鸽子感染
         /// </summary>
         /// <param name="userId"></param>
-        /// 40 53 48 83 EC 20 80 3D ?? ?? ?? ?? ?? 48 8B DA 75 13 48 8D 0D ?? ?? ?? ?? E8 ?? ?? ?? ?? C6 05 ?? ?? ?? ?? ?? 48 8B 0D ?? ?? ?? ?? 83 B9 E0 00 00 00 00 75 05 E8 ?? ?? ?? ?? 45 33 C9 45 33 C0 48 8B D3 B1 20
+        ///40 53 48 83 EC 20 80 3D ?? ?? ?? ?? ?? 48 8B DA 75 13 48 8D 0D ?? ?? ?? ?? E8 ?? ?? ?? ?? C6 05 ?? ?? ?? ?? ?? 48 8B 0D ?? ?? ?? ?? 83 B9 E0 00 00 00 00 75 05 E8 ?? ?? ?? ?? 45 33 C9 45 33 C0 48 8B D3 B1 20
         public static void Infect(string userId)
         {
-            Managers.MainManager.Instance.pluginEventsManager.GDFLAANFJKB(userId);
+            Managers.MainManager.Instance.pluginEventsManager.KKBNOEHACNL(userId);
         }
 
         /// <summary>
@@ -102,7 +102,7 @@ namespace GGD_Hack
         ///40 53 48 83 EC 20 80 3D ?? ?? ?? ?? ?? 48 8B DA 75 13 48 8D 0D ?? ?? ?? ?? E8 ?? ?? ?? ?? C6 05 ?? ?? ?? ?? ?? 48 8B 0D ?? ?? ?? ?? 83 B9 E0 00 00 00 00 75 05 E8 ?? ?? ?? ?? 45 33 C9 45 33 C0 48 8B D3 B1 07
         public static void Vent(string ventId)
         {
-            Managers.MainManager.Instance.pluginEventsManager.EJBKECNGCEN(ventId);
+            Managers.MainManager.Instance.pluginEventsManager.ECMKBNAPBDN(ventId);
         }
 
         /// <summary>
@@ -113,7 +113,7 @@ namespace GGD_Hack
         //48 89 5C 24 08 48 89 74 24 18 57 48 83 EC 20 80 3D ?? ?? ?? ?? ?? 48 8B FA 41 0F BF F0 75 1F 48 8D 0D ?? ?? ?? ?? E8 ?? ?? ?? ?? 48 8D 0D ?? ?? ?? ?? E8 ?? ?? ?? ?? C6 05 ?? ?? ?? ?? ?? 48 8B 0D ?? ?? ?? ?? BA 02
         public static void Assasinate(string userId, int roldId)
         {
-            Managers.MainManager.Instance.pluginEventsManager.NNHDNFPJNGN(userId, (OBBMCDJMMOK)roldId);
+            Managers.MainManager.Instance.pluginEventsManager.HEAFFELCEIG(userId, (PFFIPCCNHBA)roldId);
         }
 
         /// <summary>
@@ -122,7 +122,7 @@ namespace GGD_Hack
         ///48 83 EC 28 80 3D ?? ?? ?? ?? ?? 75 13 48 8D 0D ?? ?? ?? ?? E8 ?? ?? ?? ?? C6 05 ?? ?? ?? ?? ?? 48 8B 0D ?? ?? ?? ?? 83 B9 E0 00 00 00 00 75 05 E8 ?? ?? ?? ?? 45 33 C9 45 33 C0 33 D2 B1 02
         public static void RingBell()
         {
-            Managers.MainManager.Instance.pluginEventsManager.IPPEIKCNEIM();
+            Managers.MainManager.Instance.pluginEventsManager.MJPPEHLCDCJ();
             // APIs.Photon.PhotonEventAPI.SendEventToPlugin((byte)EventDataCode.EMERGENCY, null);
         }
     }

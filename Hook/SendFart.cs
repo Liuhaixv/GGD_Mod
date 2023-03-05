@@ -18,7 +18,7 @@ namespace GGD_Hack.Hook
         private static readonly Queue<System.Action> executionQueue = new Queue<System.Action>();
 
         //更新实例
-        static void Postfix()
+        static bool Prefix()
         {
             MelonLogger.Msg("正在放屁...");
 
@@ -29,7 +29,8 @@ namespace GGD_Hack.Hook
                     MelonLogger.Msg("正在执行放屁绑定的所有action");
                     action.Invoke();
                 }
-            }                    
+            }
+            return false;
         }
 
         /// <summary>

@@ -27,7 +27,7 @@ namespace GGD_Hack
             {
                 //System.Collections.Generic.List<string> list = AccessTools.GetMethodNames(typeof(AKCCGGKHPIA));
                 
-                return AccessTools.TypeByName("AGDMJOPNPID").GetMethods()
+                return AccessTools.TypeByName("BBNPKEHDLPJ").GetMethods()
                     .Where(method => method.ReturnType == typeof(string))//返回值为string的方法
                     .Cast<MethodBase>();
             }
@@ -78,7 +78,7 @@ namespace GGD_Hack
         ///<summary>
         /// 在MainManager的Awake方法末尾中，调用了两次。检查dll是否提前加载等操作
         /// </summary>
-        [HarmonyPatch(typeof(HDNHALFENFJ), nameof(HDNHALFENFJ.FAFIBNFFHLD))]
+        [HarmonyPatch(typeof(CKNDHODLGLO), nameof(CKNDHODLGLO.OPCLGJIMENO))]
         class PreloadCheckPatch
         {
             static bool Prefix()

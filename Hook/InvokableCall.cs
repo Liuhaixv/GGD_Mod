@@ -16,16 +16,24 @@ namespace GGD_Hack.Hook
         public class Invoke_
         {
 
-            static void Prefix(UnityEngine.Events.InvokableCall __instance)
+            static void Postfix(UnityEngine.Events.InvokableCall __instance)
             {
-
-                UnityAction @delegate = __instance.Delegate;
-                MethodInfo methodInfo = @delegate.Method;
-                string methodName = methodInfo.Name;
-                string namespaceName = methodInfo.DeclaringType.Namespace;
-                string className = methodInfo.DeclaringType.Name;
                 try
                 {
+                    if (__instance == null) return;
+
+                    UnityAction @delegate = __instance.Delegate;
+
+                    if (@delegate == null) return;
+
+                    MethodInfo methodInfo = @delegate.Method;
+
+                    if (methodInfo == null) return;
+
+                    string methodName = methodInfo.Name;
+                    string namespaceName = methodInfo.DeclaringType.Namespace;
+                    string className = methodInfo.DeclaringType.Name;
+
                     StringBuilder sb = new StringBuilder();
                     sb.AppendLine("--------------------");
                     sb.AppendLine("void UnityEngine.Events.InvokableCall::Invoke()");
