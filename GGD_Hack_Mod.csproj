@@ -139,6 +139,7 @@
     <Compile Include="CommandHandler.cs" />
     <Compile Include="Features\AssasinInfiniteBullets.cs" />
     <Compile Include="Features\AutoTrackBodies.cs" />
+    <Compile Include="Features\ChangeName.cs" />
     <Compile Include="Features\ClearAllBodies.cs" />
     <Compile Include="Features\DragAllBodies.cs" />
     <Compile Include="Features\Invisible.cs" />
@@ -160,7 +161,7 @@
     <Compile Include="Hook\CheatingManager.cs" />
     <Compile Include="Hook\Debug.cs" />
     <Compile Include="Hook\IncreaseSkillRange.cs" />
-    <Compile Include="Hook\InvokableCall.cs" />
+    <Compile Include="Hook\PrintInvoke\InvokableCall.cs" />
     <Compile Include="Hook\Network\PhotonCallbacksAPI.cs" />
     <Compile Include="Hook\Network\PhotonNetwork.cs" />
     <Compile Include="Hook\PhotonEventAPI.cs" />
@@ -169,6 +170,7 @@
     <Compile Include="Hook\HookExample.cs" />
     <Compile Include="Hook\PlayerCustomizationPanelHandler.cs" />
     <Compile Include="Hook\PlayerPropertiesManager.cs" />
+    <Compile Include="Hook\PrintInvoke\UnityEvent.cs" />
     <Compile Include="Hook\SpawnedPlayerHandler.cs" />
     <Compile Include="Hook\SendFart.cs" />
     <Compile Include="Internal\Buttons\SkillButton.cs" />

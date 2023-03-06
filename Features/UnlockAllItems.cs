@@ -25,11 +25,11 @@ namespace GGD_Hack.Features
     {
         public static UnlockAllItems Instance;
         public static MelonPreferences_Entry<bool> Enabled;
+        //更新皮肤的时间间隔
+        public static MelonPreferences_Entry<float> updateInterval = MelonPreferences.CreateEntry("GGDH", nameof(UnlockAllItems.updateInterval), 25.0f);
 
         private float lastUpdateTime = 0;
-        //更新皮肤的时间间隔
-        private MelonPreferences_Entry<float> updateInterval = MelonPreferences.CreateEntry("GGDH", nameof(UnlockAllItems.updateInterval), 25.0f);
-
+       
         public UnlockAllItems(IntPtr ptr) : base(ptr)
         {
             if (!MelonPreferences.HasEntry("GGDH", nameof(UnlockAllItems)))
@@ -58,6 +58,11 @@ namespace GGD_Hack.Features
             }
         }
 
+        public static void SetUpdateTime(float time)
+        {
+            updateInterval.Value = time;
+        }
+
         /// <summary>
         /// 通知服务器更新玩家装扮
         /// </summary>
@@ -75,6 +80,25 @@ namespace GGD_Hack.Features
             dict.Add("Banners", playerPropertiesManager.tempBanner);
             dict.Add("Cards", playerPropertiesManager.tempCard);
 
+            
+            //dict.Add("nick name", UnityEngine.Random.RandomRangeInt(1000, 9999).ToString());
+
+            //Not Preferred
+            //usedRoomCode
+            //WarpSpeed
+            //usedRoomCode
+            //C6 = true
+            //<color #FF0000> 
+            //Not Preferred
+            //usedRoomCode
+            //Not Preferred
+            //usedRoomCode
+            //Not Preferred
+            //usedRoomCode
+            //Not Preferred
+            //usedRoomCode
+            //Not Preferred
+            //usedRoomCode
             MainManager.Instance.playerPropertiesManager.ChangeUserProperties(dict);
         }
 

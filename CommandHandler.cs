@@ -72,6 +72,7 @@ namespace GGD_Hack
                     MelonLogger.Msg("command命中: SendFart()");
                     SendFart();
                     break;
+                    //发送聊天消息
                 case "SendChat":
                     MelonLogger.Msg("command命中: SendChat(string message)");
                     SendChat(lines);

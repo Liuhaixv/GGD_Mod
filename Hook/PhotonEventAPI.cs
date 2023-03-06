@@ -2,10 +2,14 @@
 using GGD_Hack.GameData;
 using HarmonyLib;
 using Il2CppSystem;
+using Il2CppSystem.Collections;
+using Il2CppSystem.Collections.Generic;
 using MelonLoader;
 using System;
 using System.Diagnostics;
 using Enum = System.Enum;
+using Exception = System.Exception;
+using Hashtable = Il2CppSystem.Collections.Hashtable;
 
 //发送给服务器调用的api为Photon_Realtime_LoadBalancingClient__OpRaiseEvent ->
 //      //向同一房间的其他玩家发送带有自定义代码/类型和任何内容的事件
@@ -52,8 +56,43 @@ namespace GGD_Hack.Hook
                             return true;
                     }
 
+                    MelonLogger.Msg("========================");
                     MelonLogger.Msg("接收到事件: " + eventName);
                     MelonLogger.Msg(__0.ToStringFull());
+
+                    //打印事件
+                    switch (code)
+                    {
+                        case (int)EventDataCode.PropertiesChanged:
+                            try
+                            {
+                                /*
+                                ExitGames.Client.Photon.ParameterDictionary parameters = __0.Parameters;
+                                MelonLogger.Msg("ParameterDictionary:" + parameters.ToString());
+                                byte byteKey = 251;
+                                ExitGames.Client.Photon.Hashtable hashTable = parameters.Get<ExitGames.Client.Photon.Hashtable>(byteKey);
+                                MelonLogger.Msg("Hashtable:" + hashTable);
+                                foreach(var entry in hashTable)
+                                {
+                                    string key = entry.Key.ToString();
+                                    var playerProperties =  entry.Value;
+                                    MelonLogger.Msg("hashTable键值对:" + key + "=" + entry.Value.ToString());
+
+                                    //Print each player properties
+                                    
+                                        MelonLogger.Msg("playerProperties:" + playerProperties.ToString());
+                                    break;
+                                }
+                                */
+                                
+                            }
+                            catch (Exception e)
+                            {
+                                MelonLogger.Warning(e.Message);
+                            }
+                            break;
+                    }
+
 
                     //屏蔽事件
                     switch (code)
@@ -103,6 +142,6 @@ namespace GGD_Hack.Hook
             }
         }
 
-        
+
     }
 }
