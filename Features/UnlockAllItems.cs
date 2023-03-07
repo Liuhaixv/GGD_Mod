@@ -83,7 +83,7 @@ namespace GGD_Hack.Features
             dict.Add("Banners", playerPropertiesManager.tempBanner);
             dict.Add("Cards", playerPropertiesManager.tempCard);
 
-            dict.Add("nickname", UnityEngine.Random.RandomRangeInt(1000, 9999).ToString());
+            //dict.Add("nickname", UnityEngine.Random.RandomRangeInt(1000, 9999).ToString());
 
             //Not Preferred
             //usedRoomCode

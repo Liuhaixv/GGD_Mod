@@ -2,7 +2,6 @@
 using Il2CppSystem.Collections.Generic;
 using UnhollowerRuntimeLib;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
 using HarmonyLib;
 
 using IntPtr = System.IntPtr;

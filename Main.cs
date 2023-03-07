@@ -1,5 +1,6 @@
 ﻿using BestHTTP.SecureProtocol.Org.BouncyCastle.Asn1.Crmf;
 using GGD_Hack.Features;
+using GGD_Hack.Features.EasterEgg;
 using GGD_Hack.Hook;
 using GGD_Hack.Utils;
 using Il2CppSystem.Security.Cryptography;
@@ -122,6 +123,7 @@ namespace GGD_Hack
             UnlockAllItems.Init();
 
             SendFartHook.bindAction(CommandHandler.MoveShuttle);
+
         }
 
         /// <summary>
