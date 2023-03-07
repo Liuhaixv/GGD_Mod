@@ -113,6 +113,10 @@ namespace GGD_Hack
                     MelonLogger.Msg("command命中: RemoteEat()");
                     RemoteEat();
                     break;
+                case "ThrowAwayBomb":
+                    MelonLogger.Msg("command命中: ThrowAwayBomb()");
+                    ThrowAwayBomb();
+                    break;
 
                 //静音其他玩家
                 case "SilencePlayer":
@@ -128,6 +132,14 @@ namespace GGD_Hack
                     return false;
             }
             return true;
+        }
+
+        private static void ThrowAwayBomb()
+        {
+            UnityMainThreadDispatcher.Instance().Enqueue(new System.Action(() =>
+            {
+                Features.Bomb.ThrowAwayBomb();
+            }));           
         }
 
         private static void RemoteEat()

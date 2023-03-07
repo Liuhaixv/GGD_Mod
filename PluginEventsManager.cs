@@ -13,6 +13,14 @@ namespace GGD_Hack
         public static void Throw_Bomb(string userId)
         {
             Managers.MainManager.Instance.pluginEventsManager.JLNNEDGBBMD(userId);
+            Handlers.CommonHandlers.SoundHandler.Instance.PlayMedium(true);
+        }
+
+        //报警尸体
+        //48 89 5C 24 08 57 48 83 EC 20 80 3D ?? ?? ?? ?? ?? 48 8B FA 75 1F 48 8D 0D ?? ?? ?? ?? E8 ?? ?? ?? ?? 48 8D 0D ?? ?? ?? ?? E8 ?? ?? ?? ?? C6 05 ?? ?? ?? ?? ?? 48 8B 0D ?? ?? ?? ?? BA 01 00 00 00 E8 ?? ?? ?? ?? 48 8B D8 48 85 C0 74 52 48 85 FF 74 14 48 8B 10 48 8B CF 48 8B 52 40 E8 ?? ?? ?? ?? 48 85 C0 74 3F 83 7B 18 00 76 49 48 89 7B 20 48 8B 0D ?? ?? ?? ?? 83 B9 E0 00 00 00 00 75 05 E8 ?? ?? ?? ?? 45 33 C9 45 33 C0 48 8B D3 B1 04
+        public static void Report(string userId)
+        {
+            Managers.MainManager.Instance.pluginEventsManager.OOLEHCMHBOP(userId); 
         }
 
         //炸弹鸭子技能
@@ -20,6 +28,7 @@ namespace GGD_Hack
         public static void Generate_Bomb(string userId)
         {
             Managers.MainManager.Instance.pluginEventsManager.CMJIIBPBFBM(userId);
+            Handlers.CommonHandlers.SoundHandler.Instance.PlayMedium(true);
         }
 
         //静音鸭子技能
@@ -57,6 +66,8 @@ namespace GGD_Hack
         public static void Eat(string userId)
         {
             Managers.MainManager.Instance.pluginEventsManager.LGMLOFAOGBI(userId);
+            //播放吃人音效
+            Handlers.CommonHandlers.SoundHandler.Instance.PlayChompEat();
         }
 
         //鹈鹕吃人
