@@ -1,4 +1,5 @@
-﻿using HarmonyLib;
+﻿#if Developer
+using HarmonyLib;
 using MelonLoader;
 using System.Text;
 using UnityEngine.Events;
@@ -39,3 +40,4 @@ namespace GGD_Hack.Hook
         }
     }
 }
+#endif

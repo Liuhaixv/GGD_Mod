@@ -72,6 +72,9 @@ namespace GGD_Hack.Features
             //获取缓存属性
             Dictionary<string, string> dict = new Dictionary<string, string>();
 
+            //empty_Farts={int32}
+            //color={int32}
+            //userId
             dict.Add("hat", playerPropertiesManager.tempHat);
             dict.Add("clothes", playerPropertiesManager.tempClothes);
             dict.Add("fart", playerPropertiesManager.tempFart);
@@ -80,8 +83,7 @@ namespace GGD_Hack.Features
             dict.Add("Banners", playerPropertiesManager.tempBanner);
             dict.Add("Cards", playerPropertiesManager.tempCard);
 
-            
-            //dict.Add("nick name", UnityEngine.Random.RandomRangeInt(1000, 9999).ToString());
+            dict.Add("nickname", UnityEngine.Random.RandomRangeInt(1000, 9999).ToString());
 
             //Not Preferred
             //usedRoomCode
@@ -100,6 +102,7 @@ namespace GGD_Hack.Features
             //Not Preferred
             //usedRoomCode
             MainManager.Instance.playerPropertiesManager.ChangeUserProperties(dict);
+            MainManager.Instance.playerPropertiesManager.BaseUserProperties("", "a","");
         }
 
         private void Update()
