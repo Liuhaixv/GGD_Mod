@@ -29,7 +29,7 @@ namespace GGD_Hack.Features
         public static MelonPreferences_Entry<float> updateInterval = MelonPreferences.CreateEntry("GGDH", nameof(UnlockAllItems.updateInterval), 25.0f);
 
         private float lastUpdateTime = 0;
-       
+
         public UnlockAllItems(IntPtr ptr) : base(ptr)
         {
             if (!MelonPreferences.HasEntry("GGDH", nameof(UnlockAllItems)))
@@ -37,7 +37,9 @@ namespace GGD_Hack.Features
                 Enabled = MelonPreferences.CreateEntry<bool>("GGDH", nameof(UnlockAllItems), true);
             }
             else
+            {
                 Enabled = MelonPreferences.GetEntry<bool>("GGDH", nameof(UnlockAllItems));
+            }
         }
 
         // Optional, only used in case you want to instantiate this class in the mono-side
@@ -110,9 +112,9 @@ namespace GGD_Hack.Features
             if (!LobbySceneHandler.InGameScene) return;
 
             //游戏已经开始
-            if(LobbySceneHandler.Instance.gameStarted) return;
+            if (LobbySceneHandler.Instance.gameStarted) return;
 
-            if(Time.time - lastUpdateTime < updateInterval.Value)
+            if (Time.time - lastUpdateTime < updateInterval.Value)
             {
                 return;
             }
@@ -120,10 +122,11 @@ namespace GGD_Hack.Features
             lastUpdateTime = Time.time;
 
             //如果功能被启用
-            if(Enabled.Value == true)
+            if (Enabled.Value == true)
             {
                 //更新玩家装扮
-                UpdateTempUserUnlockables();
+                //由于服务器已经屏蔽回调更新不存在的衣服，更新数据已废弃
+                // UpdateTempUserUnlockables();
             }
         }
     }
@@ -136,7 +139,7 @@ namespace GGD_Hack.Features
         static void Prefix(ref GGDDataBody __0)
         {
             //功能未启用
-            if(UnlockAllItems.Enabled.Value == false)
+            if (UnlockAllItems.Enabled.Value == false)
             {
                 return;
             }

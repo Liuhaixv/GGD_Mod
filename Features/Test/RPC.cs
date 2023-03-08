@@ -1,5 +1,4 @@
-﻿
-using MelonLoader;
+﻿using MelonLoader;
 using HarmonyLib;
 using UnhollowerBaseLib;
 
@@ -11,8 +10,18 @@ using Il2CppSystem.Reflection;
 
 namespace GGD_Hack.Features.Test
 {
-    public class RPC
+    public static class RPC
     {
+        [PunRPC]
+        public static void Suicide()
+        {
+            UnityMainThreadDispatcher.Instance().Enqueue(new System.Action(() =>
+            {
+                MelonLogger.Msg(System.ConsoleColor.Green, "RPC:" + "Suicide");
+                MiscFunctions.Suicide();
+            })); 
+        }
+
         //Void RPC(System.String, Photon.Pun.RpcTarget, UnhollowerBaseLib.Il2CppReferenceArray`1[Il2CppSystem.Object])
         public static void ChangeRoom()
         {
@@ -31,6 +40,59 @@ namespace GGD_Hack.Features.Test
 
             photonView.RPC("Flip", Photon.Pun.RpcTarget.AllViaServer, Objects);
             */
+        }
+
+        public static void RPC_Suicide()
+        {
+            Photon.Pun.PhotonView photonView = Handlers.GameHandlers.PlayerHandlers.LocalPlayer.Instance.gameObject.GetComponent<Photon.Pun.PhotonView>();
+
+            if (photonView == null)
+            {
+                MelonLogger.Warning("LocalPlayer的PhotonView为空");
+                return;
+            }
+
+            UnhollowerBaseLib.Il2CppReferenceArray<Il2CppSystem.Object> Objects = new Il2CppReferenceArray<Il2CppSystem.Object>(0);
+
+            MelonLogger.Msg("准备发送Suicide");
+
+            try
+            {
+                string rpcInfo = "暂未获取rpc方法";
+
+                System.Reflection.MethodInfo rpc = AccessTools.Method(typeof(PhotonView), "RPC",
+                new System.Type[] {
+                    typeof(string), typeof(Photon.Pun.RpcTarget), typeof(UnhollowerBaseLib.Il2CppReferenceArray<Il2CppSystem.Object>)
+                });
+
+                if (rpc != null)
+                {
+                    rpcInfo = rpc.ToString();
+                    MelonLogger.Msg(System.ConsoleColor.Green, rpcInfo);
+
+                    try
+                    {
+                        System.Object[] parameters = new object[]
+                        {
+                            "Suicide",
+                            Photon.Pun.RpcTarget.AllViaServer,
+                            Objects
+                        };
+
+                        rpc.Invoke(photonView, parameters);
+                        MelonLogger.Msg(System.ConsoleColor.Green, "Invoke成功");
+                    }
+                    catch (System.Exception ex)
+                    {
+
+                        MelonLogger.Error("Invoke失败" + ex.Message);
+                    }
+                }
+            }
+            catch (System.Exception e)
+            {
+                MelonLogger.Error(e.Message);
+            }
         }
 
         public static void Flip()
@@ -89,7 +151,7 @@ namespace GGD_Hack.Features.Test
                 MelonLogger.Error(e.Message);
             }
         }
-
+#if Developer
         [HarmonyPatch(typeof(PhotonView), nameof(PhotonView.RPC), new System.Type[] { typeof(string), typeof(RpcTarget), typeof(UnhollowerBaseLib.Il2CppReferenceArray<Il2CppSystem.Object>) })]
         class RPC_
         {
@@ -116,5 +178,6 @@ namespace GGD_Hack.Features.Test
             }
 
         }
+#endif
     }
 }

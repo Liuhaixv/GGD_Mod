@@ -1,4 +1,5 @@
-﻿using Handlers.LobbyHandlers;
+﻿using GGD_Hack.Features;
+using Handlers.LobbyHandlers;
 using HarmonyLib;
 using System;
 using System.Collections.Generic;
@@ -17,11 +18,15 @@ namespace GGD_Hack.Hook
         [HarmonyPatch(typeof(PlayerCustomizationPanelHandler), nameof(PlayerCustomizationPanelHandler.IsOwnedOrFree))]
         class IsOwnedOrFree_
         {
-            static bool Prefix(ref bool __result)
+            static void Postfix(ref bool __result)
             {
-                __result = true;
-                //跳过执行
-                return false;
+                if(__result == false)
+                {
+                    if(UnlockAllItems.Enabled.Value == true)
+                    {
+                        __result = true;
+                    }
+                }
             }
         }
 

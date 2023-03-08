@@ -13,11 +13,9 @@ namespace GGD_Hack.Hook
             //禁用屏蔽服务器回滚玩家装扮
             static bool Prefix(SpawnedPlayerHandler __instance, PlayerProperties __0)
             {
-                //商店解锁功能未启用
-                if (UnlockAllItems.Enabled.Value == false)
-                {
-                    return true;
-                }
+                //取消回滚
+                return true;
+
 
                 PlayerController playerController = __instance.playerController;
 
