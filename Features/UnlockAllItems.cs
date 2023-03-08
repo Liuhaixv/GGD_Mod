@@ -102,7 +102,6 @@ namespace GGD_Hack.Features
             //Not Preferred
             //usedRoomCode
             MainManager.Instance.playerPropertiesManager.ChangeUserProperties(dict);
-            MainManager.Instance.playerPropertiesManager.BaseUserProperties("", "a","");
         }
 
         private void Update()

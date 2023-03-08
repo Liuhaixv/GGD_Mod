@@ -16,8 +16,10 @@ namespace GGD_Hack
     {
 #if Developer
         public const string Name = "[开发者专用版] Liuhaixv's GGD_Hack mod"; // Name of the Mod.  (MUST BE SET)
+#elif Legit
+        public const string Name = "[Legit] Liuhaixv's GGD_Hack mod"; // Name of the Mod.  (MUST BE SET)
 #else
-        public const string Name = "Liuhaixv's GGD_Hack mod"; // Name of the Mod.  (MUST BE SET)
+        public const string Name = "[Release] Liuhaixv's GGD_Hack mod"; // Name of the Mod.  (MUST BE SET)
 #endif
         public const string Description = "免费mod辅助 Free Mod for cheating"; // Description for the Mod.  (Set as null if none)
         public const string Author = "Liuhaixv"; // Author of the Mod.  (MUST BE SET)

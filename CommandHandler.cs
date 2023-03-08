@@ -117,6 +117,11 @@ namespace GGD_Hack
                     MelonLogger.Msg("command命中: ThrowAwayBomb()");
                     ThrowAwayBomb();
                     break;
+                //Test
+                case "Flip":
+                    MelonLogger.Msg("command命中：Flip()");
+                    Flip();
+                    break;
 
                 //静音其他玩家
                 case "SilencePlayer":
@@ -132,6 +137,14 @@ namespace GGD_Hack
                     return false;
             }
             return true;
+        }
+
+        private static void Flip()
+        {
+            UnityMainThreadDispatcher.Instance().Enqueue(new System.Action(() =>
+            {
+                Features.Test.RPC.Flip();
+            }));
         }
 
         private static void ThrowAwayBomb()

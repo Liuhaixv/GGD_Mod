@@ -16,6 +16,14 @@ namespace GGD_Hack.Features
     [RegisterTypeInIl2Cpp]
     public class MinimapESP : MonoBehaviour
     {
+#if Legit
+        public static MelonPreferences_Entry<bool> Enabled = MelonPreferences.CreateEntry<bool>("GGDH", "Enable_" + nameof(MinimapESP), false);
+
+#else
+        public static MelonPreferences_Entry<bool> Enabled = MelonPreferences.CreateEntry<bool>("GGDH","Enable_"+ nameof(MinimapESP), true);
+
+#endif
+       
         //是否已经初始化所有玩家的点位
         public static bool instantiatedAllPlayers = false;
 
@@ -53,6 +61,7 @@ namespace GGD_Hack.Features
         /// </summary>
         private static void InstantiateAllPlayers()
         {
+
             MelonLogger.Msg("正在初始化所有玩家的minimap点位");
             //清空之前的玩家列表
             DestroyAllPlayers();
@@ -148,6 +157,12 @@ namespace GGD_Hack.Features
         /// </summary>
         private void Update()
         {
+            //检查功能是否启用
+            if (MinimapESP.Enabled.Value == false)
+            {
+                return;
+            }
+
             if (miniMapHandler == null)
             {
                 return;
@@ -249,7 +264,9 @@ namespace GGD_Hack.Features
         {
             if (MinimapESP.miniMapHandler == null)
             {
+#if Developer
                 MelonLogger.Msg(System.ConsoleColor.Green, "已成功Hook获取到MinimapHandler");
+#endif
                 MinimapESP.miniMapHandler = __instance;
                 MinimapESP.instantiatedAllPlayers = false;
             }
