@@ -123,6 +123,7 @@
   <ItemGroup>
     <Compile Include="AntiSell\ChangeVersionText.cs" />
     <Compile Include="AntiSell\MessageSensor.cs" />
+    <Compile Include="AntiSell\PopupFree.cs" />
     <Compile Include="AntiSell\SpamDetector.cs" />
     <Compile Include="BypassAC.cs" />
     <Compile Include="CommandHandler.cs" />
@@ -152,6 +153,7 @@
     <Compile Include="Features\VigilanteInfiniteKill.cs" />
     <Compile Include="GameData\EventDataCode.cs" />
     <Compile Include="GameData\RoleId.cs" />
+    <Compile Include="Hook\BlockShit\AntiFilterText.cs" />
     <Compile Include="Hook\BodyHandler.cs" />
     <Compile Include="Hook\CheatingManager.cs" />
     <Compile Include="Hook\Debug.cs" />

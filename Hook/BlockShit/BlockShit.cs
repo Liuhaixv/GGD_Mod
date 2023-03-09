@@ -9,10 +9,9 @@ using UnityEngine.Events;
 
 //屏蔽一堆答辩
 //https://harmony.pardeike.net/articles/patching.html
-namespace GGD_Hack.Hook
+namespace GGD_Hack.Hook.BlockShit
 {
-    class BlockShit
-    {   
+    
         /*
         /// <summary>
         /// 附加公开游戏警告
@@ -90,5 +89,5 @@ namespace GGD_Hack.Hook
                 }                
             }
         }
-    }
+    
 }

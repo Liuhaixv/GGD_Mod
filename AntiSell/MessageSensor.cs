@@ -1,5 +1,8 @@
-﻿using Handlers.PrefabAttachedHandlers;
+﻿using APIs.Photon;
+using GGD_Hack.GameData;
+using Handlers.PrefabAttachedHandlers;
 using HarmonyLib;
+using Managers;
 using Managers.ConnectionManagers;
 using MelonLoader;
 using System;
@@ -25,7 +28,7 @@ namespace GGD_Hack.AntiSell
         public static SensorMessageHacker sensorMessageHacker = new SensorMessageHacker(@"\d{6,}", "277392777");
 
         //检测垃圾消息
-        public static SpamDetector spamDetector = new SpamDetector(3,12,  0.7);
+        public static SpamDetector spamDetector = new SpamDetector(3, 12, 0.7);
 
         //自动将本地发送到服务器的消息通过正则匹配记录下，然后在收到服务器回调创建消息对象时篡改显示，实现本地无法知道消息被篡改的效果
         public class SensorMessageHacker
@@ -36,9 +39,6 @@ namespace GGD_Hack.AntiSell
 
             // 要被替换成的文本
             private string replaceWith = null;
-
-            //忽略字数少于这个值的文字
-            private int ignoreMessagesLessThan = 99999;
 
             //hacked -> raw
             public Dictionary<string, string> hackedStrings = new Dictionary<string, string>();
@@ -55,7 +55,7 @@ namespace GGD_Hack.AntiSell
             {
                 string raw = message;
                 string hackedString = Regex.Replace(message, ruleRegex, replaceWith);
-                if(raw != hackedString)
+                if (raw != hackedString)
                 {
                     hackedStrings[hackedString] = raw;
                 }
@@ -77,47 +77,102 @@ namespace GGD_Hack.AntiSell
         }
 
         //修改发送给服务器的消息
-        [HarmonyPatch(typeof(ChatManager),nameof(ChatManager.SendChatMessageEvent))]
+        [HarmonyPatch(typeof(PhotonEventAPI), nameof(PhotonEventAPI.SendEventToPlugin))]
         public class SendChatMessageEvent_
         {
-            static void Prefix(Managers.ConnectionManagers.ChatManager __instance,ref string __0)
+            /*
+            static void Prefix(byte __0, ref Il2CppSystem.Object __1, bool __2)
             {
                 try
                 {
-                    spamDetector.AddMessage(__0);
-                    string raw = __0;
-                    string hackedString = sensorMessageHacker.Hack(__0);
+                    int eventCode = __0;
+
+                    //检查是否是聊天消息
+                    if(__0 != (int)EventDataCode.CHAT_MESSAGE)
+                    {
+                        return;
+                    }
+
+                    UnhollowerBaseLib.Il2CppStringArray strsFromObj = new UnhollowerBaseLib.Il2CppStringArray(__1.Pointer);
+
+                }
+                catch (System.Exception ex)
+                {
+                 }
+            }*/
+
+            static void Prefix(byte __0, ref Il2CppSystem.Object __1, bool __2)
+            {
+                try
+                {                  
+                    int eventCode = __0;
+
+                    //检查是否是聊天消息
+                    if (__0 != (int)EventDataCode.CHAT_MESSAGE)
+                    {
+                        return;
+                    }
+
+                    UnhollowerBaseLib.Il2CppStringArray strsFromObj = new UnhollowerBaseLib.Il2CppStringArray(__1.Pointer);
+
+                    string raw = strsFromObj[0];
+                    string hackedString = sensorMessageHacker.Hack(raw);
+                    spamDetector.AddMessage(raw);
 
                     //判断是否是违规字符串
-                    if(raw != hackedString)
+                    if (raw != hackedString)
                     {
-#if Developer
+
                         StringBuilder sb = new StringBuilder();
                         sb.AppendLine("检测到违规词，正在修改...");
                         sb.AppendLine("原始消息：" + raw);
                         sb.AppendLine("和谐后：" + hackedString);
+#if Developer
                         MelonLogger.Msg(System.ConsoleColor.Green, sb.ToString());
 #endif
-                        __0 = hackedString;
+                        //修改字符串
+                        {
+#if Developer
+                            MelonLogger.Msg(System.ConsoleColor.Green, "开发者免疫消息和谐");
+#else
+                            strsFromObj[0] = hackedString;
+                            __1 = new Il2CppSystem.Object(strsFromObj.Pointer);
+#endif
+                        }
+
                         return;
-                    } else
+                    }
+                    else
                     {
                         //判断是否是垃圾消息
-                        if(IsSpamming)
+                        if (IsSpamming)
                         {
                             StringBuilder sb = new StringBuilder();
                             sb.AppendLine("检测到垃圾消息，正在修改...");
                             sb.AppendLine("原始消息：" + raw);
                             sb.AppendLine("和谐后：" + spammingReplacement);
+
+#if Developer
                             MelonLogger.Msg(System.ConsoleColor.Green, sb.ToString());
-                            __0 = spammingReplacement;
+#endif
+
+                            //修改字符串
+                            {
+#if Developer
+                                MelonLogger.Msg(System.ConsoleColor.Green, "开发者免疫消息和谐");
+#else
+                                strsFromObj[0] = spammingReplacement;
+                                __1 = new Il2CppSystem.Object(strsFromObj.Pointer);
+#endif
+                            }
+
                             sensorMessageHacker.hackedStrings[spammingReplacement] = raw;
                         }
                     }
                 }
                 catch (System.Exception ex)
                 {
-                   MelonLogger.Warning($"Exception in patch of void Managers.ConnectionManagers.ChatManager::SendChatMessageEvent(string BGGNFHNIAOL):\n{ex}");
+                    MelonLogger.Warning("错误消息");
                 }
             }
 
@@ -132,13 +187,15 @@ namespace GGD_Hack.AntiSell
                 try
                 {
                     string possibleHackedString = __instance.message;
+
                     //还原被篡改过的群号
                     __instance.message = sensorMessageHacker.Unhack(possibleHackedString);
+
                     StringBuilder sb = new StringBuilder();
                     sb.AppendLine("--------------------");
                     sb.AppendLine("void Handlers.PrefabAttachedHandlers.MessagePrefabHandler::Initialize()");
                     sb.Append("- __instance: ").AppendLine(__instance.ToString());
-                    if(possibleHackedString != __instance.message)
+                    if (possibleHackedString != __instance.message)
                     {
                         sb.AppendLine("真实文本：" + possibleHackedString);
                         sb.AppendLine("本地修改为：" + __instance.message);

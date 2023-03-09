@@ -25,7 +25,7 @@ namespace GGD_Hack
         public const string Description = "免费mod辅助 Free Mod for cheating"; // Description for the Mod.  (Set as null if none)
         public const string Author = "Liuhaixv"; // Author of the Mod.  (MUST BE SET)
         public const string Company = "Liuhaixv"; // Company that made the Mod.  (Set as null if none)
-        public const string Version = "1.4.5"; // Version of the Mod.  (MUST BE SET)
+        public const string Version = "1.4.6"; // Version of the Mod.  (MUST BE SET)
         public const string gameVersion = "2.18.02";//version of the GGD
         public const string DownloadLink = "https://github.com/Liuhaixv/GGDH_ML"; // Download Link for the Mod.  (Set as null if none)
     }
@@ -52,7 +52,8 @@ namespace GGD_Hack
             if (correctGameVersion)
             {
                 //弹出免费警告弹窗
-                WarningFree();
+                //已被游戏内弹窗替代
+                //WarningFree();
             }
         }
 
@@ -191,14 +192,10 @@ namespace GGD_Hack
         /// <summary>
         /// 是否已经警告过
         /// </summary>
-        private bool HasWarnedFree
+        public static bool HasWarnedFree
         {
             get
             {
-#if Developer
-                return true;
-#endif
-
                 string key = nameof(HasWarnedFree);
                 string correctMd5 = MD5Util.GetMd5Hash(BuildInfo.Version + BuildInfo.gameVersion + UnityEngine.Application.version + DateTime.UtcNow.ToString("yyyy-MM-dd"));
                 bool result = false;
@@ -236,6 +233,7 @@ namespace GGD_Hack
                 {
                     melonPreferences_Entry.Value = "";
                 }
+                MelonPreferences.Save();
             }
         }
     }

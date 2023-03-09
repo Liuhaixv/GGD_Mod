@@ -77,8 +77,9 @@ namespace GGD_Hack.Features.EasterEgg
                     if (MoneyHackButton.playerCustomizationPanelHandler != __instance && __instance != null)
                     {
                         MoneyHackButton.playerCustomizationPanelHandler = __instance;
+#if Developer
                         MelonLogger.Msg(System.ConsoleColor.Green, "成功Hook获取PlayerCustomizationPanelHandler");
-
+#endif
 
 
                         //修改Buy button
