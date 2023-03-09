@@ -6,44 +6,16 @@ using IntPtr = System.IntPtr;
 using Photon.Pun;
 using System.Text;
 using Il2CppSystem.Reflection;
-
+using System;
 
 namespace GGD_Hack.Features.Test
 {
     public static class RPC
     {
-        [PunRPC]
-        public static void Suicide()
+        //可以传递最大长度32个Unicode字符，也就是32*2=64个字节
+        public static void ChangeCurrentRoom(string roomId, Photon.Pun.RpcTarget rpcTarget = Photon.Pun.RpcTarget.AllViaServer)
         {
-            UnityMainThreadDispatcher.Instance().Enqueue(new System.Action(() =>
-            {
-                MelonLogger.Msg(System.ConsoleColor.Green, "RPC:" + "Suicide");
-                MiscFunctions.Suicide();
-            })); 
-        }
-
-        //Void RPC(System.String, Photon.Pun.RpcTarget, UnhollowerBaseLib.Il2CppReferenceArray`1[Il2CppSystem.Object])
-        public static void ChangeRoom()
-        {
-            /*
-            Photon.Pun.PhotonView photonView = Handlers.GameHandlers.PlayerHandlers.LocalPlayer.Instance.Player.photonView;
-            MelonLogger.Msg(photonView.ToString());
-            //photonView.RPC("ChangeCurrentRoom", RpcTarget.AllViaServer,false, "JPV9GCU");
-
-            System.Object[] Objects = new System.Object[2];
-
-            // 获取 Il2CppSystem.Int64 类型的 Type 对象
-            Type il2Int64Type = Type.GetType("Il2CppSystem.Int64, il2cpp");
-
-            Objects[0] = (Il2CppObject)Activator.CreateInstance(il2Int64Type, 1);
-            Objects[1] = (Il2CppObject)Activator.CreateInstance(il2Int64Type, photonView.ViewID);
-
-            photonView.RPC("Flip", Photon.Pun.RpcTarget.AllViaServer, Objects);
-            */
-        }
-
-        public static void RPC_Suicide()
-        {
+            //获取玩家朝向
             Photon.Pun.PhotonView photonView = Handlers.GameHandlers.PlayerHandlers.LocalPlayer.Instance.gameObject.GetComponent<Photon.Pun.PhotonView>();
 
             if (photonView == null)
@@ -52,9 +24,10 @@ namespace GGD_Hack.Features.Test
                 return;
             }
 
-            UnhollowerBaseLib.Il2CppReferenceArray<Il2CppSystem.Object> Objects = new Il2CppReferenceArray<Il2CppSystem.Object>(0);
+            UnhollowerBaseLib.Il2CppReferenceArray<Il2CppSystem.Object> Objects = new Il2CppReferenceArray<Il2CppSystem.Object>(1);
+            Objects[0] = roomId;
 
-            MelonLogger.Msg("准备发送Suicide");
+            MelonLogger.Msg("准备发送ChangeCurrentRoom");
 
             try
             {
@@ -74,7 +47,64 @@ namespace GGD_Hack.Features.Test
                     {
                         System.Object[] parameters = new object[]
                         {
-                            "Suicide",
+                            "ChangeCurrentRoom",
+                            rpcTarget,
+                            Objects
+                        };
+
+                        rpc.Invoke(photonView, parameters);
+                        MelonLogger.Msg(System.ConsoleColor.Green, "Invoke成功");
+                    }
+                    catch (System.Exception ex)
+                    {
+
+                        MelonLogger.Error("Invoke失败" + ex.Message);
+                    }
+                }
+            }
+            catch (System.Exception e)
+            {
+                MelonLogger.Error(e.Message);
+            }
+        }
+
+        public static void Fake_Flip(int code)
+        {
+            //获取玩家朝向
+            Photon.Pun.PhotonView photonView = Handlers.GameHandlers.PlayerHandlers.LocalPlayer.Instance.gameObject.GetComponent<Photon.Pun.PhotonView>();
+
+            if (photonView == null)
+            {
+                MelonLogger.Warning("LocalPlayer的PhotonView为空");
+                return;
+            }
+
+            UnhollowerBaseLib.Il2CppReferenceArray<Il2CppSystem.Object> Objects = new Il2CppReferenceArray<Il2CppSystem.Object>(3);
+            Objects[0] = new Il2CppSystem.Int32 { m_value = code }.BoxIl2CppObject();
+            Objects[1] = new Il2CppSystem.Int32 { m_value = photonView.ViewID }.BoxIl2CppObject();
+            Objects[2] = new Il2CppSystem.Int32 { m_value = 10101}.BoxIl2CppObject();
+
+            MelonLogger.Msg("准备发送Flip");
+
+            try
+            {
+                string rpcInfo = "暂未获取rpc方法";
+
+                System.Reflection.MethodInfo rpc = AccessTools.Method(typeof(PhotonView), "RPC",
+                new System.Type[] {
+                    typeof(string), typeof(Photon.Pun.RpcTarget), typeof(UnhollowerBaseLib.Il2CppReferenceArray<Il2CppSystem.Object>)
+                });
+
+                if (rpc != null)
+                {
+                    rpcInfo = rpc.ToString();
+                    MelonLogger.Msg(System.ConsoleColor.Green, rpcInfo);
+
+                    try
+                    {
+                        System.Object[] parameters = new object[]
+                        {
+                            "Flip",
                             Photon.Pun.RpcTarget.AllViaServer,
                             Objects
                         };
@@ -152,6 +182,31 @@ namespace GGD_Hack.Features.Test
             }
         }
 #if Developer
+        /*
+        //接收到RPC请求
+        [HarmonyPatch(typeof(PhotonNetwork), "ExecuteRpc")]
+        class ExecuteRpc_
+        {
+            static void Postfix(ExitGames.Client.Photon.Hashtable __0, Photon.Realtime.Player __1)
+            {
+                try
+                {
+                    //UnityExplorer.CSConsole.ScriptInteraction.Copy(__0);
+                    StringBuilder sb = new StringBuilder();
+                    sb.AppendLine("--------------------");
+                    sb.AppendLine("static void Photon.Pun.PhotonNetwork::ExecuteRpc(ExitGames.Client.Photon.Hashtable rpcData, Photon.Realtime.Player sender)");
+                    sb.Append("- Parameter 0 'rpcData': ").AppendLine(__0?.ToString() ?? "null");
+                    sb.Append("- Parameter 1 'sender': ").AppendLine(__1?.ToString() ?? "null");
+                    MelonLogger.Msg(sb.ToString());
+                }
+                catch (System.Exception ex)
+                {
+                    MelonLogger.Warning($"Exception in patch of static void Photon.Pun.PhotonNetwork::ExecuteRpc(ExitGames.Client.Photon.Hashtable rpcData, Photon.Realtime.Player sender):\n{ex}");
+                }
+            }
+        }
+        */
+
         [HarmonyPatch(typeof(PhotonView), nameof(PhotonView.RPC), new System.Type[] { typeof(string), typeof(RpcTarget), typeof(UnhollowerBaseLib.Il2CppReferenceArray<Il2CppSystem.Object>) })]
         class RPC_
         {

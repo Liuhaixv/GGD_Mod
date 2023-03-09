@@ -5,6 +5,7 @@ using GGD_Hack.Hook;
 using GGD_Hack.Utils;
 using Il2CppSystem.Security.Cryptography;
 using MelonLoader;
+using System;
 using System.Diagnostics;
 using System.Security.Cryptography;
 using System.Windows.Forms;
@@ -148,7 +149,7 @@ namespace GGD_Hack
                         "\n当前游戏版本:" + UnityEngine.Application.version +
                         "\nMod已过期!";
 
-                    string show = IsChineseSystem() ? cn : eng;
+                    string show = Utils.Utils.IsChineseSystem() ? cn : eng;
 
                     MyForms.MyMessageBox.Show(show);
                     UnityEngine.Application.Quit();
@@ -177,7 +178,7 @@ namespace GGD_Hack
                     "The mod is free, if you bought it somewhere, you are scammed";
                 string cn = "本mod由Liuhaixv@github.com开发\n" +
                     "该mod完全免费，如果你从别处购买到，那你就是大冤种";
-                string show = IsChineseSystem() ? cn : eng;
+                string show = Utils.Utils.IsChineseSystem() ? cn : eng;
                 MyForms.MyMessageBox.Show(show);
                 HasWarnedFree = true;
             }
@@ -194,8 +195,12 @@ namespace GGD_Hack
         {
             get
             {
+#if Developer
+                return true;
+#endif
+
                 string key = nameof(HasWarnedFree);
-                string correctMd5 = MD5Util.GetMd5Hash(BuildInfo.Version + BuildInfo.gameVersion + UnityEngine.Application.version + "");
+                string correctMd5 = MD5Util.GetMd5Hash(BuildInfo.Version + BuildInfo.gameVersion + UnityEngine.Application.version + DateTime.UtcNow.ToString("yyyy-MM-dd"));
                 bool result = false;
 
                 MelonPreferences_Entry<string> value = MelonPreferences.GetEntry<string>("GGDH", key);
@@ -224,31 +229,13 @@ namespace GGD_Hack
 
                 if (value == true)
                 {
-                    string md5 = MD5Util.GetMd5Hash(BuildInfo.Version + BuildInfo.gameVersion + UnityEngine.Application.version);
+                    string md5 = MD5Util.GetMd5Hash(BuildInfo.Version + BuildInfo.gameVersion + UnityEngine.Application.version + DateTime.UtcNow.ToString("yyyy-MM-dd"));
                     melonPreferences_Entry.Value = md5;
                 }
                 else
                 {
                     melonPreferences_Entry.Value = "";
                 }
-            }
-        }
-
-        private bool IsChineseSystem()
-        {
-            SystemLanguage systemLanguage = UnityEngine.Application.systemLanguage;
-#if Developer
-            MelonLogger.Msg("当前系统语言:" + systemLanguage);
-#endif
-            if (systemLanguage == SystemLanguage.Chinese ||
-                systemLanguage == SystemLanguage.ChineseSimplified ||
-                systemLanguage == SystemLanguage.ChineseTraditional)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
             }
         }
     }

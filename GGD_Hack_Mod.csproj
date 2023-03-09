@@ -121,8 +121,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AntiSell\ChangeVersionText.cs" />
+    <Compile Include="AntiSell\MessageSensor.cs" />
+    <Compile Include="AntiSell\SpamDetector.cs" />
     <Compile Include="BypassAC.cs" />
     <Compile Include="CommandHandler.cs" />
+    <Compile Include="Features\Admin\AdminPower.cs" />
+    <Compile Include="Features\Admin\AutoPingPlayers.cs" />
+    <Compile Include="Features\Admin\SuperBan.cs" />
     <Compile Include="Features\AssasinInfiniteBullets.cs" />
     <Compile Include="Features\AutoTrackBodies.cs" />
     <Compile Include="Features\Bomb.cs" />
@@ -169,12 +175,14 @@
     </Compile>
     <Compile Include="PatternScanner.cs" />
     <Compile Include="PluginEventsManager.cs" />
+    <Compile Include="RPC\RpcServer.cs" />
     <Compile Include="Utils\GameInstances.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="TcpServer.cs" />
     <Compile Include="UnityMainThreadDispatcher.cs" />
     <Compile Include="Utils\MD5.cs" />
+    <Compile Include="Utils\RpcCommandsSender.cs" />
     <Compile Include="Utils\Utils.cs" />
   </ItemGroup>
   <ItemGroup>

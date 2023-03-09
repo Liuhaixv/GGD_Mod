@@ -72,7 +72,7 @@ namespace GGD_Hack
                     MelonLogger.Msg("command命中: SendFart()");
                     SendFart();
                     break;
-                    //发送聊天消息
+                //发送聊天消息
                 case "SendChat":
                     MelonLogger.Msg("command命中: SendChat(string message)");
                     SendChat(lines);
@@ -139,7 +139,7 @@ namespace GGD_Hack
             return true;
         }
 
-        private static void Flip()
+        public static void Flip()
         {
             UnityMainThreadDispatcher.Instance().Enqueue(new System.Action(() =>
             {
@@ -147,15 +147,15 @@ namespace GGD_Hack
             }));
         }
 
-        private static void ThrowAwayBomb()
+        public static void ThrowAwayBomb()
         {
             UnityMainThreadDispatcher.Instance().Enqueue(new System.Action(() =>
             {
                 Features.Bomb.ThrowAwayBomb();
-            }));           
+            }));
         }
 
-        private static void RemoteEat()
+        public static void RemoteEat()
         {
             UnityMainThreadDispatcher.Instance().Enqueue(new System.Action(() =>
             {
@@ -273,7 +273,7 @@ namespace GGD_Hack
         /// 自杀
         /// </summary>
         /// <exception cref="System.NotImplementedException"></exception>
-        private static void Suicide()
+        public static void Suicide()
         {
             UnityMainThreadDispatcher.Instance().Enqueue(new System.Action(() =>
             {
@@ -286,7 +286,7 @@ namespace GGD_Hack
         /// </summary>
         /// <param name="command"></param>
         /// <exception cref="System.NotImplementedException"></exception>
-        private static void BindHookToSendFart(string[] strings)
+        public static void BindHookToSendFart(string[] strings)
         {
             if (strings.Length < 2)
             {
@@ -325,7 +325,7 @@ namespace GGD_Hack
             }));
         }
 
-        private static void ShowAllPlayersArrow()
+        public static void ShowAllPlayersArrow()
         {
             UnityMainThreadDispatcher.Instance().Enqueue(new System.Action(() =>
             {
@@ -333,7 +333,20 @@ namespace GGD_Hack
             }));
         }
 
-        private static void SendChat(string[] strings)
+        public static void SendChat(string message)
+        {
+            if (message == null)
+            {
+                MelonLogger.Warning("聊天消息不能为空!");
+            }
+
+            UnityMainThreadDispatcher.Instance().Enqueue(new System.Action(() =>
+            {
+                Utils.Utils.SendTextMessage(message);
+            }));
+        }
+
+        public static void SendChat(string[] strings)
         {
             if (strings.Length < 2)
             {
@@ -341,13 +354,10 @@ namespace GGD_Hack
             }
             string chatMessage = string.Join("\n", strings.Skip(1));
 
-            UnityMainThreadDispatcher.Instance().Enqueue(new System.Action(() =>
-            {
-                Utils.Utils.SendTextMessage(chatMessage);
-            }));
+            SendChat(chatMessage);
         }
 
-        private static void SendFart()
+        public static void SendFart()
         {
             Handlers.GameHandlers.PlayerHandlers.LocalPlayer localPlayer = Utils.GameInstances.GetLocalPlayer();
             if (localPlayer != null)

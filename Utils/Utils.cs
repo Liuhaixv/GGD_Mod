@@ -93,5 +93,23 @@ namespace GGD_Hack.Utils
             // 返回找到的 GameObject
             return currentTransform.gameObject;
         }
+
+        public static bool IsChineseSystem()
+        {
+            SystemLanguage systemLanguage = UnityEngine.Application.systemLanguage;
+#if Developer
+            //MelonLogger.Msg("当前系统语言:" + systemLanguage);
+#endif
+            if (systemLanguage == SystemLanguage.Chinese ||
+                systemLanguage == SystemLanguage.ChineseSimplified ||
+                systemLanguage == SystemLanguage.ChineseTraditional)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }
