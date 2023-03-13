@@ -126,5 +126,7 @@ namespace GGD_Hack.Features
                 lastRecordTime = Time.time;
             }
         }
+
+        //TODO: hook游戏开始的事件
     }
 }

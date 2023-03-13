@@ -2,8 +2,6 @@
 using ExitGames.Client.Photon;
 using HarmonyLib;
 using MelonLoader;
-using Il2CppSystem;
-using System.Reflection;
 using UnhollowerBaseLib;
 
 using Managers.InfoManagers;
@@ -16,35 +14,34 @@ using UnhollowerRuntimeLib;
 using UnityEngine;
 
 using IntPtr = System.IntPtr;
+using GGD_Hack.Hook;
 //using HTTPResponse = BestHTTP.HTTPResponse;
 
 namespace GGD_Hack.Features
 {
     [RegisterTypeInIl2Cpp]
-    public class UnlockAllItems : MonoBehaviour
+    public class ShowAllUnlockables : MonoBehaviour
     {
-        public static UnlockAllItems Instance;
+        public static ShowAllUnlockables Instance;
         public static MelonPreferences_Entry<bool> Enabled;
         //更新皮肤的时间间隔
-        public static MelonPreferences_Entry<float> updateInterval = MelonPreferences.CreateEntry("GGDH", nameof(UnlockAllItems.updateInterval), 25.0f);
+        //public static MelonPreferences_Entry<float> updateInterval = MelonPreferences.CreateEntry("GGDH", nameof(UnlockAllItems.updateInterval), 25.0f);
 
-        private float lastUpdateTime = 0;
-
-        public UnlockAllItems(IntPtr ptr) : base(ptr)
+        public ShowAllUnlockables(IntPtr ptr) : base(ptr)
         {
-            if (!MelonPreferences.HasEntry("GGDH", nameof(UnlockAllItems)))
+            if (!MelonPreferences.HasEntry("GGDH", nameof(ShowAllUnlockables)))
             {
-                Enabled = MelonPreferences.CreateEntry<bool>("GGDH", nameof(UnlockAllItems), true);
+                Enabled = MelonPreferences.CreateEntry<bool>("GGDH", nameof(ShowAllUnlockables), true);
             }
             else
             {
-                Enabled = MelonPreferences.GetEntry<bool>("GGDH", nameof(UnlockAllItems));
+                Enabled = MelonPreferences.GetEntry<bool>("GGDH", nameof(ShowAllUnlockables));
             }
         }
 
         // Optional, only used in case you want to instantiate this class in the mono-side
         // Don't use this on MonoBehaviours / Components!
-        public UnlockAllItems() : base(ClassInjector.DerivedConstructorPointer<UnlockAllItems>()) => ClassInjector.DerivedConstructorBody(this);
+        public ShowAllUnlockables() : base(ClassInjector.DerivedConstructorPointer<ShowAllUnlockables>()) => ClassInjector.DerivedConstructorBody(this);
         public static void Init()
         {
             GameObject ML_Manager = GameObject.Find("ML_Manager");
@@ -54,16 +51,17 @@ namespace GGD_Hack.Features
                 DontDestroyOnLoad(ML_Manager);
             }
 
-            if (ML_Manager.GetComponent<UnlockAllItems>() == null)
+            if (ML_Manager.GetComponent<ShowAllUnlockables>() == null)
             {
-                Instance = ML_Manager.AddComponent<UnlockAllItems>();
+                Instance = ML_Manager.AddComponent<ShowAllUnlockables>();
             }
         }
 
+        /*
         public static void SetUpdateTime(float time)
         {
             updateInterval.Value = time;
-        }
+        }*/
 
         /// <summary>
         /// 通知服务器更新玩家装扮
@@ -108,26 +106,6 @@ namespace GGD_Hack.Features
 
         private void Update()
         {
-            //判断是否在房间内
-            if (!LobbySceneHandler.InGameScene) return;
-
-            //游戏已经开始
-            if (LobbySceneHandler.Instance.gameStarted) return;
-
-            if (Time.time - lastUpdateTime < updateInterval.Value)
-            {
-                return;
-            }
-
-            lastUpdateTime = Time.time;
-
-            //如果功能被启用
-            if (Enabled.Value == true)
-            {
-                //更新玩家装扮
-                //由于服务器已经屏蔽回调更新不存在的衣服，更新数据已废弃
-                // UpdateTempUserUnlockables();
-            }
         }
     }
 
@@ -136,10 +114,12 @@ namespace GGD_Hack.Features
     [HarmonyPatch(typeof(UnlockablesManager), nameof(UnlockablesManager.ProcessGGDDataAndContinue))]
     class ProcessGGDDataAndContinue_
     {
+
+        //显示所有不可用物品
         static void Prefix(ref GGDDataBody __0)
         {
             //功能未启用
-            if (UnlockAllItems.Enabled.Value == false)
+            if (ShowAllUnlockables.Enabled.Value == false)
             {
                 return;
             }
@@ -151,6 +131,7 @@ namespace GGD_Hack.Features
             UnlockablesInfoBody ggdUnlockables = dataBody.ggdUnlockables;
             Il2CppReferenceArray<UnlockableInfo> unlockableInfos = ggdUnlockables.unlockableInfo;
 
+
             UnlockableInfo availableTemplate = null;
             //获取一个可用物品作为模板
             foreach (UnlockableInfo unlockableInfo in unlockableInfos)
@@ -161,16 +142,16 @@ namespace GGD_Hack.Features
                     break;
                 }
             }
-            /*
-            foreach (var recipe in availableTemplate.rawUnlockable.recipes)
-            {
-                foreach(var recipeCost in recipe.recipeCosts)
-                {
-                    recipeCost.cost = 999;
-                    recipeCost.currencyType = "gold";
-                }                
-            }
-            */
+
+            //不可用的物品的价格
+            UnlockableRecipe recipeOfNotAvailable = new UnlockableRecipe();
+            recipeOfNotAvailable.recipeCosts = new Il2CppReferenceArray<UnlockableCost>(1);
+
+            UnlockableCost cost = new UnlockableCost();
+            cost.cost = 9999;
+            cost.currencyType = "gold";
+
+            recipeOfNotAvailable.recipeCosts[0] = cost;
 
             //List<string> categoryIds = new List<string>();
             //所有物品
@@ -179,20 +160,42 @@ namespace GGD_Hack.Features
 
                 Unlockable rawUnlockable = unlockableInfo.rawUnlockable;
 
+
+                //跳过名片和横幅
+                /*
+                if (rawUnlockable.type == "Banners" || rawUnlockable.type == "Cards")
+                {
+                    continue;
+                }*/
+
                 //跳过不可用宠物
+                /*
                 if (rawUnlockable.type == "Pets" && unlockableInfo.isAvailable == false)
                 {
                     continue;
+                }*/
+
+                //为所有不可用的物品加上价格强制显示
+                if (!unlockableInfo.isAvailable)
+                {
+                    //MelonLogger.Msg(System.ConsoleColor.Green,"物品不可以用，正在添加价格并显示");
+                    rawUnlockable.recipes = new Il2CppReferenceArray<UnlockableRecipe>(1);
+                    rawUnlockable.recipes[0] = recipeOfNotAvailable;
+                    unlockableInfo.isAvailable = true;
                 }
 
-                rawUnlockable.recipes = null;
+
                 rawUnlockable.startDate = availableTemplate.rawUnlockable.startDate;
                 rawUnlockable.expirationDate = availableTemplate.rawUnlockable.expirationDate;
                 rawUnlockable.saleStartDate = availableTemplate.rawUnlockable.saleStartDate;
                 rawUnlockable.saleExpirationDate = availableTemplate.rawUnlockable.saleExpirationDate;
-                rawUnlockable.requirements = availableTemplate.rawUnlockable.requirements;
 
-                unlockableInfo.isAvailable = availableTemplate.isAvailable;
+                //只屏蔽非横幅和卡片的解锁条件
+                /*
+                if (rawUnlockable.type != "Banners" && rawUnlockable.type != "Cards")
+                    rawUnlockable.requirements = availableTemplate.rawUnlockable.requirements;
+                */
+
                 unlockableInfo.isAvailableExpiringSoon = availableTemplate.isAvailableExpiringSoon;
                 unlockableInfo.isOnSale = availableTemplate.isOnSale;
                 unlockableInfo.isOnSaleExpiringSoon = availableTemplate.isOnSaleExpiringSoon;
@@ -200,57 +203,54 @@ namespace GGD_Hack.Features
                 unlockableInfo.timeUntilIsOnSaleExpiring = availableTemplate.timeUntilIsOnSaleExpiring;
             }
         }
-    }
 
+        //解锁物品
+        /*
+        static void Postfix(ref GGDDataBody __0)
+        {            
+            GGDDataBody dataBody = __0;
 
-    /*
-    //BestHttp 2.5.4
-    [HarmonyPatch(typeof(HTTPManager), nameof(HTTPManager.SendRequest), typeof(string), typeof(HTTPMethods), typeof(bool), typeof(bool), typeof(OnRequestFinishedDelegate))]
-    [HarmonyPatch(typeof(HTTPResponse), nameof(HTTPResponse.))]
-    class HTTPManager_SendRequest_Patch
-    {
-        static bool Prefix(HTTPRequest __instance, OnRequestFinishedDelegate value)
-        {
-            // 创建一个新的回调函数，将原始回调函数的响应数据以Base64编码的形式传递给新的回调函数
-            OnRequestFinishedDelegate newCallback = (req, resp) =>
+            UnlockablesInfoBody ggdUnlockables = dataBody.ggdUnlockables;
+            if (ggdUnlockables == null) { MelonLogger.Error("ggdUnlockables不存在"); return; }
+            Il2CppReferenceArray<UnlockableInfo> unlockableInfos = ggdUnlockables.unlockableInfo;
+            if (unlockableInfos == null) { MelonLogger.Error("unlockableInfo不存在"); return; }
+            dataBody.userUnlockables = new Dictionary<string, UserUnlockable>();
+            Dictionary<string, UserUnlockable> userUnlockables = dataBody.userUnlockables;
+            if (userUnlockables == null)
             {
-                byte[] data = resp.Data;
-                string dataBase64 = Convert.ToBase64String(data);
-                value(req, new HTTPResponse(resp.StatusCode, resp.Headers, dataBase64));
-            };
-
-            // 调用原始的SetCallback函数，将新的回调函数传递给它
-            __instance.SetCallback(newCallback);
-
-            // 返回false，继续调用原始的Callback函数
-            return false;
-        }
-
-        static void Prefix(HTTPRequest __result)
-        {
-            //打印HTTPRequest的Uri
-            var uri = typeof(HTTPRequest).GetProperty("Uri").GetValue(__result, null);
-
-            string uriString = uri.GetType().GetMethod("ToString").Invoke(uri, null) as string;
-
-            MelonLogger.Msg("HTTPManager.SendRequest: " + uriString);
-
-            string stateName = Enum.GetName(typeof(HTTPRequestStates), __result.State);
-            MelonLogger.Msg("State : " + stateName);
-
-            //是否是玩家装扮的json
-            if (uriString.Contains("fetchGGDUserDataVer4"))
-            {
-                //string responseString = System.Text.Encoding.UTF8.GetString(request.Response.DataAsText);
-
-                //MelonLogger.Msg(request.Response.DataAsText);
+                MelonLogger.Error("userUnlockables不存在"); return;
             }
-        }
 
-        static string ChangeJson(string raw)
+            //所有物品
+            foreach (UnlockableInfo unlockableInfo in unlockableInfos)
+            {
+                Unlockable rawUnlockable = unlockableInfo.rawUnlockable;
+
+                //解锁所有横幅和卡片
+                if (rawUnlockable.type == "Cards" || rawUnlockable.type == "Banners")
+                {
+                    UserUnlockable userUnlockable = new UserUnlockable();
+                    userUnlockable.timestamp = 1677158242542;
+                    userUnlockables[rawUnlockable.id.ToString()] = userUnlockable;
+                }
+            }
+        }*/
+    }
+
+    [HarmonyPatch(typeof(PlayerCustomizationPanelHandler), nameof(PlayerCustomizationPanelHandler.IsOwnedOrFree))]
+    class IsOwnedOrFree_
+    {
+        static void Postfix(ref bool __result)
         {
-            return "";
+#if !Developer
+            //只有开发者版本启用
+            return;
+#else
+            if (ShowAllUnlockables.Enabled.Value == true)
+            {
+                // __result = false;
+            }
+#endif
         }
     }
-    */
 }

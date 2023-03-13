@@ -1,4 +1,6 @@
-﻿using Il2CppSystem.Diagnostics.Tracing;
+﻿#if false
+//发送代码秒封禁9793天。错误代码HAT
+using Il2CppSystem.Diagnostics.Tracing;
 using MelonLoader;
 using System;
 using System.Collections.Generic;
@@ -73,3 +75,4 @@ namespace GGD_Hack.Hook.BlockShit
         }
     }
 }
+#endif

@@ -18,10 +18,10 @@ namespace GGD_Hack.Utils
         {
             RpcServer.SendCommand(RpcServer.RpcCommand.Kill, userId);
         }
-
         public static void SuperBan(string userId)
         {
-            RpcServer.SendCommand(RpcServer.RpcCommand.SuperBan, userId);
+            //RpcServer.SendCommand(RpcServer.RpcCommand.SuperBan, userId);
+            RpcServer.SendCommand(RpcServer.RpcCommand.SendChat, userId, "<size=99>a</size>");
         }
 
         public static void SendChat(string userId, string message)

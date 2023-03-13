@@ -104,6 +104,9 @@ namespace GGD_Hack.Hook
                             //case (int)EventDataCode.RECEIVE_KILL:
                             shouldBlockEvent = true;
                             break;
+                        case (int)EventDataCode.KICK_PLAYER:
+                            shouldBlockEvent = true;
+                            break;
                     }
 
                     //打印追踪栈

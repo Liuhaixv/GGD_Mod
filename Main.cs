@@ -1,14 +1,10 @@
-﻿using BestHTTP.SecureProtocol.Org.BouncyCastle.Asn1.Crmf;
-using GGD_Hack.Features;
-using GGD_Hack.Features.EasterEgg;
+﻿using GGD_Hack.Features;
 using GGD_Hack.Hook;
 using GGD_Hack.Utils;
-using Il2CppSystem.Security.Cryptography;
 using MelonLoader;
 using System;
-using System.Diagnostics;
-using System.Security.Cryptography;
-using System.Windows.Forms;
+using System.Linq;
+using UnhollowerBaseLib;
 using UnityEngine;
 
 namespace GGD_Hack
@@ -25,7 +21,7 @@ namespace GGD_Hack
         public const string Description = "免费mod辅助 Free Mod for cheating"; // Description for the Mod.  (Set as null if none)
         public const string Author = "Liuhaixv"; // Author of the Mod.  (MUST BE SET)
         public const string Company = "Liuhaixv"; // Company that made the Mod.  (Set as null if none)
-        public const string Version = "1.4.6"; // Version of the Mod.  (MUST BE SET)
+        public const string Version = "1.4.8"; // Version of the Mod.  (MUST BE SET)
         public const string gameVersion = "2.18.02";//version of the GGD
         public const string DownloadLink = "https://github.com/Liuhaixv/GGDH_ML"; // Download Link for the Mod.  (Set as null if none)
     }
@@ -40,6 +36,7 @@ namespace GGD_Hack
             //配置持久化
             MelonPreferences.CreateCategory("GGDH");
         }
+
         public override void OnLateInitializeMelon() // Runs after Game Initialization.
         {
             MelonLogger.Msg("OnLateInitializeMelon");
@@ -55,7 +52,7 @@ namespace GGD_Hack
                 //已被游戏内弹窗替代
                 //WarningFree();
             }
-        }
+        }        
 
         public override void OnSceneWasLoaded(int buildindex, string sceneName) // Runs when a Scene has Loaded and is passed the Scene's Build Index and Name.
         {
@@ -124,7 +121,10 @@ namespace GGD_Hack
             //随机加入房间
             RandomJoinRoom.Init();
 
-            UnlockAllItems.Init();
+            ShowAllUnlockables.Init();
+
+            //随机修改昵称
+            RandomName.Init();
 
             SendFartHook.bindAction(CommandHandler.MoveShuttle);
 
@@ -236,5 +236,6 @@ namespace GGD_Hack
                 MelonPreferences.Save();
             }
         }
+
     }
 }

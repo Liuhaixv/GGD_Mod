@@ -1,9 +1,11 @@
 ﻿using Handlers.GameHandlers.PlayerHandlers;
+using Handlers.MenuSceneHandlers;
 using HarmonyLib;
 using Managers.ConnectionManagers;
 using MelonLoader;
 using Photon.Pun;
 using System.Text;
+using UnityEngine;
 
 namespace GGD_Hack.Features
 {
@@ -21,6 +23,28 @@ namespace GGD_Hack.Features
            overrideName = null;
         }
 
+        public static void CreateChangeColorButton()
+        {
+            GameObject inputNickname = Handlers.MenuSceneHandlers.MenuSceneHandler.Instance.playerNameIF.gameObject;
+
+            GameObject changeColorButton = GameObject.Find("NicknameColorButton");
+
+            if(changeColorButton == null)
+            {
+                changeColorButton = GameObject.Instantiate(GameObject.Find("CycleButton"));
+                changeColorButton.name = "NicknameColorButton";
+            }
+
+            changeColorButton.transform.localPosition = new Vector3(-1000, -60, 0);
+            changeColorButton.transform.localScale = Vector3.one;
+
+            TMPro.TextMeshProUGUI textMeshProUGUI = changeColorButton.transform.Find("Label").gameObject.GetComponent<TMPro.TextMeshProUGUI>();
+            textMeshProUGUI.text = "Color";
+            textMeshProUGUI.ForceMeshUpdate();
+
+            changeColorButton.transform.SetParent(inputNickname.transform);
+        }
+
         [HarmonyPatch(typeof(RoomManager), nameof(RoomManager.GEEMGMMAHKK))]
         public class OverrideNamePatch
         {
@@ -28,22 +52,17 @@ namespace GGD_Hack.Features
             {
                 try
                 {
-                    if(overrideName != null)
+                    StringBuilder sb = new StringBuilder();
+                    sb.AppendLine("------------------------");
+                    sb.AppendLine("原始名字:" + __1);
+                    sb.AppendLine("替换名字:" + overrideName);
+
+                    if (overrideName != null)
                     {
                         __1 = overrideName;
                     }
 
-                    StringBuilder sb = new StringBuilder();
-                    sb.AppendLine("--------------------");
-                    sb.AppendLine("Il2CppSystem.Collections.IEnumerator Managers.ConnectionManagers.RoomManager::GEEMGMMAHKK(string LOPKLMEJFGC, string GBNIEEGIBFD, string OMHOMNEPPKM, string CLDANIALKPF, bool IEHHFCLHFAP)");
-                    sb.Append("- __instance: ").AppendLine(__instance.ToString());
-                    sb.Append("- Parameter 0 'LOPKLMEJFGC': ").AppendLine(__0?.ToString() ?? "null");
-                    sb.Append("- Parameter 1 'GBNIEEGIBFD': ").AppendLine(__1?.ToString() ?? "null");
-                    sb.Append("- Parameter 2 'OMHOMNEPPKM': ").AppendLine(__2?.ToString() ?? "null");
-                    sb.Append("- Parameter 3 'CLDANIALKPF': ").AppendLine(__3?.ToString() ?? "null");
-                    sb.Append("- Parameter 4 'IEHHFCLHFAP': ").AppendLine(__4.ToString());
-                    sb.Append("- Return value: ").AppendLine(__result?.ToString() ?? "null");
-                    MelonLogger.Msg(sb.ToString());
+                    MelonLogger.Msg(System.ConsoleColor.Green, sb.ToString());
                 }
                 catch (System.Exception ex)
                 {

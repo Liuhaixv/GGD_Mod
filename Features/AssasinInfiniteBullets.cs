@@ -63,7 +63,7 @@ namespace GGD_Hack.Features
         {
             try
             {
-                const int rolesNum = 19;
+                const int rolesNum = 18;
 
                 UnhollowerBaseLib.Il2CppStructArray<PFFIPCCNHBA> temp = new UnhollowerBaseLib.Il2CppStructArray<PFFIPCCNHBA>(__result.Count + rolesNum);
 
@@ -87,9 +87,8 @@ namespace GGD_Hack.Features
                 temp[__result.Count + 13] = PFFIPCCNHBA.SerialKiller;
                 temp[__result.Count + 14] = PFFIPCCNHBA.Warlock;
                 temp[__result.Count + 15] = PFFIPCCNHBA.EsperDuck;
-                temp[__result.Count + 16] = PFFIPCCNHBA.Assassin;
-                temp[__result.Count + 17] = PFFIPCCNHBA.Goose;
-                temp[__result.Count + 18] = PFFIPCCNHBA.Bounty;
+                temp[__result.Count + 16] = PFFIPCCNHBA.Goose;
+                temp[__result.Count + 17] = PFFIPCCNHBA.Bounty;
 
                 //temp[__result.Count + 3] = PFFIPCCNHBA.None;
 

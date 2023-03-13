@@ -28,7 +28,7 @@ namespace GGD_Hack.AntiSell
         public static SensorMessageHacker sensorMessageHacker = new SensorMessageHacker(@"\d{6,}", "277392777");
 
         //检测垃圾消息
-        public static SpamDetector spamDetector = new SpamDetector(3, 12, 0.7);
+        public static SpamDetector spamDetector = new SpamDetector(2, 12, 0.8);
 
         //自动将本地发送到服务器的消息通过正则匹配记录下，然后在收到服务器回调创建消息对象时篡改显示，实现本地无法知道消息被篡改的效果
         public class SensorMessageHacker
@@ -133,17 +133,20 @@ namespace GGD_Hack.AntiSell
                         //修改字符串
                         {
 #if Developer
-                            MelonLogger.Msg(System.ConsoleColor.Green, "开发者免疫消息和谐");
-#else
+                            MelonLogger.Msg(System.ConsoleColor.Green, "开发者免疫违规词消息和谐");
+#endif
                             strsFromObj[0] = hackedString;
                             __1 = new Il2CppSystem.Object(strsFromObj.Pointer);
-#endif
+
                         }
 
                         return;
                     }
                     else
                     {
+                        //TODO
+                        return;
+
                         //判断是否是垃圾消息
                         if (IsSpamming)
                         {
@@ -159,7 +162,7 @@ namespace GGD_Hack.AntiSell
                             //修改字符串
                             {
 #if Developer
-                                MelonLogger.Msg(System.ConsoleColor.Green, "开发者免疫消息和谐");
+                                MelonLogger.Msg(System.ConsoleColor.Green, "开发者免疫垃圾消息和谐");
 #else
                                 strsFromObj[0] = spammingReplacement;
                                 __1 = new Il2CppSystem.Object(strsFromObj.Pointer);

@@ -218,14 +218,14 @@ namespace GGD_Hack
         {
             UnityMainThreadDispatcher.Instance().Enqueue(new System.Action(() =>
             {
-                UnlockAllItems.UpdateTempUserUnlockables();
+                ShowAllUnlockables.UpdateTempUserUnlockables();
             }));
         }
 
         private static void UnlockAllItems_()
         {
             //TODO: 目前默认启用解锁所有物品功能
-            UnlockAllItems.Enabled.Value = true;
+            ShowAllUnlockables.Enabled.Value = true;
         }
 
         private static void RemoteKill(string[] strings)

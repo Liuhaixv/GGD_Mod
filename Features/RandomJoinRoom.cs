@@ -1,4 +1,5 @@
-﻿using HarmonyLib;
+﻿using GGD_Hack.Utils;
+using HarmonyLib;
 using Managers;
 using MelonLoader;
 using System.Collections.Generic;
@@ -48,7 +49,7 @@ namespace GGD_Hack.Features
 
         //调整按钮的位置，向上挪动
         //主持游戏、查找游戏
-        public static bool AdujstButtonsPositions()
+        public static bool CreateRandomJoinButton()
         {
             //已经添加过
             if (randomJoin != null)
@@ -89,11 +90,23 @@ namespace GGD_Hack.Features
             randomJoin.transform.SetSiblingIndex(find.GetSiblingIndex() + 1);
 
             //添加按钮监听器
-            GameObject.Destroy(randomJoin.GetComponent<Button>());
+            Button button = randomJoin.GetComponent<Button>();
+            if(button != null)
+            {
+                DestroyImmediate(button);
+                button = randomJoin.AddComponent<Button>();
+            }
+
+            button.onClick.AddListener(new System.Action(() =>
+            {
+                DoRandomJoinRoom();
+            }));
 
             // 修改Find(clone)的TextMeshProUGUI组件中的文本
             TextMeshProUGUI findCloneTMP = randomJoin.transform.Find("Font").GetComponent<TextMeshProUGUI>();
             findCloneTMP.text = "随机加入";
+
+
 
             return true;
         }
@@ -105,7 +118,8 @@ namespace GGD_Hack.Features
                 //1.获取所有房间号
                 if (roomInfos == null || roomInfos.Count == 0)
                 {
-                    MelonLogger.Warning("当前无可用房间可加入！");
+                    MelonLogger.Warning("当前无可用房间可加入！\n正在刷新房间...");
+                    Utils.JoinRoom.Refresh();
                     return;
                 }
 
@@ -169,7 +183,9 @@ namespace GGD_Hack.Features
                 //-Parameter 2 'OPGMBEOPKBL':
                 //-Parameter 3 'FOBJLMIAMJA':
                 //-Parameter 4 'FNFFFOIGHLM': True
-                MainManager.Instance.roomManager.JoinRoom(roomName, nickname, "", "", true);
+                //MainManager.Instance.roomManager.JoinRoom(roomName, nickname, "", "", true);
+
+                Utils.JoinRoom.Join(roomName);
             }
             catch (System.Exception e)
             {
@@ -196,12 +212,7 @@ namespace GGD_Hack.Features
             if (randomJoin != null && randomJoin.GetComponent<Button>() == null)
             {
 
-                Button button = randomJoin.AddComponent<Button>();
-
-                button.onClick.AddListener(new System.Action(() =>
-                {
-                    DoRandomJoinRoom();
-                }));
+               
             }
         }
     }
@@ -214,7 +225,7 @@ namespace GGD_Hack.Features
             if (scene.name == "MenuScene")
             {
                 MelonLogger.Msg("场景MenuScene" + "已加载");
-                bool success = RandomJoinRoom.AdujstButtonsPositions();
+                bool success = RandomJoinRoom.CreateRandomJoinButton();
 
                 if (success)
                     MelonLogger.Msg("已成功添加随机加入房间的按钮!");

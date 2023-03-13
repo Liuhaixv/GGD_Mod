@@ -206,9 +206,16 @@ namespace GGD_Hack.Features
                 if (playerController.timeOfDeath != 0)
                 {
                     //没有标签就加上标签
-                    if (!playerController.nickname.Contains("[尸体]"))
+                    if (!playerController.nickname.Contains("[尸体]") && !playerController.nickname.Contains("[Body]"))
                     {
-                        playerController.nickname = "[尸体]" + playerController.nickname;
+                        if (Utils.Utils.IsChineseSystem())
+                        {
+                            playerController.nickname = "[尸体] " + playerController.nickname;
+                        }
+                        else
+                        {
+                            playerController.nickname = "[Body] " + playerController.nickname;
+                        }
                     }
                     //获取尸体
                     Handlers.GameHandlers.BodyHandler bodyHandler = Managers.MainManager.Instance.gameManager.BodyFromUserId(playerController.userId);
@@ -228,9 +235,12 @@ namespace GGD_Hack.Features
                 if (playerController.isInPelican)
                 {
                     //没有标签就加上标签
-                    if (!playerController.nickname.Contains("[被吃]"))
+                    if (!playerController.nickname.Contains("[被吃]") && !playerController.nickname.Contains("[Eaten]"))
                     {
-                        playerController.nickname = "[被吃]" + playerController.nickname;
+                        if (Utils.Utils.IsChineseSystem())
+                            playerController.nickname = "[被吃] " + playerController.nickname;
+                        else
+                            playerController.nickname = "[Eaten] " + playerController.nickname;
                     }
                 }
 

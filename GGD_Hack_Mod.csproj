@@ -106,6 +106,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Goose Goose Duck\MelonLoader\Managed\UnityEngine.CoreModule.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEngine.ImageConversionModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Goose Goose Duck\MelonLoader\Managed\UnityEngine.ImageConversionModule.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEngine.InputLegacyModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Goose Goose Duck\MelonLoader\Managed\UnityEngine.InputLegacyModule.dll</HintPath>
@@ -127,6 +131,7 @@
     <Compile Include="AntiSell\SpamDetector.cs" />
     <Compile Include="BypassAC.cs" />
     <Compile Include="CommandHandler.cs" />
+    <Compile Include="Events\GameEvents.cs" />
     <Compile Include="Features\Admin\AdminPower.cs" />
     <Compile Include="Features\Admin\AutoPingPlayers.cs" />
     <Compile Include="Features\Admin\SuperBan.cs" />
@@ -135,6 +140,7 @@
     <Compile Include="Features\Bomb.cs" />
     <Compile Include="Features\ChangeName.cs" />
     <Compile Include="Features\ClearAllBodies.cs" />
+    <Compile Include="Features\RandomName.cs" />
     <Compile Include="Features\DragAllBodies.cs" />
     <Compile Include="Features\EasterEgg\MoneyHackButton.cs" />
     <Compile Include="Features\Invisible.cs" />
@@ -148,8 +154,9 @@
     <Compile Include="Features\RemoteKillPlayer.cs" />
     <Compile Include="Features\SilenceAllPlayers.cs" />
     <Compile Include="Features\Test\RPC.cs" />
+    <Compile Include="Features\Test\ShowImage.cs" />
     <Compile Include="Features\TrackAllPlayers.cs" />
-    <Compile Include="Features\UnlockAllItems.cs" />
+    <Compile Include="Features\ShowAllUnlockables.cs" />
     <Compile Include="Features\VigilanteInfiniteKill.cs" />
     <Compile Include="GameData\EventDataCode.cs" />
     <Compile Include="GameData\RoleId.cs" />
@@ -183,12 +190,20 @@
     <Compile Include="Main.cs" />
     <Compile Include="TcpServer.cs" />
     <Compile Include="UnityMainThreadDispatcher.cs" />
+    <Compile Include="Utils\JoinRoom.cs" />
     <Compile Include="Utils\MD5.cs" />
     <Compile Include="Utils\RpcCommandsSender.cs" />
+    <Compile Include="Utils\SpriteUtil.cs" />
     <Compile Include="Utils\Utils.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="MyComponents\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\chocolate.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\liuhaixv.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
