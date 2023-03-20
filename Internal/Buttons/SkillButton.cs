@@ -162,11 +162,11 @@ namespace GGD_Hack.Internal.Buttons
 
     }
     
-    //通过hook注册按钮的函数来动态更新
-    [HarmonyPatch(typeof(PlayerButtonController), nameof(PlayerButtonController.RegisterCooldownButton))]
+    //TODO:存在恶性bug，会导致按钮cd未好也能按，导致卡住按钮UI
+    //[HarmonyPatch(typeof(PlayerButtonController), nameof(PlayerButtonController.RegisterCooldownButton))]
     class RegisterCooldownButton_
     {
-        static void Postfix(PlayerButtonController __instance, UICooldownButton __result, string __0, JCKBEBDEMLN __1, UnityEngine.Transform __2, float __3, bool __4)
+        static void Prefix(PlayerButtonController __instance, UICooldownButton __result, string __0, JCKBEBDEMLN __1, UnityEngine.Transform __2, float __3, bool __4)
         {
            //
            //  --------------------
