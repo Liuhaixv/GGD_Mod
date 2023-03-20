@@ -10,6 +10,9 @@ using Handlers.GameHandlers.PlayerHandlers;
 using static MelonLoader.MelonLogger;
 using Handlers.LobbyHandlers;
 using Il2CppSystem.Threading.Tasks;
+using UnityEngine.UI;
+using Photon.Pun.Demo.Procedural;
+using TMPro;
 
 namespace GGD_Hack.Features
 {
@@ -86,12 +89,16 @@ namespace GGD_Hack.Features
                 GameObject clone = Object.Instantiate(targetMe, targetMe.transform.parent);
                 clone.name = playerController.userId;
 
-                SetPlayerName(clone, playerController);
+                //摧毁动画闪烁效果
+                DestroyImmediate(clone.GetComponent<Animator>());
 
-                //TODO: 修改颜色
+                //修改点和名字间连线的颜色
+                clone.transform.Find("Text").gameObject.GetComponent<TextMeshProUGUI>().color = Color.white;
+
+                //修改颜色
+                UpdatePlayerColorAndName(clone, playerController);               
 
                 playersOnMinimap.Add(playerController.userId, clone);
-
             }
 
             MelonLogger.Msg("已初始化所有玩家的minimap点位");
@@ -103,13 +110,20 @@ namespace GGD_Hack.Features
         /// </summary>
         /// <param name="playerOnMinimap"></param>
         /// <param name="playerController"></param>
-        private static void SetPlayerName(GameObject playerOnMinimap, PlayerController playerController)
+        private static void UpdatePlayerColorAndName(GameObject playerOnMinimap, PlayerController playerController)
         {
             Transform youTransform = playerOnMinimap.transform.Find("You");
+
+            Image sphere = playerOnMinimap.GetComponent<Image>();
 
             if (youTransform == null)
             {
                 MelonLogger.Warning("找不到 You");
+            }
+
+            if(sphere == null)
+            {
+                MelonLogger.Warning("找不到 Image");
             }
 
             TMPro.TextMeshProUGUI textMeshProUGUI = youTransform.gameObject.GetComponent<TMPro.TextMeshProUGUI>();
@@ -120,21 +134,33 @@ namespace GGD_Hack.Features
                 //鹈鹕粉色
                 if (playerController.isInPelican)
                 {
-                    textMeshProUGUI.SetFaceColor(new Color32(255, 255, 255, 150));
-                    textMeshProUGUI.SetOutlineColor(new Color32(255, 0, 255, 255));
-                }
-                //死亡红色
+                    Color pink = new Color(1.0f, 0f, 1.0f);
+
+                    textMeshProUGUI.color = pink;
+                    //sphere.color = pink;
+                }else
+
+                //死亡黑色
                 if (playerController.timeOfDeath > 0)
                 {
-                    textMeshProUGUI.SetFaceColor(new Color32(255, 255, 255, 150));
-                    textMeshProUGUI.SetOutlineColor(new Color32(255, 0, 0, 255));
-                }
-                //MelonLogger.Msg("修改玩家姓名为: " + playerController.nickname);
-                textMeshProUGUI.SetText(playerController.nickname, true);
-                textMeshProUGUI.UpdateFontAsset();
+                    Color black = Color.black;
 
+                    textMeshProUGUI.color = black;
+                    //sphere.color = black;
+                }
+                else
+                {
+                    //默认白色
+                    textMeshProUGUI.color = Color.white;
+                }
+
+                textMeshProUGUI.outlineColor = Color.white;
+
+                textMeshProUGUI.text = playerController.nickname;
+                textMeshProUGUI.ForceMeshUpdate();
             }
         }
+
         private static void DestroyAllPlayers()
         {
             MelonLogger.Msg("正在销毁所有玩家minimap点位");
@@ -251,8 +277,8 @@ namespace GGD_Hack.Features
                 0.0f
                 );
 
-                //强制修改名称
-                SetPlayerName(gameObject, playerController);
+                //修改颜色
+                UpdatePlayerColorAndName(gameObject, playerController);
             }
 
             //MelonLogger.Msg("已经更新所有玩家minimap坐标");
