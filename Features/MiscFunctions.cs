@@ -16,7 +16,9 @@ namespace GGD_Hack.Features
         /// </summary>
         public static void MoveShuttle()
         {
+            PluginEventsManager.Precursor(true);
             SendEventToPlugin.MOVE_SHUTTLE();
+            PluginEventsManager.Precursor(false);
         }
 
         /// <summary>
