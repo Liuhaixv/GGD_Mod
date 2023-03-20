@@ -105,7 +105,7 @@ namespace GGD_Hack.Hook
                             shouldBlockEvent = true;
                             break;
                         case (int)EventDataCode.KICK_PLAYER:
-                            shouldBlockEvent = true;
+                            //shouldBlockEvent = true;
                             break;
                     }
 

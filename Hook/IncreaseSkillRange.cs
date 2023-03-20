@@ -11,13 +11,13 @@ using UnityEngine;
 
 namespace GGD_Hack.Hook
 {
-    public  class IncreaseSkillRange
+    public class IncreaseSkillRange
     {
     }
 
 #if Developer
 
-    [HarmonyPatch(typeof(Transform), "set_position")]
+    //[HarmonyPatch(typeof(Transform), "set_position")]
     public class Transform_
     {
         static void Postfix(UnityEngine.Transform __instance, UnityEngine.Vector3 __0)
@@ -25,7 +25,7 @@ namespace GGD_Hack.Hook
             try
             {
                 //判断是否是本地玩家
-                if(__instance.gameObject.GetComponent<LocalPlayer>()==null)
+                if (__instance.gameObject.GetComponent<LocalPlayer>() == null)
                 {
                     //不是本地玩家
                     return;

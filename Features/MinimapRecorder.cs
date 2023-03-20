@@ -109,13 +109,15 @@ namespace GGD_Hack.Features
             }
             records.Add(positions);
 
+            MelonLogger.Msg(System.ConsoleColor.Green, "当前MinimapRecorder记录总数：" + this.records.Count);
+
             // 更新时间
             recordTime += recordInterval;
         }
 
         private void Update()
         {
-            if(!isRecording)
+            if (!isRecording)
             {
                 return;
             }
