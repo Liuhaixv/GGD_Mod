@@ -54,9 +54,10 @@ namespace GGD_Hack.Features
 
 
     /// <summary>
+    /// [已废弃]
     /// 允许刺客狙击肉汁和大白鹅
     /// </summary>
-    [HarmonyPatch(typeof(PlayerRolesManager), nameof(PlayerRolesManager.GetPossibleAssassinTargets))]
+    //[HarmonyPatch(typeof(PlayerRolesManager), nameof(PlayerRolesManager.GetPossibleAssassinTargets))]
     public class EnableToShootAllRoles
     {
         static void Postfix(ref UnhollowerBaseLib.Il2CppStructArray<PFFIPCCNHBA> __result)
