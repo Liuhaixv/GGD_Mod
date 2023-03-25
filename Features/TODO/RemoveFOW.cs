@@ -5,6 +5,7 @@ using Handlers.GameHandlers.PlayerHandlers;
 using UnityEngine;
 using static MelonLoader.MelonLogger;
 using System;
+using System.Collections;
 
 //TODO: 移除战争迷雾
 //Remove fog of war
@@ -14,66 +15,60 @@ namespace GGD_Hack.Features
     {
         public static MelonPreferences_Entry<bool> Enabled = MelonPreferences.CreateEntry<bool>("GGDH", "Enable_" + nameof(RemoveFOW), true);
 
-        public static void RemoveFogOfWar()
-        {
-            try
-            {
-
-                FogOfWarHandler fogOfWar = LocalPlayer.Instance.fogOfWar;
-
-                fogOfWar.DGAFOPNFEPL = 0;
-                fogOfWar.layerMask = 0;
-
-                //移除屋顶
-                GameObject.Find("Roofs").SetActive(false);
-                MelonLogger.Msg(System.ConsoleColor.Green, "已清除战争迷雾");
-            }
-            catch(Exception ex)
-            {
-#if Developer
-                MelonLogger.Error("移除战争迷雾失败!" + ex.Message  );
-#endif
-            }
-        }
+        private static float lastTimeHackedLayerMask = -1;
 
         public static void SetBaseViewDistance(float distance)
         {
             Handlers.GameHandlers.PlayerHandlers.LocalPlayer.Instance.fogOfWar.baseViewDistance = distance;
         }
 
-        [HarmonyPatch(typeof(FogOfWarHandler),nameof(FogOfWarHandler.Start))]
-        public class RemoveFOW_On_Start
+        [HarmonyPatch(typeof(FogOfWarHandler), nameof(FogOfWarHandler.UpdateFieldOfView))]
+        public class DelayedDisableUpdatingFOV
         {
-            static void Prefix(ref FogOfWarHandler __instance)
+            static bool Prefix(ref FogOfWarHandler __instance)
             {
-                if (Enabled.Value)
+                if (!Enabled.Value)
                 {
-                    RemoveFogOfWar();
+                    return true;
                 }
-            }
-        }
+                //修改视野大小范围
+                __instance.baseViewDistance = 100000.0f;
 
-        [HarmonyPatch(typeof(FogOfWarHandler), nameof(FogOfWarHandler.FixedUpdate))]
-        public class RemoveFOW_On_FixedUpdate
-        {
-            static void Postfix(ref FogOfWarHandler __instance)
-            {
-                if (Enabled.Value)
+                //Not hacked yet
+                if (__instance.layerMask != 0)
                 {
-                    GameObject fadedGameObject = __instance.gameObject.transform.Find("faded").gameObject;
-                    if (fadedGameObject != null)
+                    lastTimeHackedLayerMask = UnityEngine.Time.time;
+
+                    //修改layerMask防止遮挡视野
+                    __instance.DGAFOPNFEPL = 0;
+                    __instance.layerMask = 0;                                      
+
+                    GameObject faded = __instance.gameObject.transform.Find("faded").gameObject;
+                    if(faded != null)
                     {
-                        fadedGameObject.SetActive(false);
-                        //GameObject.DestroyImmediate(fadedGameObject);
+                        faded.SetActive(false);
                     }
 
-                    SetBaseViewDistance(100000.0f);
                     if (__instance.shader == null || __instance.shader.name != "empty_shader")
                     {
                         GameObject empty = new GameObject();
                         empty.name = "empty_shader";
                         __instance.shader = empty;
-                    }                  
+                    }
+                    return true;
+                } else
+                {
+                    //Hacked
+                    //Should skip updating FOV?
+                    if(UnityEngine.Time.time - lastTimeHackedLayerMask > 2)
+                    {
+                        //Skip
+                        return false;
+                    }else
+                    {
+                        //Do not skip
+                        return true;
+                    }                    
                 }
             }
         }

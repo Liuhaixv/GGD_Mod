@@ -34,7 +34,7 @@ namespace GGD_Hack
 
             static void Postfix(ref string __result)
             {
-                MelonLogger.Msg("游戏正在检查非法DLL名称：" + __result);
+                //MelonLogger.Msg("游戏正在检查非法DLL名称：" + __result);
                 if (__result == "MelonLoader.dll")
                 {
                     MelonLogger.Msg("游戏即将检测到非法DLL: MelonLoader.dll");

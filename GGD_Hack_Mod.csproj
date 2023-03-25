@@ -159,8 +159,10 @@
     <Compile Include="Features\SilenceAllPlayers.cs" />
     <Compile Include="Features\Test\RPC.cs" />
     <Compile Include="Features\Test\ShowImage.cs" />
+    <Compile Include="Features\TODO\DisableSandstorm.cs" />
     <Compile Include="Features\TODO\RemoveFOW.cs" />
-    <Compile Include="Features\TODO\ZoomSlider.cs" />
+    <Compile Include="Features\RemoveRoofs.cs" />
+    <Compile Include="Features\ZoomSlider.cs" />
     <Compile Include="Features\TrackAllPlayers.cs" />
     <Compile Include="Features\ShowAllUnlockables.cs" />
     <Compile Include="Features\VigilanteInfiniteKill.cs" />
