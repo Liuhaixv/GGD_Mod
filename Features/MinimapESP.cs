@@ -137,8 +137,10 @@ namespace GGD_Hack.Features
                     Color pink = new Color(1.0f, 0f, 1.0f);
 
                     textMeshProUGUI.color = pink;
+                    textMeshProUGUI.outlineColor = Color.white;
                     //sphere.color = pink;
-                }else
+                }
+                else
 
                 //死亡黑色
                 if (playerController.timeOfDeath > 0)
@@ -146,15 +148,16 @@ namespace GGD_Hack.Features
                     Color black = Color.black;
 
                     textMeshProUGUI.color = black;
+                    textMeshProUGUI.outlineColor = Color.white;
                     //sphere.color = black;
                 }
                 else
                 {
                     //默认白色
                     textMeshProUGUI.color = Color.white;
+                    textMeshProUGUI.outlineColor = Color.black;
                 }
 
-                textMeshProUGUI.outlineColor = Color.white;
 
                 textMeshProUGUI.text = playerController.nickname;
                 textMeshProUGUI.ForceMeshUpdate();
