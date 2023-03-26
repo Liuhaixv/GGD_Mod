@@ -21,7 +21,7 @@ namespace GGD_Hack
         public const string Description = "免费mod辅助 Free Mod for cheating"; // Description for the Mod.  (Set as null if none)
         public const string Author = "Liuhaixv"; // Author of the Mod.  (MUST BE SET)
         public const string Company = "Liuhaixv"; // Company that made the Mod.  (Set as null if none)
-        public const string Version = "1.4.9.4"; // Version of the Mod.  (MUST BE SET)
+        public const string Version = "1.5.0"; // Version of the Mod.  (MUST BE SET)
         public const string gameVersion = "2.18.02";//version of the GGD
         public const string DownloadLink = "https://github.com/Liuhaixv/GGDH_ML"; // Download Link for the Mod.  (Set as null if none)
     }
