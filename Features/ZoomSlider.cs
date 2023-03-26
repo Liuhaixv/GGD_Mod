@@ -48,7 +48,7 @@ namespace GGD_Hack.Features
 
             zoomSlider.onValueChanged.RemoveAllListeners();
 
-            zoomSlider.minValue = 0.0f;
+            zoomSlider.minValue = 4.0f;
             zoomSlider.maxValue = 40.0f;
             zoomSlider.value = 4.0f;
 

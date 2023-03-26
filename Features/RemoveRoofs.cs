@@ -12,7 +12,17 @@ namespace GGD_Hack.Features
         public static void RemoveAllRoofs()
         {
             //移除屋顶
-            GameObject.Find("Roofs").SetActive(false);
+          
+                GameObject roofs = GameObject.Find("Roofs");
+                if(roofs != null)
+                {
+                    roofs.SetActive(false);
+            }
+            else
+            {
+                MelonLogger.Msg("该地图未找到屋顶，无需移除");
+            }
+           
         }
 
         //战争迷雾是游戏开始后才会执行的

@@ -6,6 +6,7 @@ using UnityEngine;
 using static MelonLoader.MelonLogger;
 using System;
 using System.Collections;
+using Handlers.LobbyHandlers;
 
 //TODO: 移除战争迷雾
 //Remove fog of war
@@ -60,6 +61,14 @@ namespace GGD_Hack.Features
                 {
                     //Hacked
                     //Should skip updating FOV?
+
+                    //游戏未开始
+                    if(LobbySceneHandler.Instance.gameStarted == false)
+                    {
+                        //Do not skip
+                       return true;
+                    }
+
                     if(UnityEngine.Time.time - lastTimeHackedLayerMask > 2)
                     {
                         //Skip
