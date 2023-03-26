@@ -148,7 +148,7 @@ namespace GGD_Hack.Features
             recipeOfNotAvailable.recipeCosts = new Il2CppReferenceArray<UnlockableCost>(1);
 
             UnlockableCost cost = new UnlockableCost();
-            cost.cost = 9999;
+            cost.cost = 99999;
             cost.currencyType = "gold";
 
             recipeOfNotAvailable.recipeCosts[0] = cost;

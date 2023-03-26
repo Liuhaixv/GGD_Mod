@@ -148,9 +148,9 @@ namespace GGD_Hack.Features
         {
             private static void Postfix(Scene scene)
             {
+                MelonLogger.Msg(System.ConsoleColor.Green, "场景"+scene.name+"已加载!");
                 if (scene.name == "MenuScene")
                 {
-                    MelonLogger.Msg("场景MenuScene" + "已加载");
                     bool success = RandomName.CreateChangeRandomNameButton();
 
                     if (success)

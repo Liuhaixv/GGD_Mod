@@ -9,7 +9,7 @@ using UnhollowerRuntimeLib;
 using UnityEngine;
 
 //根据名称自动踢出玩家
-namespace GGD_Hack.Features.TODO
+namespace GGD_Hack.Features
 {
     [RegisterTypeInIl2Cpp]
     public class AutoKicker : MonoBehaviour

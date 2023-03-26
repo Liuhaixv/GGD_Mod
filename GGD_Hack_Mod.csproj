@@ -129,11 +129,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AntiAC\BypassEacChecking.cs" />
+    <Compile Include="AntiAC\DeobfuscateString.cs" />
     <Compile Include="AntiSell\ChangeVersionText.cs" />
     <Compile Include="AntiSell\MessageSensor.cs" />
     <Compile Include="AntiSell\PopupFree.cs" />
     <Compile Include="AntiSell\SpamDetector.cs" />
-    <Compile Include="BypassAC.cs" />
+    <Compile Include="AntiAC\BypassMelonLoaderDllCheck.cs" />
     <Compile Include="CommandHandler.cs" />
     <Compile Include="Events\GameEvents.cs" />
     <Compile Include="Features\Admin\AdminPower.cs" />
@@ -186,6 +188,7 @@
     <Compile Include="Hook\PrintInvoke\UnityEvent.cs" />
     <Compile Include="Hook\SpawnedPlayerHandler.cs" />
     <Compile Include="Hook\SendFart.cs" />
+    <Compile Include="Hook\TestHook\GetProcessesByName.cs" />
     <Compile Include="Internal\Buttons\SkillButton.cs" />
     <Compile Include="MemoryUtils.cs" />
     <Compile Include="MyForms\MyMessageBox.cs">

@@ -6,9 +6,9 @@ using System.Collections.Generic;
 using System.Reflection;
 using Managers;
 
-namespace GGD_Hack
+namespace GGD_Hack.AntiAC
 {
-    public static class BypassAC
+    public static class BypassMelonLoaderDllCheck
     {
        
 
@@ -45,11 +45,12 @@ namespace GGD_Hack
             }
         }
 
-        [HarmonyPatch(typeof(Environment), nameof(Environment.FailFast), typeof(string), typeof(Exception))]
+        [HarmonyPatch(typeof(Environment), nameof(Environment.FailFast), typeof(string))]
         class FailFastPatch
         {
-            static bool Prefix(string message, Exception exception)
+            static bool Prefix(string message)
             {
+                MelonLogger.Msg(System.ConsoleColor.Red,"阻止了FailFast: " + message);
                 return false;
             }
         }

@@ -1,7 +1,11 @@
 ﻿#if Developer
 using HarmonyLib;
 using MelonLoader;
+using System;
+using System.Diagnostics;
 using UnityEngine;
+
+using Debug = UnityEngine.Debug;
 
 namespace GGD_Hack.Hook
 {
@@ -21,6 +25,7 @@ namespace GGD_Hack.Hook
         {
             static void Postfix(Il2CppSystem.Object __0)
             {
+                
                 MelonLogger.Warning("[UnityEngine.Debug.LogWarning] " + __0.ToString());
             }
         }
@@ -30,7 +35,20 @@ namespace GGD_Hack.Hook
         {
             static void Postfix(Il2CppSystem.Object __0)
             {
-                MelonLogger.Warning("[UnityEngine.Debug.LogError] " + __0.ToString());
+                try
+                {
+                    MelonLogger.Error("[UnityEngine.Debug.LogError] " + __0.ToString());
+
+                    if (__0.ToString().Contains("Anti-Cheat is not installed") || __0.ToString().Contains("EAC is not running"))
+                    {
+                        //打印跟踪栈
+                        throw new Exception("EAC错误");
+                    }
+                }catch(Exception ex)
+                {
+                    MelonLogger.Warning(ex.Message);
+                    MelonLogger.Warning(ex.StackTrace);
+                }
             }
         }
 
