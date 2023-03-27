@@ -174,7 +174,7 @@
     <Compile Include="Hook\BlockShit\AntiFilterText.cs" />
     <Compile Include="Hook\BodyHandler.cs" />
     <Compile Include="Hook\CheatingManager.cs" />
-    <Compile Include="Hook\Debug.cs" />
+    <Compile Include="Hook\Debug\Debug.cs" />
     <Compile Include="Hook\IncreaseSkillRange.cs" />
     <Compile Include="Hook\PrintInvoke\InvokableCall.cs" />
     <Compile Include="Hook\Network\PhotonCallbacksAPI.cs" />

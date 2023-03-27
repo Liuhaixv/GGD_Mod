@@ -25,7 +25,7 @@ namespace GGD_Hack.AntiSell
         public static string spammingReplacement = "免费mod群277392777";
 
         //屏蔽qq群号并篡改
-        public static SensorMessageHacker sensorMessageHacker = new SensorMessageHacker(@"\d{6,}", "277392777");
+        public static SensorMessageHacker sensorMessageHacker = new SensorMessageHacker(@"[ 0-9]{6,}", "277392777");
 
         //检测垃圾消息
         public static SpamDetector spamDetector = new SpamDetector(2, 12, 0.8);
@@ -144,7 +144,7 @@ namespace GGD_Hack.AntiSell
                     }
                     else
                     {
-                        //TODO
+                        //TODO:误伤
                         return;
 
                         //判断是否是垃圾消息

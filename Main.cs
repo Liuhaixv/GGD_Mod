@@ -21,7 +21,7 @@ namespace GGD_Hack
         public const string Description = "免费mod辅助 Free Mod for cheating"; // Description for the Mod.  (Set as null if none)
         public const string Author = "Liuhaixv"; // Author of the Mod.  (MUST BE SET)
         public const string Company = "Liuhaixv"; // Company that made the Mod.  (Set as null if none)
-        public const string Version = "1.5.0"; // Version of the Mod.  (MUST BE SET)
+        public const string Version = "1.5.1"; // Version of the Mod.  (MUST BE SET)
         public const string gameVersion = "2.18.02";//version of the GGD
         public const string DownloadLink = "https://github.com/Liuhaixv/GGDH_ML"; // Download Link for the Mod.  (Set as null if none)
     }
@@ -120,11 +120,12 @@ namespace GGD_Hack
             MinimapRecorder.Init();
             //随机加入房间
             RandomJoinRoom.Init();
-
+            //显示所有可解锁物品
             ShowAllUnlockables.Init();
-
-            //随机修改昵称
+            //随机修改昵称按钮
             RandomName.Init();
+            //自动踢出玩家
+            AutoKicker.Init();
 
             SendFartHook.bindAction(CommandHandler.MoveShuttle);
         }
