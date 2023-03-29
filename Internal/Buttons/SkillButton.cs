@@ -45,7 +45,7 @@ namespace GGD_Hack.Internal.Buttons
 
                 if (playerController.timeOfDeath == 0) continue;
 
-                float distance = Vector3.Distance(localPlayerPosition, playerController.GDHJMAHPIME);
+                float distance = Vector3.Distance(localPlayerPosition, playerController.LOOIPGGHKKC);
                 if (distance > farestDistance)
                 {
                     target = playerController;
@@ -163,7 +163,7 @@ namespace GGD_Hack.Internal.Buttons
     }
     
     //TODO:存在恶性bug，会导致按钮cd未好也能按，导致卡住按钮UI
-    //[HarmonyPatch(typeof(PlayerButtonController), nameof(PlayerButtonController.RegisterCooldownButton))]
+    /*[HarmonyPatch(typeof(PlayerButtonController), nameof(PlayerButtonController.RegisterCooldownButton))]
     class RegisterCooldownButton_
     {
         static void Prefix(PlayerButtonController __instance, UICooldownButton __result, string __0, JCKBEBDEMLN __1, UnityEngine.Transform __2, float __3, bool __4)
@@ -231,7 +231,7 @@ namespace GGD_Hack.Internal.Buttons
                 MelonLogger.Warning(ex.Message);
             }
         }
-    }
+    }*/
 
     public enum ButtonType
     {

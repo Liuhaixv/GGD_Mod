@@ -17,9 +17,9 @@ namespace GGD_Hack.AntiAC
         //}
 
         //线索三：EAC Failed to run
-        //bool __stdcall LAJDIANMFPC__JJLDLGEDBHG(
-        //LAJDIANMFPC_o* DKJMCCOOLFF,
-        //LAJDIANMFPC_o *BOLDMODIPCD,
+        //bool __stdcall KALHKLDPOHI__JJLDLGEDBHG(
+        //KALHKLDPOHI_o* DKJMCCOOLFF,
+        //KALHKLDPOHI_o *BOLDMODIPCD,
         //const MethodInfo* method)
         //
         //本函数返回两个参数不相等
@@ -27,9 +27,9 @@ namespace GGD_Hack.AntiAC
         //48 83 EC 28 48 85 C9 74 0F 45
 
         //线索四：Anti-Cheat is not installed
-        //bool __stdcall LAJDIANMFPC__NNEFDPIKDAC(
-        //LAJDIANMFPC_o* DKJMCCOOLFF,
-        //LAJDIANMFPC_o* BOLDMODIPCD,
+        //bool __stdcall KALHKLDPOHI__JHIEMJGCLEP(
+        //KALHKLDPOHI_o* DKJMCCOOLFF,
+        //KALHKLDPOHI_o* BOLDMODIPCD,
         //const MethodInfo* method)
         //
         //本函数返回两个参数相等
@@ -44,11 +44,11 @@ namespace GGD_Hack.AntiAC
         //EOS_AntiCheatClient_AddNotifyClientIntegrityViolated
 
         //是否未安装反作弊？
-        [HarmonyPatch(typeof(LAJDIANMFPC),nameof(LAJDIANMFPC.NNEFDPIKDAC))]
+        [HarmonyPatch(typeof(KALHKLDPOHI),nameof(KALHKLDPOHI.JHIEMJGCLEP))]
         class BypassAntiCheatNotInstalled
         {
             //必须返回false
-            //LAJDIANMFPC__NNEFDPIKDAC
+            //KALHKLDPOHI__JHIEMJGCLEP
             //E8 ?? ?? ?? ?? 48 8B 9C 24 A0 01 00 00 84 C0
             static bool Prefix(ref bool __result)
             {
@@ -59,7 +59,7 @@ namespace GGD_Hack.AntiAC
 
         //在该函数中ShaderCachingDx11$$Start
         //E8 ?? ?? ?? ?? 48 85 C0 0F 84 1D 03 00 00 48 8B 0D
-        [HarmonyPatch(typeof(BPBLMBCAADM),nameof(BPBLMBCAADM.FABNBBNOOHG))]
+        [HarmonyPatch(typeof(MMIPLNJKFNJ),nameof(MMIPLNJKFNJ.CKKGKAALBDL))]
         class BypassAntiCheatNotRunning
         {
             //必须返回true
@@ -72,14 +72,14 @@ namespace GGD_Hack.AntiAC
         }
 
         //在该函数中ShaderCachingDx11$$Start
-        //返回LAJDIANMFPC实例
+        //返回KALHKLDPOHI实例
         //E8 ?? ?? ?? ?? EB 03 48 8B C6 45 33 C0
-        [HarmonyPatch(typeof(HAPPGDMBGLA), nameof(HAPPGDMBGLA.HDOKCODCLGD))]
+        [HarmonyPatch(typeof(JLBGAABKFCE), nameof(JLBGAABKFCE.EIFOHALOMMD))]
         class FakeInstance
         {
-            static bool Prefix(ref BPBLMBCAADM __result)
+            static bool Prefix(ref MMIPLNJKFNJ __result)
             {
-                __result = new BPBLMBCAADM();
+                __result = new MMIPLNJKFNJ();
                 return false;
             }
         }

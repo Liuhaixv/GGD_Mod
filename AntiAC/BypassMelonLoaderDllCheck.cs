@@ -10,7 +10,7 @@ namespace GGD_Hack.AntiAC
 {
     public static class BypassMelonLoaderDllCheck
     {
-       
+
 
         /// <summary>
         /// 2.18.00.02
@@ -20,6 +20,7 @@ namespace GGD_Hack.AntiAC
         /// 
         /// 修改所有方法
         /// https://harmony.pardeike.net/articles/annotations.html#patching-multiple-methods
+        /*
         [HarmonyPatch]
         private static class MelonLoaderFileExsistsCheckPatch
         {
@@ -43,9 +44,9 @@ namespace GGD_Hack.AntiAC
                     MelonLogger.Msg("已成功修改DLL名称返回值!");
                 }
             }
-        }
+        }*/
 
-        [HarmonyPatch(typeof(Environment), nameof(Environment.FailFast), typeof(string))]
+        //[HarmonyPatch(typeof(Environment), nameof(Environment.FailFast), typeof(string))]
         class FailFastPatch
         {
             static bool Prefix(string message)
@@ -79,7 +80,8 @@ namespace GGD_Hack.AntiAC
         ///<summary>
         /// 在MainManager的Awake方法末尾中，调用了两次。检查dll是否提前加载等操作
         /// </summary>
-        [HarmonyPatch(typeof(CKNDHODLGLO), nameof(CKNDHODLGLO.OPCLGJIMENO))]
+        ///E8 ?? ?? ?? ?? 33 C9 E8 ?? ?? ?? ?? 33 C9 48 8B 5C 24 30 48 83 C4 20 5F E9
+        [HarmonyPatch(typeof(DEEGLGIKDKI), nameof(DEEGLGIKDKI.MMAAFNLMNJD))]
         class PreloadCheckPatch
         {
             static bool Prefix()

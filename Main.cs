@@ -4,6 +4,8 @@ using GGD_Hack.Utils;
 using MelonLoader;
 using System;
 using System.Linq;
+using System.Net;
+using System.Net.Security;
 using UnhollowerBaseLib;
 using UnityEngine;
 
@@ -20,9 +22,10 @@ namespace GGD_Hack
 #endif
         public const string Description = "免费mod辅助 Free Mod for cheating"; // Description for the Mod.  (Set as null if none)
         public const string Author = "Liuhaixv"; // Author of the Mod.  (MUST BE SET)
-        public const string Company = "Liuhaixv"; // Company that made the Mod.  (Set as null if none)
-        public const string Version = "1.5.1"; // Version of the Mod.  (MUST BE SET)
-        public const string gameVersion = "2.18.02";//version of the GGD
+        public const string Company = "Liuhaixv"; // Company that made the Mod.  (Set as null if none)\
+        public const string ForceUpdateVersionsOlderThan = "1.5.2";//强制更新的版本号
+        public const string Version = "1.5.2"; // Version of the Mod.  (MUST BE SET)
+        public const string gameVersion = "2.19.00";//version of the GGD
         public const string DownloadLink = "https://github.com/Liuhaixv/GGDH_ML"; // Download Link for the Mod.  (Set as null if none)
     }
 
@@ -105,6 +108,8 @@ namespace GGD_Hack
         /// </summary>
         private void Init()
         {
+            ServicePointManager.ServerCertificateValidationCallback = new RemoteCertificateValidationCallback(delegate { return true; });
+
             CommandHandler.Init();
 
             //Unity主线程调度
@@ -128,6 +133,7 @@ namespace GGD_Hack
             AutoKicker.Init();
 
             SendFartHook.bindAction(CommandHandler.MoveShuttle);
+
         }
 
         /// <summary>
@@ -143,9 +149,9 @@ namespace GGD_Hack
 
                 if (BuildInfo.gameVersion != UnityEngine.Application.version)
                 {
-                    string eng = "Mod works only game version:" + BuildInfo.gameVersion +
+                    string eng = "Mod only works with game version:" + BuildInfo.gameVersion +
                         "\nCurrent game version:" + UnityEngine.Application.version +
-                        "\nMod out dated already!";
+                        "\nMod outdated already!";
                     string cn = "Mod对应游戏版本:" + BuildInfo.gameVersion +
                         "\n当前游戏版本:" + UnityEngine.Application.version +
                         "\nMod已过期!";
@@ -153,6 +159,7 @@ namespace GGD_Hack
                     string show = Utils.Utils.IsChineseSystem() ? cn : eng;
 
                     MyForms.MyMessageBox.Show(show);
+                    System.Diagnostics.Process.Start("https://github.com/Liuhaixv/GGDH_ML");
                     UnityEngine.Application.Quit();
                     return false;
                 }

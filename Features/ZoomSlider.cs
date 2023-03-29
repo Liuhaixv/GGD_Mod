@@ -61,8 +61,8 @@ namespace GGD_Hack.Features
         //修改视野范围
         private static void ChangeOrthographicSize(float newValue)
         {
-            Cinemachine.CinemachineStateDrivenCamera stateDrivenCamera = LocalPlayer.Instance.PIILFGEKDHA;
-            Cinemachine.CinemachineVirtualCamera virtualCamera = LocalPlayer.Instance.IABFCECPODJ;
+            Cinemachine.CinemachineStateDrivenCamera stateDrivenCamera = LocalPlayer.Instance.DEFIOENFNCA;
+            Cinemachine.CinemachineVirtualCamera virtualCamera = LocalPlayer.Instance.IGBNPMIJFNF;
 
             if(stateDrivenCamera.m_AnimatedTarget != null)
             {

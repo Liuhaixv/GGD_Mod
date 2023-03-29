@@ -68,9 +68,17 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Users\Liuhaixv\source\repos\UnityExplorer\lib\unhollowed\Il2Cppmscorlib.dll</HintPath>
     </Reference>
+    <Reference Include="Il2CppSystem, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\x64\Developer\Il2CppSystem.dll</HintPath>
+    </Reference>
     <Reference Include="MelonLoader, Version=0.5.7.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Goose Goose Duck\MelonLoader\MelonLoader.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\x64\Developer\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="Photon3Unity3D, Version=4.1.6.11, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -89,6 +97,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="UnhollowerBaseLib, Version=0.4.18.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -127,6 +136,14 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Goose Goose Duck\MelonLoader\Managed\UnityEngine.UIModule.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEngine.UnityWebRequestModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Goose Goose Duck\MelonLoader\Managed\UnityEngine.UnityWebRequestModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UnityWebRequestWWWModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Goose Goose Duck\MelonLoader\Managed\UnityEngine.UnityWebRequestWWWModule.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AntiAC\BypassEacChecking.cs" />
@@ -164,7 +181,7 @@
     <Compile Include="Features\DisableSandstorm.cs" />
     <Compile Include="Features\RemoveFOW.cs" />
     <Compile Include="Features\RemoveRoofs.cs" />
-    <Compile Include="Features\TODO\AutoKicker.cs" />
+    <Compile Include="Features\AutoKicker.cs" />
     <Compile Include="Features\ZoomSlider.cs" />
     <Compile Include="Features\TrackAllPlayers.cs" />
     <Compile Include="Features\ShowAllUnlockables.cs" />
@@ -197,6 +214,7 @@
     <Compile Include="PatternScanner.cs" />
     <Compile Include="PluginEventsManager.cs" />
     <Compile Include="RPC\RpcServer.cs" />
+    <Compile Include="Utils\CheckUpdate.cs" />
     <Compile Include="Utils\GameInstances.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Main.cs" />
@@ -209,6 +227,7 @@
     <Compile Include="Utils\Utils.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Features\TODO\" />
     <Folder Include="MyComponents\" />
   </ItemGroup>
   <ItemGroup>
