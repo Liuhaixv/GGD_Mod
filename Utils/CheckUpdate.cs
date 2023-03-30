@@ -106,6 +106,7 @@ namespace GGD_Hack.Utils
             }
             else
             {
+                hasIgnoredUpdate = true;
                 MelonLogger.Msg(System.ConsoleColor.Green, "当前已是最新版本mod: " + BuildInfo.Version);
             }
         }

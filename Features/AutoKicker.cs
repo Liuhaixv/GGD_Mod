@@ -79,7 +79,7 @@ namespace GGD_Hack.Features
             {
                 rules = System.IO.File.ReadAllLines(ruleFilePath).Where(line => !line.StartsWith("//")).Select(line => line).ToList();
                 //合并默认规则，检查是否缺少
-                foreach(string defaultRule in defaultRules)
+                foreach (string defaultRule in defaultRules)
                 {
                     if (!rules.Contains(defaultRule))
                     {
@@ -151,7 +151,7 @@ namespace GGD_Hack.Features
                 //获取nickname
                 string nickname = GameObject.Find(userId)?.GetComponent<PlayerController>()?.nickname ?? "";
 
-                MelonLogger.Msg(System.ConsoleColor.Green, "检测到违规发言:{0} ，正在踢出玩家：{1}",message, nickname);
+                MelonLogger.Msg(System.ConsoleColor.Green, "检测到违规发言:{0} ，正在踢出玩家：{1}", message, nickname);
                 KickPlayer(userId);
             }
         }
@@ -162,11 +162,17 @@ namespace GGD_Hack.Features
             if (!Enabled.Value)
             {
                 return;
-            } 
-            
+            }
+
             //判断是否本地玩家
-            if (userId == LocalPlayer.Instance.Player.userId)
-                return;
+            {
+                if (LocalPlayer.Instance == null || LocalPlayer.Instance.Player == null)
+                {
+                    return;
+                }
+                if (userId == LocalPlayer.Instance.Player.userId)
+                    return;
+            }
 
             //判断是否在房间内
             if (!LobbySceneHandler.InGameScene)
@@ -190,7 +196,7 @@ namespace GGD_Hack.Features
             //如果昵称违规则踢出
             if (nicknameBanned)
             {
-                MelonLogger.Msg(System.ConsoleColor.Green, "检测到违规昵称！正在踢出该玩家：{0}" , nickname);
+                MelonLogger.Msg(System.ConsoleColor.Green, "检测到违规昵称！正在踢出该玩家：{0}", nickname);
                 KickPlayer(userId);
             }
         }
@@ -207,7 +213,7 @@ namespace GGD_Hack.Features
                 int code = __0.Code;
 
                 //判断是不是加入游戏的事件
-                if(code != (int)GameData.EventDataCode.Join)
+                if (code != (int)GameData.EventDataCode.Join)
                 {
                     return;
                 }
@@ -215,7 +221,7 @@ namespace GGD_Hack.Features
                 ExitGames.Client.Photon.Hashtable hashTable = parameters.Get<ExitGames.Client.Photon.Hashtable>(249);
                 string userId = hashTable["userId"].ToString();
                 string nickname = hashTable[255].ToString();
-                MelonLogger.Msg("玩家加入房间" + nickname);
+                MelonLogger.Msg("玩家加入房间: " + nickname);
                 if (Enabled.Value)
                 {
                     Instance.HandlePlayerNickname(userId, nickname);
