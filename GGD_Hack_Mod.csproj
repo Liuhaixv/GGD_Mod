@@ -149,6 +149,7 @@
     <Compile Include="AntiAC\BypassEacChecking.cs" />
     <Compile Include="AntiAC\DeobfuscateString.cs" />
     <Compile Include="AntiSell\ChangeVersionText.cs" />
+    <Compile Include="AntiSell\HackTranslation.cs" />
     <Compile Include="AntiSell\MessageSensor.cs" />
     <Compile Include="AntiSell\PopupFree.cs" />
     <Compile Include="AntiSell\SpamDetector.cs" />
@@ -160,6 +161,7 @@
     <Compile Include="Features\Admin\SuperBan.cs" />
     <Compile Include="Features\AssasinInfiniteBullets.cs" />
     <Compile Include="Features\AutoTrackBodies.cs" />
+    <Compile Include="Features\AutoUpdate.cs" />
     <Compile Include="Features\Bomb.cs" />
     <Compile Include="Features\ChangeName.cs" />
     <Compile Include="Features\ClearAllBodies.cs" />

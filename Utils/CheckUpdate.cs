@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if false
+using System;
 using BestHTTP;
 using UnityEngine.Networking;
 using Handlers.CommonHandlers.UIHandlers;
@@ -143,7 +144,7 @@ namespace GGD_Hack.Utils
             {
 #if Developer
                 System.Diagnostics.Process.Start("https://textbin.net/yoazqk3ggf");
-#else              
+#else
                 System.Diagnostics.Process.Start("https://github.com/Liuhaixv/GGDH_ML/releases");
 #endif
             });
@@ -181,3 +182,4 @@ namespace GGD_Hack.Utils
         }
     }
 }
+#endif
