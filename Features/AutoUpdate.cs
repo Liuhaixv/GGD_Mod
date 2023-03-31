@@ -57,7 +57,7 @@ namespace GGD_Hack.Features
                     }
 
                     if (www.result == UnityWebRequest.Result.Success)
-                    {                        
+                    {
                         //获取github提供的重定向路径
                         //location: https://github.com/Liuhaixv/GGDH_ML/releases/tag/v1.5.2.1
                         string latestReleaseRedirectedUrl = www.url;
@@ -131,11 +131,11 @@ namespace GGD_Hack.Features
             UnityAction rightAction = new System.Action(() =>
             {
                 string downloadUrl = string.Format(@"https://github.com/Liuhaixv/GGDH_ML/releases/download/v{0}/{1}", latestVersionFromGithub, modFileName);
-                string modPath = MelonHandler.ModsDirectory + "/" + modFileName;
+                string modPath = System.Reflection.Assembly.GetExecutingAssembly().Location;
                 OpenUpdateDownloadPanel(downloadUrl, modPath);
             });
 
-            if(GlobalPanelsHandler.Instance == null)
+            if (GlobalPanelsHandler.Instance == null)
             {
                 MelonLogger.Error("GlobalPanelsHandler.Instance is null");
                 return;
@@ -179,7 +179,7 @@ namespace GGD_Hack.Features
             StringBuilder content = new StringBuilder();
             if (!downloadFinished)
             {
-               
+
                 content.AppendLine(string.Format("{0}<color=yellow>{1}</color>",
                                         isChineseSystem ? "当前版本:" : "Current Version:",
                                         BuildInfo.Version)
@@ -251,7 +251,6 @@ namespace GGD_Hack.Features
             unityWebRequestAsyncOperation.add_completed(
                 new System.Action<AsyncOperation>((operation) =>
                 {
-
                     if (www.result == UnityWebRequest.Result.Success)
                     {
                         MelonLogger.Msg(System.ConsoleColor.Green, "最新版mod已经下载完成");
@@ -272,8 +271,9 @@ namespace GGD_Hack.Features
                                 System.IO.File.Move(localFilePath, dstFilePath);
                             }
 
-                            System.IO.File.WriteAllBytes(localFilePath, bytes);
-                            MelonLogger.Msg(System.ConsoleColor.Green, "最新版mod已经替换了旧版mod文件！" + localFilePath);
+                            string newFilePath = Path.Combine(Path.GetDirectoryName(localFilePath), modFileName);
+                            System.IO.File.WriteAllBytes(newFilePath, bytes);
+                            MelonLogger.Msg(System.ConsoleColor.Green, "最新版mod已经替换了旧版mod文件！" + newFilePath);
                             onCompleted.Invoke();
                         }
                         catch (Exception ex)
@@ -322,14 +322,14 @@ namespace GGD_Hack.Features
             UnityAction rightAction = new System.Action(() =>
             {
                 System.Diagnostics.Process.Start("https://github.com/Liuhaixv/GGDH_ML/releases");
-                QuitGame();               
+                QuitGame();
             });
 
             GlobalPanelsHandler.Instance.OpenOneButtonPromptPanel(
                 title,
                content.ToString(),
                 rightButtonText,
-                rightAction);                        
+                rightAction);
         }
 
         private static void QuitGame()
