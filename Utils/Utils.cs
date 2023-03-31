@@ -6,6 +6,11 @@ namespace GGD_Hack.Utils
 {
     public class Utils
     {
+        //修改颜色
+        public static void ChangeColor(int color)
+        {
+           Managers.MainManager.Instance.playerPropertiesManager.ChangeColor(color);
+        }
         //发送聊天消息
         public static void SendTextMessage(string text)
         {
