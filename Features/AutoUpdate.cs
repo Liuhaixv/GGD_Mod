@@ -50,15 +50,14 @@ namespace GGD_Hack.Features
             unityWebRequestAsyncOperation.add_completed(
                 new System.Action<AsyncOperation>((operation) =>
                 {
+                    //已经获取过更新数据
+                    if (latestVersionFromGithub != null)
+                    {
+                        return;
+                    }
 
                     if (www.result == UnityWebRequest.Result.Success)
-                    {
-                        //已经获取过更新数据
-                        if (latestVersionFromGithub != null)
-                        {
-                            return;
-                        }
-
+                    {                        
                         //获取github提供的重定向路径
                         //location: https://github.com/Liuhaixv/GGDH_ML/releases/tag/v1.5.2.1
                         string latestReleaseRedirectedUrl = www.url;
@@ -136,6 +135,12 @@ namespace GGD_Hack.Features
                 OpenUpdateDownloadPanel(downloadUrl, modPath);
             });
 
+            if(GlobalPanelsHandler.Instance == null)
+            {
+                MelonLogger.Error("GlobalPanelsHandler.Instance is null");
+                return;
+            }
+
             GlobalPanelsHandler.Instance.OpenOneButtonPromptPanel(
                 title,
                content.ToString(),
@@ -174,17 +179,19 @@ namespace GGD_Hack.Features
             StringBuilder content = new StringBuilder();
             if (!downloadFinished)
             {
-                content.AppendLine(string.Format("{0}",
-                                                isChineseSystem ? "正在后台下载最新mod中..." : "Downloading latest mod in the background...")
-                                    );
+               
                 content.AppendLine(string.Format("{0}<color=yellow>{1}</color>",
                                         isChineseSystem ? "当前版本:" : "Current Version:",
-                                        latestVersionFromGithub)
+                                        BuildInfo.Version)
                             );
                 content.AppendLine(string.Format("{0}<color=green>{1}</color>",
                                                 isChineseSystem ? "最新版本:" : "Latest Version:",
                                                 latestVersionFromGithub)
                                     );
+
+                content.AppendLine(string.Format("<align=left>{0}</align>",
+                                               isChineseSystem ? "正在后台下载最新mod中...如果长时间未下载完毕有可能是加速器问题，可以考虑手动下载替换mod" : "Downloading latest mod in the background...")
+                                   );
 
                 content.AppendLine(string.Format("<align=left>{0}</align>",
                                     isChineseSystem ? "下载完毕后mod将自动替换旧版文件，重启游戏即可" : "The latest mod will automatically replace the old one, and the game needs to be restarted to take effect then")
