@@ -14,7 +14,7 @@ namespace GGD_Hack.Features
 {
     public class RemoveFOW
     {
-        public static MelonPreferences_Entry<bool> Enabled = MelonPreferences.CreateEntry<bool>("GGDH", "Enable_" + nameof(RemoveFOW), true);
+        public static MelonPreferences_Entry<bool> Enabled = MelonPreferences.CreateEntry<bool>("GGDH", "Enable_" + nameof(RemoveFOW), false);
 
         private static float lastTimeHackedLayerMask = -1;
 
@@ -41,7 +41,7 @@ namespace GGD_Hack.Features
                     lastTimeHackedLayerMask = UnityEngine.Time.time;
 
                     //修改layerMask防止遮挡视野
-                    __instance.ABMNIEIAJFK = 0;
+                    __instance.HFCNIEACIFJ = 0;
                     __instance.layerMask = 0;                                      
 
                     GameObject faded = __instance.gameObject.transform.Find("faded").gameObject;

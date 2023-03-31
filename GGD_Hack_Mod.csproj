@@ -165,6 +165,7 @@
     <Compile Include="Features\Bomb.cs" />
     <Compile Include="Features\ChangeName.cs" />
     <Compile Include="Features\ClearAllBodies.cs" />
+    <Compile Include="Features\IngameSettings.cs" />
     <Compile Include="Features\RandomName.cs" />
     <Compile Include="Features\DragAllBodies.cs" />
     <Compile Include="Features\EasterEgg\MoneyHackButton.cs" />

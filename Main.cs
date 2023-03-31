@@ -22,10 +22,10 @@ namespace GGD_Hack
 #endif
         public const string Description = "免费mod辅助 Free Mod for cheating"; // Description for the Mod.  (Set as null if none)
         public const string Author = "Liuhaixv"; // Author of the Mod.  (MUST BE SET)
-        public const string Company = "Liuhaixv"; // Company that made the Mod.  (Set as null if none)\
+        public const string Company = "Liuhaixv"; // Company that made the Mod.  (Set as null if none)
         //public const string ForceUpdateVersionsOlderThan = "1.5.2";//强制更新的版本号
-        public const string Version = "1.5.3.3"; // Version of the Mod.  (MUST BE SET)
-        public const string gameVersion = "2.19.00";//version of the GGD
+        public const string Version = "1.5.4"; // Version of the Mod.  (MUST BE SET)
+        public const string gameVersion = "2.19.01";//version of the GGD
         public const string DownloadLink = "https://github.com/Liuhaixv/GGDH_ML"; // Download Link for the Mod.  (Set as null if none)
     }
 

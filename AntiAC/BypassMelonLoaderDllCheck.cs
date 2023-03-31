@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Reflection;
 using Managers;
 
+//检测到ML后通常会调用UnityEngine_Diagnostics_Utils__ForceCrash(2)
+//或者Environment.FailFast
 namespace GGD_Hack.AntiAC
 {
     public static class BypassMelonLoaderDllCheck
@@ -15,20 +17,20 @@ namespace GGD_Hack.AntiAC
         /// <summary>
         /// 2.18.00.02
         /// 禁止检测是否存在MelonLoader.dll
-        /// 该类调用了Mono.Math.BigInteger$$GetBytes_6494408592
+        /// 该类调用了Mono_Math_BigInteger$$GetBytes_6494408592
         /// </summary>
         /// 
         /// 修改所有方法
         /// https://harmony.pardeike.net/articles/annotations.html#patching-multiple-methods
-        /*
+
         [HarmonyPatch]
         private static class MelonLoaderFileExsistsCheckPatch
         {
             static IEnumerable<MethodBase> TargetMethods()
             {
                 //System.Collections.Generic.List<string> list = AccessTools.GetMethodNames(typeof(AKCCGGKHPIA));
-                
-                return AccessTools.TypeByName("BBNPKEHDLPJ").GetMethods()
+
+                return AccessTools.TypeByName("FHIDBAEPBCH").GetMethods()
                     .Where(method => method.ReturnType == typeof(string))//返回值为string的方法
                     .Cast<MethodBase>();
             }
@@ -44,14 +46,14 @@ namespace GGD_Hack.AntiAC
                     MelonLogger.Msg("已成功修改DLL名称返回值!");
                 }
             }
-        }*/
+        }
 
         //[HarmonyPatch(typeof(Environment), nameof(Environment.FailFast), typeof(string))]
         class FailFastPatch
         {
             static bool Prefix(string message)
             {
-                MelonLogger.Msg(System.ConsoleColor.Red,"阻止了FailFast: " + message);
+                MelonLogger.Msg(System.ConsoleColor.Red, "阻止了FailFast: " + message);
                 return false;
             }
         }
@@ -75,13 +77,12 @@ namespace GGD_Hack.AntiAC
        }
        */
 
-        //2.18.00.02
-        ///在MainManager的Awake方法末尾中，调用了两次 
-        ///<summary>
-        /// 在MainManager的Awake方法末尾中，调用了两次。检查dll是否提前加载等操作
+        //2.19.01
+        /// <summary>
+        /// 这个类专门负责检查指定路径是否存在某些文件，然后ForceCrash
         /// </summary>
-        ///E8 ?? ?? ?? ?? 33 C9 E8 ?? ?? ?? ?? 33 C9 48 8B 5C 24 30 48 83 C4 20 5F E9
-        [HarmonyPatch(typeof(DEEGLGIKDKI), nameof(DEEGLGIKDKI.MMAAFNLMNJD))]
+        ///48 83 EC 58 33 C9     
+        [HarmonyPatch(typeof(PAFACCCJLNH), nameof(PAFACCCJLNH.AOAMLLGDBAB))]
         class PreloadCheckPatch
         {
             static bool Prefix()

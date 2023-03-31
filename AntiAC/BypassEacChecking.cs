@@ -5,7 +5,7 @@ namespace GGD_Hack.AntiAC
     public class BypassEacChecking
     {
         //线索一：Unity.Debug.LogError打印了Anti-Cheat is not installed
-        //调用了线索二反查出来的一个sub无名函数，在末尾调用了FailFastg
+        //调用了线索二反查出来的一个sub无名函数，在末尾调用了FailFast
         //48 89 4C 24 08 53 56 57 48 81 EC C0 01 00 00 48 8B D9 80 3D ?? ?? ?? ?? ?? 75 73 48 8D 0D ?? ?? ?? ?? E8 ?? ?? ?? ?? 48 8D 0D ?? ?? ?? ?? E8 ?? ?? ?? ?? 48 8D 0D ?? ?? ?? ?? E8 ?? ?? ?? ?? 48 8D 0D ?? ?? ?? ?? E8 ?? ?? ?? ?? 48 8D 0D ?? ?? ?? ?? E8 ?? ?? ?? ?? 48 8D 0D ?? ?? ?? ?? E8 ?? ?? ?? ?? 48 8D 0D ?? ?? ?? ?? E8 ?? ?? ?? ?? 48 8D 0D ?? ?? ?? ?? E8 ?? ?? ?? ?? 48 8D 0D ?? ?? ?? ?? E8 ?? ?? ?? ?? C6 05 ?? ?? ?? ?? ?? 0F 57 C0 33 C0 0F 11 84 24 C0 00 00 00 0F 11 84 24 D0 00 00 00 0F 11 84 24 E0 00 00 00 0F 11 84 24 F0 00 00 00 0F 11 84 24 00 01 00 00 0F 11 84 24 10 01 00 00 48 89 84 24 20 01 00 00 0F 57 C9 0F 11 8C 24 30 01 00 00 0F 11 8C 24 40 01 00 00 0F 11 8C 24 50 01 00 00 0F 11 8C 24 60 01 00 00 0F 11 8C 24 70 01 00 00 0F 11 8C 24 80 01 00 00 0F 11 8C 24 90 01 00 00 0F 11 8C 24 A0 01 00 00 88 84 24 F0 01 00 00 45 33 C0 BA 58
         //ShaderCachingDx11.Start
 
@@ -44,7 +44,7 @@ namespace GGD_Hack.AntiAC
         //EOS_AntiCheatClient_AddNotifyClientIntegrityViolated
 
         //是否未安装反作弊？
-        [HarmonyPatch(typeof(KALHKLDPOHI),nameof(KALHKLDPOHI.JHIEMJGCLEP))]
+        [HarmonyPatch(typeof(HLJGANPFDMI),nameof(HLJGANPFDMI.ANKHLBHMMND))]
         class BypassAntiCheatNotInstalled
         {
             //必须返回false
@@ -59,7 +59,7 @@ namespace GGD_Hack.AntiAC
 
         //在该函数中ShaderCachingDx11$$Start
         //E8 ?? ?? ?? ?? 48 85 C0 0F 84 1D 03 00 00 48 8B 0D
-        [HarmonyPatch(typeof(MMIPLNJKFNJ),nameof(MMIPLNJKFNJ.CKKGKAALBDL))]
+        [HarmonyPatch(typeof(KLDDGHKBHLK),nameof(KLDDGHKBHLK.MHHNPANJFOB))]
         class BypassAntiCheatNotRunning
         {
             //必须返回true
@@ -72,14 +72,14 @@ namespace GGD_Hack.AntiAC
         }
 
         //在该函数中ShaderCachingDx11$$Start
-        //返回KALHKLDPOHI实例
+        //必须返回非null实例
         //E8 ?? ?? ?? ?? EB 03 48 8B C6 45 33 C0
-        [HarmonyPatch(typeof(JLBGAABKFCE), nameof(JLBGAABKFCE.EIFOHALOMMD))]
+        [HarmonyPatch(typeof(GIMKNLCFKJB), nameof(GIMKNLCFKJB.GFFNDLPEEOL))]
         class FakeInstance
         {
-            static bool Prefix(ref MMIPLNJKFNJ __result)
+            static bool Prefix(ref KLDDGHKBHLK __result)
             {
-                __result = new MMIPLNJKFNJ();
+                __result = new KLDDGHKBHLK();
                 return false;
             }
         }

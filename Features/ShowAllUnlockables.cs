@@ -23,20 +23,12 @@ namespace GGD_Hack.Features
     public class ShowAllUnlockables : MonoBehaviour
     {
         public static ShowAllUnlockables Instance;
-        public static MelonPreferences_Entry<bool> Enabled;
+        public static MelonPreferences_Entry<bool> Enabled = MelonPreferences.CreateEntry<bool>("GGDH", "Enable_" + nameof(ShowAllUnlockables), true);
         //更新皮肤的时间间隔
         //public static MelonPreferences_Entry<float> updateInterval = MelonPreferences.CreateEntry("GGDH", nameof(UnlockAllItems.updateInterval), 25.0f);
 
         public ShowAllUnlockables(IntPtr ptr) : base(ptr)
-        {
-            if (!MelonPreferences.HasEntry("GGDH", nameof(ShowAllUnlockables)))
-            {
-                Enabled = MelonPreferences.CreateEntry<bool>("GGDH", nameof(ShowAllUnlockables), true);
-            }
-            else
-            {
-                Enabled = MelonPreferences.GetEntry<bool>("GGDH", nameof(ShowAllUnlockables));
-            }
+        {                
         }
 
         // Optional, only used in case you want to instantiate this class in the mono-side

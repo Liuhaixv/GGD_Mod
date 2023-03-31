@@ -1,4 +1,5 @@
 ﻿using System;
+using Handlers.GameHandlers.PlayerHandlers;
 using MelonLoader;
 using UnityEngine;
 
@@ -9,7 +10,7 @@ namespace GGD_Hack.Utils
         //修改颜色
         public static void ChangeColor(int color)
         {
-           Managers.MainManager.Instance.playerPropertiesManager.ChangeColor(color);
+            Managers.MainManager.Instance.playerPropertiesManager.ChangeColor(color);
         }
         //发送聊天消息
         public static void SendTextMessage(string text)
@@ -29,37 +30,28 @@ namespace GGD_Hack.Utils
             }
             catch (System.Exception ex)
             {
-                MelonLogger.Error("ERROR!!: SendTextMessage");
+                MelonLogger.Error("ERROR!!: SendTextMessage" + ex.Message);
+            }
+        }
+
+        //打印所有持久化设置
+        public static void PrintAllPrefs()
+        {
+            MelonPreferences_Category melonPreferences_Category = MelonPreferences.GetCategory("GGDH");
+            System.Collections.Generic.List<MelonPreferences_Entry> entries = melonPreferences_Category.Entries;
+            foreach (var entry in entries)
+            {
+                MelonLogger.Msg("键名：{0} 默认值：{1} 当前值：{2}",
+                    entry.DisplayName,
+                    entry.GetDefaultValueAsString(),
+                    entry.GetEditedValueAsString());
             }
         }
 
         //获取LocalPlayer
         public static Handlers.GameHandlers.PlayerHandlers.LocalPlayer GetLocalPlayer()
         {
-            //通过tag查找玩家
-            GameObject[] gameObjects = GameObject.FindGameObjectsWithTag("Player");
-
-            GameObject player = null;
-            foreach (GameObject gameObject in gameObjects)
-            {
-                if (gameObject.GetComponent<Handlers.GameHandlers.PlayerHandlers.LocalPlayer>() == null)
-                {
-                    continue;
-                }
-                else
-                {
-                    player = gameObject;
-                    break;
-                }
-            }
-
-            //未找到玩家实例
-            if (player == null)
-            {
-                return null;
-            }
-
-            return player.GetComponent<Handlers.GameHandlers.PlayerHandlers.LocalPlayer>();
+            return LocalPlayer.Instance;
         }
 
         /// <summary>
