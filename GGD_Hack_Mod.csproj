@@ -163,6 +163,7 @@
     <Compile Include="Features\AutoTrackBodies.cs" />
     <Compile Include="Features\AutoUpdate.cs" />
     <Compile Include="Features\Bomb.cs" />
+    <Compile Include="Features\BombIndicator.cs" />
     <Compile Include="Features\ChangeName.cs" />
     <Compile Include="Features\ClearAllBodies.cs" />
     <Compile Include="Features\TODO\IngameSettings.cs" />
@@ -237,6 +238,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\liuhaixv.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\bomb.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

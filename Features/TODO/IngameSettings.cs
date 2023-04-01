@@ -35,7 +35,7 @@ namespace GGD_Hack.Features
                 {
                     MelonLogger.Error("已经添加过设置项:" + ingameSettingsEntry.entry.DisplayName);
                     return;
-                } 
+                }
             }
 
             registeredEntries.Add(ingameSettingsEntry);
@@ -88,9 +88,12 @@ namespace GGD_Hack.Features
                 textMeshProUGUI.text = "Mod";
                 textMeshProUGUI.ForceMeshUpdate();
 
-                if (account.gameObject.active == false)
+                //激活mod设置选项
                 {
+
                     account.gameObject.SetActive(true);
+
+                    __instance.gameObject.transform.Find("Frame (new)/Content Container/Panel - Account").gameObject.SetActive(true);
                 }
             }
         }
@@ -169,7 +172,7 @@ namespace GGD_Hack.Features
                 //修改Content中元素
                 {
                     //克隆一个bool样式的设置选项游戏对象
-                    if(IngameSettings.boolSettingPrefab == null)
+                    if (IngameSettings.boolSettingPrefab == null)
                     {
                         //从“玩法设定”菜单中偷一个过来
                         GameObject fullScreenToggle = contentContainer.transform.Find("Panel -  Gameplay - Done (check fullscreen)/Content - Gameplay/Content/Output Label BG (4)/GameObject/Flash Toggle")?.gameObject ?? null;
@@ -186,22 +189,22 @@ namespace GGD_Hack.Features
 
                             //重置文字
                             Gaggle.Translation.TranslationHelper title = boolSettingPrefab.transform.Find("Title").gameObject.GetComponent<Gaggle.Translation.TranslationHelper>();
-                            GameObject.DestroyImmediate(title);                            
+                            GameObject.DestroyImmediate(title);
                         }
                     }
 
                     //删除原有元素
-                    for (int i = content.transform.childCount -1; i >= 0;i--)
+                    for (int i = content.transform.childCount - 1; i >= 0; i--)
                     {
                         GameObject.Destroy(content.transform.GetChild(i).gameObject);
                     }
 
                     //添加mod设置选项
-                    foreach(IngameSettingsEntry ingameSettingsEntry in IngameSettings.registeredEntries)
+                    foreach (IngameSettingsEntry ingameSettingsEntry in IngameSettings.registeredEntries)
                     {
-                        
+
                         //只添加Bool类型的设置选项，因为暂时只支持开关类型的mod设置
-                        if(ingameSettingsEntry.entry.BoxedValue  is bool)
+                        if (ingameSettingsEntry.entry.BoxedValue is bool)
                         {
                             MelonLogger.Msg(System.ConsoleColor.Green, "正在添加mod设置：" + ingameSettingsEntry.entry.DisplayName);
                             GameObject boolToggle = GameObject.Instantiate(boolSettingPrefab, content.transform);
@@ -217,7 +220,8 @@ namespace GGD_Hack.Features
                             Toggle toggle = boolToggle.GetComponent<Toggle>();
                             {
                                 toggle.onValueChanged.AddListener(
-                                        new System.Action<bool>((v) => {
+                                        new System.Action<bool>((v) =>
+                                        {
                                             bool newValue = toggle.isOn;
                                             ingameSettingsEntry.entry.BoxedValue = newValue;
                                         })
@@ -228,8 +232,9 @@ namespace GGD_Hack.Features
                             {
                                 toggle.isOn = (bool)ingameSettingsEntry.entry.BoxedValue;
                             }
-                            
-                        } else
+
+                        }
+                        else
                         {
                             MelonLogger.Warning("未添加mod设置选项，因为数据非bool类型：" + ingameSettingsEntry.entry.DisplayName);
                             continue;
