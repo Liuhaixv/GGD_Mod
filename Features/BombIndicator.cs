@@ -13,9 +13,9 @@ namespace GGD_Hack.Features
             {
                 return Utils.SpriteUtil.GetSpriteFromImageName("bomb.png");
             }
-        } 
+        }
 
-        [HarmonyPatch(typeof(PlayerController),nameof(PlayerController.Start))]
+        [HarmonyPatch(typeof(PlayerController), nameof(PlayerController.Start))]
         public class AutoAddBombSprite
         {
             static void Postfix(PlayerController __instance)
@@ -33,7 +33,7 @@ namespace GGD_Hack.Features
 
                 //放在手里
                 {
-                    bomb.transform.localPosition = new Vector3(0.1f, -1.1f, 1.0f);
+                    bomb.transform.localPosition = new Vector3(0.05f, -1.1f, 1f);
                     bomb.transform.localScale = new Vector3(-0.3f, 0.3f, 1);
                 }
             }

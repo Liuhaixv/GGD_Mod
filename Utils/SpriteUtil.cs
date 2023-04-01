@@ -2,6 +2,7 @@
 using System.Reflection;
 using UnityEngine;
 using System.Collections.Generic;
+using MelonLoader;
 
 namespace GGD_Hack.Utils
 {
@@ -25,7 +26,7 @@ namespace GGD_Hack.Utils
             {
                 if (stream == null)
                 {
-                    Debug.LogError("找不到嵌入式资源: " + resourceName);
+                    MelonLogger.Error("找不到嵌入式资源: " + resourceName);
                     return null;
                 }
 
