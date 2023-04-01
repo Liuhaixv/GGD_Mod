@@ -24,7 +24,7 @@ namespace GGD_Hack
         public const string Author = "Liuhaixv"; // Author of the Mod.  (MUST BE SET)
         public const string Company = "Liuhaixv"; // Company that made the Mod.  (Set as null if none)
         //public const string ForceUpdateVersionsOlderThan = "1.5.2";//强制更新的版本号
-        public const string Version = "1.5.4"; // Version of the Mod.  (MUST BE SET)
+        public const string Version = "1.5.4.1"; // Version of the Mod.  (MUST BE SET)
         public const string gameVersion = "2.19.01";//version of the GGD
         public const string DownloadLink = "https://github.com/Liuhaixv/GGDH_ML"; // Download Link for the Mod.  (Set as null if none)
     }
@@ -131,6 +131,12 @@ namespace GGD_Hack
             RandomName.Init();
             //自动踢出玩家
             AutoKicker.Init();
+            //自动跟踪尸体
+            AutoTrackBodies.Init();
+            //移除战争迷雾
+            RemoveFOW.Init();
+            //移除屋顶
+            RemoveRoofs.Init();
 
             SendFartHook.bindAction(CommandHandler.MoveShuttle);
         }

@@ -14,7 +14,7 @@ namespace GGD_Hack.Features
         public static MelonPreferences_Entry<bool> Enabled = MelonPreferences.CreateEntry<bool>("GGDH", "Enable_" + nameof(VigilanteInfiniteKill), false);
 
 #else
-        public static MelonPreferences_Entry<bool> Enabled = MelonPreferences.CreateEntry<bool>("GGDH","Enable_"+ nameof(VigilanteInfiniteKill), true);
+        public static MelonPreferences_Entry<bool> Enabled = MelonPreferences.CreateEntry<bool>("GGDH", "Enable_" + nameof(VigilanteInfiniteKill), true);
 
 #endif
 

@@ -7,16 +7,49 @@ using static MelonLoader.MelonLogger;
 using System;
 using System.Collections;
 using Handlers.LobbyHandlers;
+using UnhollowerRuntimeLib;
 
 //TODO: 移除战争迷雾
 //Remove fog of war
 namespace GGD_Hack.Features
 {
-    public class RemoveFOW
+    [RegisterTypeInIl2Cpp]
+    public class RemoveFOW : MonoBehaviour
     {
+        public static RemoveFOW Instance;
         public static MelonPreferences_Entry<bool> Enabled = MelonPreferences.CreateEntry<bool>("GGDH", "Enable_" + nameof(RemoveFOW), false);
 
         private static float lastTimeHackedLayerMask = -1;
+
+        public RemoveFOW(IntPtr ptr) : base(ptr)
+        {
+            IngameSettings.AddIngameSettingsEntry(
+                               new IngameSettings.IngameSettingsEntry()
+                               {
+                                   entry = Enabled,
+                                   name_cn = "移除战争迷雾",
+                                   name_eng = "Remove Fog of War"
+                               }
+                                          );
+        }
+
+        // Optional, only used in case you want to instantiate this class in the mono-side
+        // Don't use this on MonoBehaviours / Components!
+        public RemoveFOW() : base(ClassInjector.DerivedConstructorPointer<RemoveFOW>()) => ClassInjector.DerivedConstructorBody(this);
+        public static void Init()
+        {
+            GameObject ML_Manager = GameObject.Find("ML_Manager");
+            if (ML_Manager == null)
+            {
+                ML_Manager = new GameObject("ML_Manager");
+                DontDestroyOnLoad(ML_Manager);
+            }
+
+            if (ML_Manager.GetComponent<RemoveFOW>() == null)
+            {
+                Instance = ML_Manager.AddComponent<RemoveFOW>();
+            }
+        }
 
         public static void SetBaseViewDistance(float distance)
         {
@@ -42,10 +75,10 @@ namespace GGD_Hack.Features
 
                     //修改layerMask防止遮挡视野
                     __instance.HFCNIEACIFJ = 0;
-                    __instance.layerMask = 0;                                      
+                    __instance.layerMask = 0;
 
                     GameObject faded = __instance.gameObject.transform.Find("faded").gameObject;
-                    if(faded != null)
+                    if (faded != null)
                     {
                         faded.SetActive(false);
                     }
@@ -57,27 +90,29 @@ namespace GGD_Hack.Features
                         __instance.shader = empty;
                     }
                     return true;
-                } else
+                }
+                else
                 {
                     //Hacked
                     //Should skip updating FOV?
 
                     //游戏未开始
-                    if(LobbySceneHandler.Instance.gameStarted == false)
-                    {
-                        //Do not skip
-                       return true;
-                    }
-
-                    if(UnityEngine.Time.time - lastTimeHackedLayerMask > 2)
-                    {
-                        //Skip
-                        return false;
-                    }else
+                    if (LobbySceneHandler.Instance.gameStarted == false)
                     {
                         //Do not skip
                         return true;
-                    }                    
+                    }
+
+                    if (UnityEngine.Time.time - lastTimeHackedLayerMask > 2)
+                    {
+                        //Skip
+                        return false;
+                    }
+                    else
+                    {
+                        //Do not skip
+                        return true;
+                    }
                 }
             }
         }

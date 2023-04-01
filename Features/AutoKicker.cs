@@ -43,7 +43,17 @@ namespace GGD_Hack.Features
                 @".*瞬刀.*"
           };
 
-        public AutoKicker(IntPtr ptr) : base(ptr) { }
+        public AutoKicker(IntPtr ptr) : base(ptr)
+        {
+            IngameSettings.AddIngameSettingsEntry(
+                   new IngameSettings.IngameSettingsEntry()
+                   {
+                       entry = Enabled,
+                       name_cn = "自动踢人",
+                       name_eng = "AutoKicker"
+                   }
+                );
+        }
 
         // Optional, only used in case you want to instantiate this class in the mono-side
         // Don't use this on MonoBehaviours / Components!

@@ -23,10 +23,9 @@ namespace GGD_Hack.Features
         public static MelonPreferences_Entry<bool> Enabled = MelonPreferences.CreateEntry<bool>("GGDH", "Enable_" + nameof(MinimapESP), false);
 
 #else
-        public static MelonPreferences_Entry<bool> Enabled = MelonPreferences.CreateEntry<bool>("GGDH","Enable_"+ nameof(MinimapESP), true);
-
+        public static MelonPreferences_Entry<bool> Enabled = MelonPreferences.CreateEntry<bool>("GGDH", "Enable_" + nameof(MinimapESP), true);
 #endif
-       
+
         //是否已经初始化所有玩家的点位
         public static bool instantiatedAllPlayers = false;
 
@@ -38,7 +37,17 @@ namespace GGD_Hack.Features
         //玩家userId对应的GameObject，表示地图上的点
         private static Dictionary<string, GameObject> playersOnMinimap = new Dictionary<string, GameObject>();
 
-        public MinimapESP(IntPtr ptr) : base(ptr) { }
+        public MinimapESP(IntPtr ptr) : base(ptr)
+        {
+            IngameSettings.AddIngameSettingsEntry(
+                new IngameSettings.IngameSettingsEntry()
+                {
+                    entry = Enabled,
+                    name_cn = "Minimap ESP 透视",
+                    name_eng = "Minimap ESP"
+                }
+                );
+        }
 
         // Optional, only used in case you want to instantiate this class in the mono-side
         // Don't use this on MonoBehaviours / Components!
@@ -96,7 +105,7 @@ namespace GGD_Hack.Features
                 clone.transform.Find("Text").gameObject.GetComponent<TextMeshProUGUI>().color = Color.white;
 
                 //修改颜色
-                UpdatePlayerColorAndName(clone, playerController);               
+                UpdatePlayerColorAndName(clone, playerController);
 
                 playersOnMinimap.Add(playerController.userId, clone);
             }
@@ -121,7 +130,7 @@ namespace GGD_Hack.Features
                 MelonLogger.Warning("找不到 You");
             }
 
-            if(sphere == null)
+            if (sphere == null)
             {
                 MelonLogger.Warning("找不到 Image");
             }
