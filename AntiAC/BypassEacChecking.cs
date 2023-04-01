@@ -44,12 +44,12 @@ namespace GGD_Hack.AntiAC
         //EOS_AntiCheatClient_AddNotifyClientIntegrityViolated
 
         //是否未安装反作弊？
-        [HarmonyPatch(typeof(HLJGANPFDMI),nameof(HLJGANPFDMI.ANKHLBHMMND))]
+        //E8 ?? ?? ?? ?? 48 8B 9C 24 A0 01 00 00 84 C0
+        [HarmonyPatch(typeof(PDLHHFCIKDK),nameof(PDLHHFCIKDK.OIHPNGJIOHE))]
         class BypassAntiCheatNotInstalled
         {
             //必须返回false
-            //KALHKLDPOHI__JHIEMJGCLEP
-            //E8 ?? ?? ?? ?? 48 8B 9C 24 A0 01 00 00 84 C0
+            //KALHKLDPOHI__JHIEMJGCLEP            
             static bool Prefix(ref bool __result)
             {
                 __result = false;
@@ -59,7 +59,7 @@ namespace GGD_Hack.AntiAC
 
         //在该函数中ShaderCachingDx11$$Start
         //E8 ?? ?? ?? ?? 48 85 C0 0F 84 1D 03 00 00 48 8B 0D
-        [HarmonyPatch(typeof(KLDDGHKBHLK),nameof(KLDDGHKBHLK.MHHNPANJFOB))]
+        [HarmonyPatch(typeof(PIHAGKIJDKF),nameof(PIHAGKIJDKF.KHJKDOMNJPM))]
         class BypassAntiCheatNotRunning
         {
             //必须返回true
@@ -74,12 +74,12 @@ namespace GGD_Hack.AntiAC
         //在该函数中ShaderCachingDx11$$Start
         //必须返回非null实例
         //E8 ?? ?? ?? ?? EB 03 48 8B C6 45 33 C0
-        [HarmonyPatch(typeof(GIMKNLCFKJB), nameof(GIMKNLCFKJB.GFFNDLPEEOL))]
+        [HarmonyPatch(typeof(BHJJGFBHDOH), nameof(BHJJGFBHDOH.NLJNEHCEHGM))]
         class FakeInstance
         {
-            static bool Prefix(ref KLDDGHKBHLK __result)
+            static bool Prefix(ref PIHAGKIJDKF __result)
             {
-                __result = new KLDDGHKBHLK();
+                __result = new PIHAGKIJDKF();
                 return false;
             }
         }

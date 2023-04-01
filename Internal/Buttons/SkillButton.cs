@@ -45,7 +45,7 @@ namespace GGD_Hack.Internal.Buttons
 
                 if (playerController.timeOfDeath == 0) continue;
 
-                float distance = Vector3.Distance(localPlayerPosition, playerController.PMGLMNKKIIG);
+                float distance = Vector3.Distance(localPlayerPosition, playerController.ACGBAGHOFIP);
                 if (distance > farestDistance)
                 {
                     target = playerController;

@@ -30,7 +30,7 @@ namespace GGD_Hack.AntiAC
             {
                 //System.Collections.Generic.List<string> list = AccessTools.GetMethodNames(typeof(AKCCGGKHPIA));
 
-                return AccessTools.TypeByName("FHIDBAEPBCH").GetMethods()
+                return typeof(MPNAGEGEHLO).GetMethods()
                     .Where(method => method.ReturnType == typeof(string))//返回值为string的方法
                     .Cast<MethodBase>();
             }
@@ -81,8 +81,8 @@ namespace GGD_Hack.AntiAC
         /// <summary>
         /// 这个类专门负责检查指定路径是否存在某些文件，然后ForceCrash
         /// </summary>
-        ///48 83 EC 58 33 C9     
-        [HarmonyPatch(typeof(PAFACCCJLNH), nameof(PAFACCCJLNH.AOAMLLGDBAB))]
+        ///48 83 EC 58 33 C9
+        [HarmonyPatch(typeof(JMHIIODOCBJ), nameof(JMHIIODOCBJ.HINOAEOKBPP))]
         class PreloadCheckPatch
         {
             static bool Prefix()

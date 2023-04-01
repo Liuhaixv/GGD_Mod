@@ -74,7 +74,7 @@ namespace GGD_Hack.Features
                     lastTimeHackedLayerMask = UnityEngine.Time.time;
 
                     //修改layerMask防止遮挡视野
-                    __instance.HFCNIEACIFJ = 0;
+                    __instance.BLIAJNLCMOE = 0;
                     __instance.layerMask = 0;
 
                     GameObject faded = __instance.gameObject.transform.Find("faded").gameObject;

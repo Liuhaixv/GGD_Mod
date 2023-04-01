@@ -16,11 +16,11 @@ namespace GGD_Hack.Features
     //作用为在射击后重新激活点击射击的按钮
     //被AssassinPanelHandler_??????????___ShowPanel_b__0调用
     //48 83 EC 28 48 8B 41 18 48 85 C0 74 13 0F
-    [HarmonyPatch(typeof(AssassinPanelHandler), nameof(AssassinPanelHandler.DADIKGCIMBI), new System.Type[] { typeof(HBCBPPMDOPP) })]
+    [HarmonyPatch(typeof(AssassinPanelHandler), nameof(AssassinPanelHandler.NJGGMKKANPF), new System.Type[] { typeof(IPLJDOHJOLM) })]
     public class AssasinInfiniteBullets
     {
         //射击后将按钮改为可交互
-        static void Postfix(AssassinPanelHandler __instance, HBCBPPMDOPP __0)
+        static void Postfix(AssassinPanelHandler __instance, IPLJDOHJOLM __0)
         {
             try
             {
@@ -62,38 +62,38 @@ namespace GGD_Hack.Features
     [HarmonyPatch(typeof(PlayerRolesManager), nameof(PlayerRolesManager.GetPossibleAssassinTargets))]
     public class EnableToShootAllRoles
     {
-        static void Postfix(ref UnhollowerBaseLib.Il2CppStructArray<HBCBPPMDOPP> __result)
+        static void Postfix(ref UnhollowerBaseLib.Il2CppStructArray<IPLJDOHJOLM> __result)
         {
             try
             {
                 const int rolesNum = 18;
 
-                UnhollowerBaseLib.Il2CppStructArray<HBCBPPMDOPP> temp = new UnhollowerBaseLib.Il2CppStructArray<HBCBPPMDOPP>(__result.Count + rolesNum);
+                UnhollowerBaseLib.Il2CppStructArray<IPLJDOHJOLM> temp = new UnhollowerBaseLib.Il2CppStructArray<IPLJDOHJOLM>(__result.Count + rolesNum);
 
                 for (int i = 0; i < __result.Count; i++)
                 {
                     temp[i] = __result[i];
                 }
-                temp[__result.Count + 0] = HBCBPPMDOPP.Cannibal;
-                temp[__result.Count + 1] = HBCBPPMDOPP.Morphling;
-                temp[__result.Count + 2] = HBCBPPMDOPP.Silencer;
-                temp[__result.Count + 3] = HBCBPPMDOPP.Professional;
-                temp[__result.Count + 4] = HBCBPPMDOPP.Spy;
-                temp[__result.Count + 5] = HBCBPPMDOPP.Hitman;
-                temp[__result.Count + 6] = HBCBPPMDOPP.Snitch;
-                temp[__result.Count + 7] = HBCBPPMDOPP.Party;
-                temp[__result.Count + 8] = HBCBPPMDOPP.Demolitionist;
-                temp[__result.Count + 9] = HBCBPPMDOPP.IdentityThief;
-                temp[__result.Count + 10] = HBCBPPMDOPP.Ninja;
-                temp[__result.Count + 11] = HBCBPPMDOPP.Undertaker;
-                temp[__result.Count + 12] = HBCBPPMDOPP.Invisibility;
-                temp[__result.Count + 13] = HBCBPPMDOPP.SerialKiller;
-                temp[__result.Count + 14] = HBCBPPMDOPP.Warlock;
-                temp[__result.Count + 15] = HBCBPPMDOPP.EsperDuck;
-                temp[__result.Count + 16] = HBCBPPMDOPP.Goose;
-                temp[__result.Count + 17] = HBCBPPMDOPP.Bounty;
+                temp[__result.Count + 0] = IPLJDOHJOLM.Cannibal;
+                temp[__result.Count + 1] = IPLJDOHJOLM.Morphling;
+                temp[__result.Count + 2] = IPLJDOHJOLM.Silencer;
+                temp[__result.Count + 3] = IPLJDOHJOLM.Professional;
+                temp[__result.Count + 4] = IPLJDOHJOLM.Spy;
+                temp[__result.Count + 5] = IPLJDOHJOLM.Hitman;
+                temp[__result.Count + 6] = IPLJDOHJOLM.Snitch;
+                temp[__result.Count + 7] = IPLJDOHJOLM.Party;
+                temp[__result.Count + 8] = IPLJDOHJOLM.Demolitionist;
+                temp[__result.Count + 9] = IPLJDOHJOLM.IdentityThief;
+                temp[__result.Count + 10] = IPLJDOHJOLM.Ninja;
+                temp[__result.Count + 11] = IPLJDOHJOLM.Undertaker;
+                temp[__result.Count + 12] = IPLJDOHJOLM.Invisibility;
+                temp[__result.Count + 13] = IPLJDOHJOLM.SerialKiller;
+                temp[__result.Count + 14] = IPLJDOHJOLM.Warlock;
+                temp[__result.Count + 15] = IPLJDOHJOLM.EsperDuck;
+                temp[__result.Count + 16] = IPLJDOHJOLM.Goose;
+                temp[__result.Count + 17] = IPLJDOHJOLM.Bounty;
 
-                //temp[__result.Count + 3] = HBCBPPMDOPP.None;
+                //temp[__result.Count + 3] = IPLJDOHJOLM.None;
 
                 __result = temp;
             }
