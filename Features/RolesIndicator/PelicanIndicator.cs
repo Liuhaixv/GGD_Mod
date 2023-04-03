@@ -32,7 +32,11 @@ namespace GGD_Hack.Features.RolesIndicator
             //修改名字
             {
                 //TODO: 修改VotePrefabHandler的playerName
-                playerController.nickname = string.Format("[{0}] {1}", isChineseOS ? "鹈鹕" : "Pelican", playerController.nickname);               
+                string pelicanPrefix = isChineseOS ? "[鹈鹕] " : "[Pelican] ";
+                if(!playerController.nickname.Contains(pelicanPrefix))
+                {
+                    playerController.nickname = string.Format("{0}{1}", pelicanPrefix, playerController.nickname);
+                }            
             }
 
             //playerController.spawnedPlayerHandler.SetPlayerRole(IPLJDOHJOLM.Pelican);
