@@ -29,7 +29,7 @@ namespace GGD_Hack.Hook
                             eventCount = __instance.GetPersistentEventCount();
                         }catch(System.Exception e)
                         {
-                            MelonLogger.Warning("获取UnityEvent的方法数量失败");
+                            MelonLogger.Warning("获取UnityEvent的方法数量失败:" + e.Message);
                         }
 
                         sb.Append("- total count: ").AppendLine(eventCount.ToString());

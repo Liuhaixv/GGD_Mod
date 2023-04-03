@@ -32,8 +32,8 @@ namespace GGD_Hack.Features.EasterEgg
 
         private static void IncreaseGold()
         {
-            MelonLogger.Msg("金币已增加");
-            playerCustomizationPanelHandler.goldBalance += 100;
+            MelonLogger.Msg("金币已减少");
+            playerCustomizationPanelHandler.goldBalance -= 100;
 
             playerCustomizationPanelHandler.goldCurrencyText.text = playerCustomizationPanelHandler.goldBalance.ToString();
 
@@ -41,8 +41,8 @@ namespace GGD_Hack.Features.EasterEgg
         }
         private static void IncreaseSilver()
         {
-            MelonLogger.Msg("银币已增加");
-            playerCustomizationPanelHandler.silverBalance += 1000;
+            MelonLogger.Msg("银币已减少");
+            playerCustomizationPanelHandler.silverBalance -= 1000;
 
             playerCustomizationPanelHandler.silverCurrencyText.text = playerCustomizationPanelHandler.silverBalance.ToString();
 

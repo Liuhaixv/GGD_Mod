@@ -13,6 +13,7 @@ using Il2CppSystem.Threading.Tasks;
 using UnityEngine.UI;
 using Photon.Pun.Demo.Procedural;
 using TMPro;
+using GGD_Hack.Events;
 
 namespace GGD_Hack.Features
 {
@@ -79,7 +80,8 @@ namespace GGD_Hack.Features
             DestroyAllPlayers();
 
             //准备克隆本地玩家的点位
-            GameObject targetMe = Utils.GameInstances.FindGameObjectByPath("Canvas/MiniMap/Panel/Target Me");
+            //GameObject targetMe = Utils.GameInstances.FindGameObjectByPath("Canvas/MiniMap/Panel/Target Me");
+            GameObject targetMe = LobbySceneHandler.Instance?.miniMapHandler?.gameObject.transform.Find("Panel/Target Me")?.gameObject ?? null;
 
             if (targetMe == null)
             {
@@ -190,13 +192,15 @@ namespace GGD_Hack.Features
             MelonLogger.Msg("已经销毁所有玩家minimap点位");
         }
 
+
+
         /// <summary>
         /// 更新所有gameObjects的坐标，相对于LocalPlayer
         /// </summary>
         private void Update()
         {
             //检查功能是否启用
-            if (MinimapESP.Enabled.Value == false)
+            if (!MinimapESP.Enabled.Value)
             {
                 return;
             }
@@ -267,19 +271,6 @@ namespace GGD_Hack.Features
                         gameObject = null;
                         continue;
                     }
-
-                }
-                //是否被鹈鹕吃
-                if (playerController.isInPelican)
-                {
-                    //没有标签就加上标签
-                    if (!playerController.nickname.Contains("[被吃]") && !playerController.nickname.Contains("[Eaten]"))
-                    {
-                        if (Utils.Utils.IsChineseSystem())
-                            playerController.nickname = "[被吃] " + playerController.nickname;
-                        else
-                            playerController.nickname = "[Eaten] " + playerController.nickname;
-                    }
                 }
 
                 //根据PlayerController的坐标计算出GameObject的坐标
@@ -301,6 +292,27 @@ namespace GGD_Hack.Features
             v180.fields.y = (float)(this->fields.yFactor * this->fields.PFMBPLBLHNN.fields.y) + this->fields.yOffset;
             v180.fields.z = 0.0;
             */
+        }
+
+        [HarmonyPatch(typeof(InGameEvents), nameof(InGameEvents.Pelican_Eat))]
+        class PelicanEatenPlayerESP
+        {
+            private static void OnPelicanEat(string playerEaten, string pelican = null)
+            {
+                PlayerController playerController = PlayerController.playersList[playerEaten];
+                playerController.nickname = string.Format("[{0}] {1}", Utils.Utils.IsChineseSystem()?"被吃":"Eaten", playerController.nickname);
+            }
+
+            static void Postfix(string playerEaten, string pelican)
+            {
+                //检查功能是否启用
+                if (MinimapESP.Enabled.Value == false)
+                {
+                    return;
+                }
+
+                OnPelicanEat(playerEaten, pelican);
+            }
         }
     }
 

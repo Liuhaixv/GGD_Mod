@@ -71,13 +71,13 @@ namespace GGD_Hack.Hook.BlockShit
                        __5.Method.Name.Contains("AttachHangingOutMatureWarning")
                            )
                     {
-                        MelonLogger.Msg("已屏蔽游戏警告弹窗");
+                        MelonLogger.Msg(System.ConsoleColor.Green,"已屏蔽游戏警告弹窗");
                         confirm.Invoke();
                         return false;
                     }
 
                     if (__5.Method.Name.Contains("AttachTutorialUnfinishedWarning") ){
-                        MelonLogger.Msg("已屏蔽教程游戏弹窗");
+                        MelonLogger.Msg(System.ConsoleColor.Green, "已屏蔽教程游戏弹窗");
                         reject.Invoke();
                         return false;
                     }

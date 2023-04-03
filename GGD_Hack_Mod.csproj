@@ -154,11 +154,13 @@
     <Compile Include="AntiSell\PopupFree.cs" />
     <Compile Include="AntiSell\SpamDetector.cs" />
     <Compile Include="AntiAC\BypassMelonLoaderDllCheck.cs" />
+    <None Include="CheatSheet\获取游戏是否开启身份揭示.md" />
     <Compile Include="CommandHandler.cs" />
-    <Compile Include="Events\GameEvents.cs" />
+    <Compile Include="Events\InGameEvents.cs" />
     <Compile Include="Features\Admin\AdminPower.cs" />
     <Compile Include="Features\Admin\AutoPingPlayers.cs" />
     <Compile Include="Features\Admin\SuperBan.cs" />
+    <Compile Include="Features\AntiIdleKick.cs" />
     <Compile Include="Features\AssasinInfiniteBullets.cs" />
     <Compile Include="Features\AutoTrackBodies.cs" />
     <Compile Include="Features\AutoUpdate.cs" />
@@ -166,7 +168,10 @@
     <Compile Include="Features\BombIndicator.cs" />
     <Compile Include="Features\ChangeName.cs" />
     <Compile Include="Features\ClearAllBodies.cs" />
-    <Compile Include="Features\TODO\IngameSettings.cs" />
+    <Compile Include="Features\RolesIndicator\ForceEnableRoleReveal.cs" />
+    <Compile Include="Features\RolesIndicator\PelicanIndicator.cs" />
+    <Compile Include="Features\Test\BlacklistedAccount.cs" />
+    <Compile Include="Features\IngameSettings.cs" />
     <Compile Include="Features\RandomName.cs" />
     <Compile Include="Features\DragAllBodies.cs" />
     <Compile Include="Features\EasterEgg\MoneyHackButton.cs" />
@@ -186,6 +191,7 @@
     <Compile Include="Features\RemoveFOW.cs" />
     <Compile Include="Features\RemoveRoofs.cs" />
     <Compile Include="Features\AutoKicker.cs" />
+    <Compile Include="Features\TODO\AutoReady.cs" />
     <Compile Include="Features\ZoomSlider.cs" />
     <Compile Include="Features\TrackAllPlayers.cs" />
     <Compile Include="Features\ShowAllUnlockables.cs" />
@@ -200,7 +206,7 @@
     <Compile Include="Hook\PrintInvoke\InvokableCall.cs" />
     <Compile Include="Hook\Network\PhotonCallbacksAPI.cs" />
     <Compile Include="Hook\Network\PhotonNetwork.cs" />
-    <Compile Include="Hook\PhotonEventAPI.cs" />
+    <Compile Include="Hook\Network\PhotonEventAPI.cs" />
     <Compile Include="Hook\DeathStingerSplash.cs" />
     <Compile Include="Hook\BlockShit\BlockShit.cs" />
     <Compile Include="Hook\HookExample.cs" />
@@ -226,6 +232,7 @@
     <Compile Include="UnityMainThreadDispatcher.cs" />
     <Compile Include="Utils\JoinRoom.cs" />
     <Compile Include="Utils\MD5.cs" />
+    <Compile Include="Utils\RoleIcon.cs" />
     <Compile Include="Utils\RpcCommandsSender.cs" />
     <Compile Include="Utils\SpriteUtil.cs" />
     <Compile Include="Utils\Utils.cs" />
