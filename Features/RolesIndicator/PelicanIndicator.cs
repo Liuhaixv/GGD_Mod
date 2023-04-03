@@ -74,7 +74,7 @@ namespace GGD_Hack.Features.RolesIndicator
                 }
 
                 //排除自己
-                if (playerController.nickname == userId)
+                if (playerController.userId == userId)
                 {
                     continue;
                 }

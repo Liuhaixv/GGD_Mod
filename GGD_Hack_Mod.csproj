@@ -169,6 +169,7 @@
     <Compile Include="Features\ChangeName.cs" />
     <Compile Include="Features\ClearAllBodies.cs" />
     <Compile Include="Features\RolesIndicator\ForceEnableRoleReveal.cs" />
+    <Compile Include="Features\RolesIndicator\InvisibilityIndicator.cs" />
     <Compile Include="Features\RolesIndicator\PelicanIndicator.cs" />
     <Compile Include="Features\Test\BlacklistedAccount.cs" />
     <Compile Include="Features\IngameSettings.cs" />
@@ -191,7 +192,10 @@
     <Compile Include="Features\RemoveFOW.cs" />
     <Compile Include="Features\RemoveRoofs.cs" />
     <Compile Include="Features\AutoKicker.cs" />
-    <Compile Include="Features\TODO\AutoReady.cs" />
+    <Compile Include="Features\AutoReady.cs" />
+    <Compile Include="Features\Unstable\AllowGhostToSkipVote.cs" />
+    <Compile Include="Features\TODO\MonobehaviourTemplate.cs" />
+    <Compile Include="Features\TODO\OneTapCompleteTask.cs" />
     <Compile Include="Features\ZoomSlider.cs" />
     <Compile Include="Features\TrackAllPlayers.cs" />
     <Compile Include="Features\ShowAllUnlockables.cs" />

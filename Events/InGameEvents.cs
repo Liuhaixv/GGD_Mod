@@ -29,6 +29,11 @@ namespace GGD_Hack.Events
         {
             MelonLogger.Msg(System.ConsoleColor.Green, "鹈鹕吃人事件：鹈鹕：{0} 被吃的玩家: {1}", string.IsNullOrEmpty(pelican) ? "未知" : pelican, playerEaten);
         }
+
+        public static void Turn_Invisible(string userId, bool invisible)
+        {
+            MelonLogger.Msg(System.ConsoleColor.Green, "隐身事件：玩家:{0} 隐身中:{1}", userId, invisible ? "是" : "否");
+        }
     }
 
     [HarmonyPatch(typeof(PhotonEventAPI), nameof(PhotonEventAPI.OnEvent), typeof(ExitGames.Client.Photon.EventData))]
@@ -75,12 +80,27 @@ namespace GGD_Hack.Events
                             }
 
                             MelonLogger.Msg(System.ConsoleColor.Green, parameters.ToStringFull());
-                            foreach (var obj in parameters)
-                            {
-                                MelonLogger.Msg(System.ConsoleColor.Green, obj.ToString());
-                            }
+                           
                             break;
                         }
+                    case EventDataCode.TURN_INVISIBLE:
+                        {
+                            //[04:33:00.297] [[开发者专用版]_Liuhaixv's_GGD_Hack_mod] 接收到事件: TURN_INVISIBLE
+                            //[04:33:00.297] [[开发者专用版] _Liuhaixv's_GGD_Hack_mod] Event 77: {(Byte)245=(String[]){HRr2vu3eMTOXaOt9lPcMWN43fX22,true}, (Byte)254=(Int32)0}
+                            
+                            Il2CppStringArray stringArray = parameters.Get<Il2CppStringArray>(245);
+                            string userId = stringArray[0];
+                            bool invisible = stringArray[1] == "true";
+
+                            InGameEvents.Turn_Invisible(userId, invisible);
+
+                            InGameEvents.Turn_Invisible(userId, invisible);
+
+                            MelonLogger.Msg(System.ConsoleColor.Green, parameters.ToStringFull());
+                            
+                            break;
+                        }
+
                     case EventDataCode.AppStats:
                         {
                             break;
