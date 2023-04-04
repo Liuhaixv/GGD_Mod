@@ -1,6 +1,7 @@
 ﻿using GGD_Hack.Events;
 using Handlers.GameHandlers.PlayerHandlers;
 using HarmonyLib;
+using Managers;
 using MelonLoader;
 using System;
 using System.Collections.Generic;
@@ -32,6 +33,13 @@ namespace GGD_Hack.Features.RolesIndicator
 
         private static void HandleForceExitVent(string userId)
         {
+            //跳过投票阶段，会误触，因为玩家掉线后会直接判定为强制退出管道
+            if((byte)MainManager.Instance.gameManager.gameState == (byte)GameData.GameState.Voting)
+            {
+                MelonLogger.Msg(System.ConsoleColor.Green, "由于正在投票，忽略强制退出管道事件");
+                return;
+            }
+
             PlayerController player = PlayerController.playersList[userId];
             IndicateAsEngineer(player);
         }

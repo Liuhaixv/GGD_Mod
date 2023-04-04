@@ -197,6 +197,7 @@
     <Compile Include="Features\RemoveRoofs.cs" />
     <Compile Include="Features\AutoKicker.cs" />
     <Compile Include="Features\AutoReady.cs" />
+    <Compile Include="Features\TODO\AutoEatBody.cs" />
     <Compile Include="Features\Unstable\AllowToSeeDeadPlayersChatMessages.cs" />
     <Compile Include="Features\Unstable\AllowGhostToSkipVote.cs" />
     <Compile Include="Features\TODO\MonobehaviourTemplate.cs" />
