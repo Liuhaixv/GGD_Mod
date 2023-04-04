@@ -110,7 +110,7 @@ namespace GGD_Hack.Events
                                 InGameEvents.Pelican_Eat(playerEaten);
                             }
 
-                            MelonLogger.Msg(System.ConsoleColor.Green, parameters.ToStringFull());
+                            //MelonLogger.Msg(System.ConsoleColor.Green, parameters.ToStringFull());
 
                             break;
                         }
@@ -127,12 +127,14 @@ namespace GGD_Hack.Events
 
                             InGameEvents.Turn_Invisible(userId, invisible);
 
+#if Developer
                             MelonLogger.Msg(System.ConsoleColor.Green, parameters.ToStringFull());
-
+#endif
                             break;
                         }
                     case EventDataCode.CHAT_MESSAGE:
                         {
+                            /*
                             //[08:19:39.574] [[开发者专用版]_Liuhaixv's_GGD_Hack_mod] 接收到事件: CHAT_MESSAGE
                             //[08:19:39.575] [[开发者专用版] _Liuhaixv's_GGD_Hack_mod] Event 66: {(Byte)245=(Object[])System.Object[], (Byte)254=(Int32)0}
                             Il2CppArrayBase<Il2CppSystem.Object> objArray = parameters.Get<Il2CppArrayBase<Il2CppSystem.Object>>(245);
@@ -149,7 +151,7 @@ namespace GGD_Hack.Events
                             {
                                 MelonLogger.Msg(System.ConsoleColor.Green, str);
                             }
-
+                            */
                             break;
                         }
                     case EventDataCode.VENT:
@@ -162,7 +164,7 @@ namespace GGD_Hack.Events
 
                             InGameEvents.Vent(userId, ventId);
 
-                            MelonLogger.Msg(System.ConsoleColor.Green, parameters.ToStringFull());
+                            //MelonLogger.Msg(System.ConsoleColor.Green, parameters.ToStringFull());
 
                             break;
                         }
@@ -176,7 +178,7 @@ namespace GGD_Hack.Events
 
                             InGameEvents.ForceExitVent(userId, ventId);
 
-                            MelonLogger.Msg(System.ConsoleColor.Green, parameters.ToStringFull());
+                            //MelonLogger.Msg(System.ConsoleColor.Green, parameters.ToStringFull());
 
                             break;
                         }
@@ -184,15 +186,14 @@ namespace GGD_Hack.Events
                         //[13:21:00.182] [[开发者专用版]_Liuhaixv's_GGD_Hack_mod] 接收到事件: GRAB_BODY
                         //[13:21:00.183] [[开发者专用版] _Liuhaixv's_GGD_Hack_mod] Event 59: {(Byte)245=(String[]){1l4kqYawXVQs55e23TlT6KKyCEB3,7GWsdxRFvkRYaH4qZqJBMtqHqH72}, (Byte)254=(Int32)0}
                         {
+                            //TODO:System.OverflowException
                             Il2CppStringArray stringArray = parameters.Get<Il2CppStringArray>(245);
                             string undertakerUserId = stringArray[0];
                             string bodyUserId = stringArray[1];
 
-
                             InGameEvents.Grab_Body(undertakerUserId, bodyUserId);
 
-
-                            MelonLogger.Msg(System.ConsoleColor.Green, parameters.ToStringFull());
+                            //MelonLogger.Msg(System.ConsoleColor.Green, parameters.ToStringFull());
 
                             break;
                         }

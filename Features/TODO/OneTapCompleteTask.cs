@@ -1,5 +1,8 @@
-﻿using Handlers.GameHandlers.TaskHandlers;
+﻿using Handlers.GameHandlers.PlayerHandlers;
+using Handlers.GameHandlers.TaskHandlers;
+using Handlers.LobbyHandlers;
 using HarmonyLib;
+using Managers;
 using MelonLoader;
 
 namespace GGD_Hack.Features.TODO
@@ -37,6 +40,17 @@ namespace GGD_Hack.Features.TODO
             {
                 string taskText = __instance.baseText;
                 Objects.GameTask task = __instance.task;
+
+                PluginEventsManager.Precursor(true);
+
+                LobbySceneHandler.Instance.tasksHandler.CompleteTask(task.taskId, false, false, true, true);
+                //PluginEventsManager.Complete_Task(LocalPlayer.Instance.Player.userId, task.taskId);
+
+                PluginEventsManager.Precursor(false);
+
+                Handlers.CommonHandlers.SoundHandler.Instance.PlayTaskCompleteSFX();
+
+                MelonLogger.Msg(System.ConsoleColor.Green, "已完成任务：" + taskText);
             }
         }
     }

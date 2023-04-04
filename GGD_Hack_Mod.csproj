@@ -154,6 +154,7 @@
     <Compile Include="AntiSell\PopupFree.cs" />
     <Compile Include="AntiSell\SpamDetector.cs" />
     <Compile Include="AntiAC\BypassMelonLoaderDllCheck.cs" />
+    <None Include="CheatSheet\int转object.md" />
     <None Include="CheatSheet\获取游戏是否开启身份揭示.md" />
     <Compile Include="CommandHandler.cs" />
     <Compile Include="Events\InGameEvents.cs" />
@@ -199,6 +200,7 @@
     <Compile Include="Features\RemoveRoofs.cs" />
     <Compile Include="Features\AutoKicker.cs" />
     <Compile Include="Features\AutoReady.cs" />
+    <Compile Include="Features\TODO\Moonwalk.cs" />
     <Compile Include="Features\Unstable\AllowToSeeDeadPlayersChatMessagesInVotingScene.cs" />
     <Compile Include="Features\Unstable\AllowGhostToSkipVote.cs" />
     <Compile Include="Features\TODO\MonobehaviourTemplate.cs" />
