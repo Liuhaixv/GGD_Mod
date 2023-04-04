@@ -6,6 +6,11 @@ namespace GGD_Hack.Features.TODO
 {
     public class OneTapCompleteTask
     {
+        public static void DelayedCompleteTask(string taskID)
+        {
+
+        }
+
         //Canvas/GamePanel/TasksList/List/TaskUI Victorian(Clone)/
         //Handlers.GameHandlers.TaskHandlers.TaskPrefabHandler
         [HarmonyPatch(typeof(TaskObjectHandler),nameof(TaskObjectHandler.AssignTask))]
@@ -22,7 +27,17 @@ namespace GGD_Hack.Features.TODO
                    MelonLogger.Warning($"Exception in patch of void Handlers.GameHandlers.TaskHandlers.TaskObjectHandler::AssignTask(Handlers.GameHandlers.TaskHandlers.TaskPanelHandler PDPJBDGLOLB):\n{ex}");
                 }
             }
+        }
 
+        //任务被点击
+        [HarmonyPatch(typeof(TaskPrefabHandler), nameof(TaskPrefabHandler.TargetTask))]
+        class TaskPrefabHandler_TargetTask
+        {
+            static void Postfix(TaskPrefabHandler __instance)
+            {
+                string taskText = __instance.baseText;
+                Objects.GameTask task = __instance.task;
+            }
         }
     }
 }

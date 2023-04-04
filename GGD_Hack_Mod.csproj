@@ -169,6 +169,8 @@
     <Compile Include="Features\ChangeName.cs" />
     <Compile Include="Features\ClearAllBodies.cs" />
     <Compile Include="Features\Override\MaxChatMessages.cs" />
+    <Compile Include="Features\RolesIndicator\EaterIndicator.cs" />
+    <Compile Include="Features\RolesIndicator\MorphIndicator.cs" />
     <Compile Include="Features\RolesIndicator\UndertakerIndicator.cs" />
     <Compile Include="Features\RolesIndicator\VentIndicator .cs" />
     <Compile Include="Features\RolesIndicator\EngineerIndicator.cs" />
@@ -197,8 +199,7 @@
     <Compile Include="Features\RemoveRoofs.cs" />
     <Compile Include="Features\AutoKicker.cs" />
     <Compile Include="Features\AutoReady.cs" />
-    <Compile Include="Features\TODO\AutoEatBody.cs" />
-    <Compile Include="Features\Unstable\AllowToSeeDeadPlayersChatMessages.cs" />
+    <Compile Include="Features\Unstable\AllowToSeeDeadPlayersChatMessagesInVotingScene.cs" />
     <Compile Include="Features\Unstable\AllowGhostToSkipVote.cs" />
     <Compile Include="Features\TODO\MonobehaviourTemplate.cs" />
     <Compile Include="Features\TODO\OneTapCompleteTask.cs" />

@@ -14,7 +14,19 @@ namespace GGD_Hack.Features
     public class MinimapTeleport : MonoBehaviour
     {
         private static MinimapTeleport Instance;
-        public MinimapTeleport(IntPtr ptr) : base(ptr) { }
+        public static MelonPreferences_Entry<bool> Enabled = MelonPreferences.CreateEntry<bool>("GGDH", "Enable_" + nameof(MinimapTeleport), true);
+
+        public MinimapTeleport(IntPtr ptr) : base(ptr)
+        {
+            IngameSettings.AddIngameSettingsEntry(
+                                 new IngameSettings.IngameSettingsEntry()
+                                 {
+                                     entry = Enabled,
+                                     name_cn = "Minimap右键传送",
+                                     name_eng = "Minimap right-click to Teleport"
+                                 }
+                                            );
+        }
 
         // Optional, only used in case you want to instantiate this class in the mono-side
         // Don't use this on MonoBehaviours / Components!
@@ -43,7 +55,7 @@ namespace GGD_Hack.Features
             {
                 GameObject panel = Utils.GameInstances.FindGameObjectByPath("Canvas/MiniMap/Panel");
 
-                if (panel == null)                    return false;
+                if (panel == null) return false;
 
                 Image image = panel.GetComponent<Image>();
 
@@ -70,7 +82,7 @@ namespace GGD_Hack.Features
 
         private bool LocalPositionOnMinimapToPosition(in Vector2 localPosition, out Vector3 position)
         {
-            position = Vector3.zero;    
+            position = Vector3.zero;
 
             MiniMapHandler miniMapHandler = MinimapESP.miniMapHandler;
 
@@ -89,6 +101,8 @@ namespace GGD_Hack.Features
         /// </summary>
         private void Update()
         {
+            if (!Enabled.Value) return;
+
             //右键被点击
             if (Input.GetMouseButtonDown(1))
             {

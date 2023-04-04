@@ -5,7 +5,7 @@ using MelonLoader;
 namespace GGD_Hack.Features.RolesIndicator
 {
     //本地修改
-    [HarmonyPatch(typeof(NewSettingsPanelHandler), nameof(NewSettingsPanelHandler.Update))]
+    //[HarmonyPatch(typeof(NewSettingsPanelHandler), nameof(NewSettingsPanelHandler.Update))]
     public class LocalEnableRoleReveal
     {
         static void Postfix(NewSettingsPanelHandler __instance)

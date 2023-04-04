@@ -24,7 +24,7 @@ namespace GGD_Hack
         public const string Author = "Liuhaixv"; // Author of the Mod.  (MUST BE SET)
         public const string Company = "Liuhaixv"; // Company that made the Mod.  (Set as null if none)
         //public const string ForceUpdateVersionsOlderThan = "1.5.2";//强制更新的版本号
-        public const string Version = "1.5.12.2"; // Version of the Mod.  (MUST BE SET)
+        public const string Version = "1.5.14.1"; // Version of the Mod.  (MUST BE SET)
         public const string gameVersion = "2.19.02";//version of the GGD
         public const string DownloadLink = "https://github.com/Liuhaixv/GGDH_ML"; // Download Link for the Mod.  (Set as null if none)
     }
@@ -115,12 +115,16 @@ namespace GGD_Hack
             //Unity主线程调度
             UnityMainThreadDispatcher.Init();
 
-            //初始化小地图点位绘制
-            MinimapESP.Init();
-            //初始化小地图传送
-            MinimapTeleport.Init();
+
             //初始化远程杀人
             RemoteKillPlayer.Init();
+
+            //投票界面查看死亡玩家聊天
+            AllowToSeeDeadPlayersChatMessagesInVotingScene.Init();
+            //初始化小地图传送
+            MinimapTeleport.Init();
+            //初始化小地图点位绘制
+            MinimapESP.Init();
             //初始化小地图坐标记录器
             MinimapRecorder.Init();
             //随机加入房间
@@ -141,6 +145,7 @@ namespace GGD_Hack
             BombIndicator.Init();
             //自动准备
             AutoReady.Init();
+
 
             SendFartHook.bindAction(CommandHandler.MoveShuttle);
         }

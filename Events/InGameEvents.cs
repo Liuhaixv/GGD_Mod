@@ -49,6 +49,23 @@ namespace GGD_Hack.Events
         {
             MelonLogger.Msg(System.ConsoleColor.Green, "开始拖拽尸体事件：丧葬者:{0} 被拖拽的尸体:{1}", undertakerUserId, bodyUserId);
         }
+
+        public static void Receive_Kill(string killerUserId, string killedUserId, string stingerId)
+        {
+            MelonLogger.Msg(System.ConsoleColor.Green, "玩家被杀事件：击杀者:{0} 被杀者:{1} 死亡动画id:{2}", string.IsNullOrEmpty(killerUserId) ? "未知" : killedUserId, killedUserId, stingerId);
+        }
+
+        //食鸟鸭或秃鹫
+        public static void Eat(string eater, string eated)
+        {
+            MelonLogger.Msg(System.ConsoleColor.Green, "尸体被吃事件：吃者:{0} 被吃者:{1}", eater, eated);
+        }
+
+        //变形
+        public static void Morph(string from, string to)
+        {
+            MelonLogger.Msg(System.ConsoleColor.Green, "变形事件：From:{0} To:{1}", from, to);
+        }
     }
 
     [HarmonyPatch(typeof(PhotonEventAPI), nameof(PhotonEventAPI.OnEvent), typeof(ExitGames.Client.Photon.EventData))]
@@ -174,6 +191,50 @@ namespace GGD_Hack.Events
 
                             InGameEvents.Grab_Body(undertakerUserId, bodyUserId);
 
+
+                            MelonLogger.Msg(System.ConsoleColor.Green, parameters.ToStringFull());
+
+                            break;
+                        }
+                    case EventDataCode.RECEIVE_KILL:
+                        {
+                            //[10:50:16.013] [[开发者专用版] _Liuhaixv's_GGD_Hack_mod] 接收到事件: RECEIVE_KILL
+                            //[10:50:16.013][[开发者专用版]_Liuhaixv's_GGD_Hack_mod] Event 3: {(Byte)245=(String[]){,INHFrQihlYUg8yvPmwHREre61632,100080148,1}, (Byte)254=(Int32)0}
+                            Il2CppStringArray stringArray = parameters.Get<Il2CppStringArray>(245);
+                            string killerUserId = stringArray[0];
+                            string bodyUserId = stringArray[1];
+                            string stingerId = stringArray[2];
+
+                            InGameEvents.Receive_Kill(killerUserId, bodyUserId, stingerId);
+
+                            MelonLogger.Msg(System.ConsoleColor.Green, parameters.ToStringFull());
+                            break;
+                        }
+                    case EventDataCode.EAT:
+                        {
+                            //[15:10:51.439] [[开发者专用版]_Liuhaixv's_GGD_Hack_mod] 接收到事件: EAT
+                            //[15:10:51.440] [[开发者专用版] _Liuhaixv's_GGD_Hack_mod] Event 19: {(Byte)245=(String[]){FNV2BrK1ZVagjkjDoC0oQa61TgZ2,wV6chtJmnSQG9wyIMS2sAkDwUAq2}, (Byte)254=(Int32)0}
+
+                            Il2CppStringArray stringArray = parameters.Get<Il2CppStringArray>(245);
+                            string eater = stringArray[0];
+                            string eated = stringArray[1];
+
+                            InGameEvents.Eat(eater, eated);
+
+                            MelonLogger.Msg(System.ConsoleColor.Green, parameters.ToStringFull());
+
+                            break;
+                        }
+                    case EventDataCode.MORPH:
+                        {
+                            //[15:40:36.278] [[开发者专用版]_Liuhaixv's_GGD_Hack_mod] 接收到事件: MORPH
+                            //[15:40:36.278] [[开发者专用版]_Liuhaixv's_GGD_Hack_mod] Event 21: {(Byte)245=(String[]){qWFC7AOTSsZMGNq48SaFEGB2LTd2,JtCDSJJPGVWs1Hkt8VjQzEObrV83,false}, (Byte)254=(Int32)0}
+
+                            Il2CppStringArray stringArray = parameters.Get<Il2CppStringArray>(245);
+                            string from = stringArray[0];
+                            string to = stringArray[1];
+
+                            InGameEvents.Morph(from, to);
 
                             MelonLogger.Msg(System.ConsoleColor.Green, parameters.ToStringFull());
 

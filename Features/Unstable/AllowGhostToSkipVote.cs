@@ -8,7 +8,8 @@ namespace GGD_Hack.Features
 {
     public class AllowGhostToSkipVote
     {
-        //[HarmonyPatch(typeof(VotePrefabHandler), nameof(VotePrefabHandler.Start))]
+        /*
+        [HarmonyPatch(typeof(VotePrefabHandler), nameof(VotePrefabHandler.Start))]
         class ReplaceSkipButtonOnclick
         {
             static void Post(VotePrefabHandler __instance)
@@ -22,8 +23,9 @@ namespace GGD_Hack.Features
                 __instance.voteButton.interactable = true;
             }
         }
+        */
 
-        [HarmonyPatch(typeof(VotePrefabHandler), nameof(VotePrefabHandler.Update))]
+        //TODO: 暂时禁用 [HarmonyPatch(typeof(VotePrefabHandler), nameof(VotePrefabHandler.Update))]
         class ForceSkipButtonInteractable
         {
             static void Prefix(VotePrefabHandler __instance)
@@ -33,7 +35,6 @@ namespace GGD_Hack.Features
                 {
                     return;
                 }
-
 
                 PlayerController player = LocalPlayer.Instance?.Player ?? null;
 
@@ -48,9 +49,6 @@ namespace GGD_Hack.Features
 
                     //投票设置为非幽灵，可以跳过投票
                     player.isGhost = false;
-                }else
-                {
-                    player.isGhost = (player.timeOfDeath > 0);
                 }
 
                 /*
