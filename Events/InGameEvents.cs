@@ -24,6 +24,16 @@ namespace GGD_Hack.Events
             throw new NotImplementedException();
         }
 
+        public static void Vent(string userId, string ventId)
+        {
+            MelonLogger.Msg(System.ConsoleColor.Green, "钻管道事件：玩家: {0} 管道id: {1}", userId, ventId);
+        }
+
+        public static void ForceExitVent(string userId, string ventId)
+        {
+            MelonLogger.Msg(System.ConsoleColor.Green, "强制移出管道事件：玩家: {0} 管道id: {1}", userId, ventId);
+        }
+
         public static void Pelican_Eat(string playerEaten, string pelican = null)
         {
             MelonLogger.Msg(System.ConsoleColor.Green, "鹈鹕吃人事件：鹈鹕：{0} 被吃的玩家: {1}", string.IsNullOrEmpty(pelican) ? "未知" : pelican, playerEaten);
@@ -117,6 +127,34 @@ namespace GGD_Hack.Events
                             {
                                 MelonLogger.Msg(System.ConsoleColor.Green, str);
                             }
+
+                            break;
+                        }
+                    case EventDataCode.VENT:
+                        {
+                            //[10:27:04.863] [[开发者专用版]_Liuhaixv's_GGD_Hack_mod] 接收到事件: VENT
+                            //[10:27:04.863] [[开发者专用版] _Liuhaixv's_GGD_Hack_mod] Event 7: {(Byte)245=(String[]){0coZbhOkb6QhJzDhYynkqknr32l1,4,false}, (Byte)254=(Int32)0}
+                            Il2CppStringArray stringArray = parameters.Get<Il2CppStringArray>(245);
+                            string userId = stringArray[0];
+                            string ventId = stringArray[1];
+
+                            InGameEvents.Vent(userId, ventId);
+
+                            MelonLogger.Msg(System.ConsoleColor.Green, parameters.ToStringFull());
+
+                            break;
+                        }
+                    case EventDataCode.FORCE_EXIT_VENT:
+                        {
+                            //[10:26:53.975] [[开发者专用版]_Liuhaixv's_GGD_Hack_mod] 接收到事件: FORCE_EXIT_VENT
+                            //[10:26:53.975] [[开发者专用版] _Liuhaixv's_GGD_Hack_mod] Event 120: {(Byte)245=(String[]){0coZbhOkb6QhJzDhYynkqknr32l1,4}, (Byte)254=(Int32)0}
+                            Il2CppStringArray stringArray = parameters.Get<Il2CppStringArray>(245);
+                            string userId = stringArray[0];
+                            string ventId = stringArray[1];
+
+                            InGameEvents.ForceExitVent(userId, ventId);
+
+                            MelonLogger.Msg(System.ConsoleColor.Green, parameters.ToStringFull());
 
                             break;
                         }

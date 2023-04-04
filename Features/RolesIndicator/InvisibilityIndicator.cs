@@ -42,7 +42,7 @@ namespace GGD_Hack.Features.RolesIndicator
         }
 
         [HarmonyPatch(typeof(InGameEvents), nameof(InGameEvents.Turn_Invisible), typeof(string), typeof(bool))]
-        class OnPelicanEat
+        class OnTurnInvisible
         {
             static void Postfix(string userId, bool invisible)
             {
