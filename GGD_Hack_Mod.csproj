@@ -168,6 +168,7 @@
     <Compile Include="Features\BombIndicator.cs" />
     <Compile Include="Features\ChangeName.cs" />
     <Compile Include="Features\ClearAllBodies.cs" />
+    <Compile Include="Features\Override\MaxChatMessages.cs" />
     <Compile Include="Features\RolesIndicator\ForceEnableRoleReveal.cs" />
     <Compile Include="Features\RolesIndicator\InvisibilityIndicator.cs" />
     <Compile Include="Features\RolesIndicator\PelicanIndicator.cs" />
@@ -193,6 +194,7 @@
     <Compile Include="Features\RemoveRoofs.cs" />
     <Compile Include="Features\AutoKicker.cs" />
     <Compile Include="Features\AutoReady.cs" />
+    <Compile Include="Features\Unstable\AllowToSeeDeadPlayersChatMessages.cs" />
     <Compile Include="Features\Unstable\AllowGhostToSkipVote.cs" />
     <Compile Include="Features\TODO\MonobehaviourTemplate.cs" />
     <Compile Include="Features\TODO\OneTapCompleteTask.cs" />
@@ -201,6 +203,7 @@
     <Compile Include="Features\ShowAllUnlockables.cs" />
     <Compile Include="Features\VigilanteInfiniteKill.cs" />
     <Compile Include="GameData\EventDataCode.cs" />
+    <Compile Include="GameData\GameState.cs" />
     <Compile Include="GameData\RoleId.cs" />
     <Compile Include="Hook\BlockShit\AntiFilterText.cs" />
     <Compile Include="Hook\BodyHandler.cs" />

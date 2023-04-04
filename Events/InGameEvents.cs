@@ -4,7 +4,6 @@ using System;
 using APIs.Photon;
 using GGD_Hack.GameData;
 using ExitGames.Client.Photon;
-using Il2CppSystem.Runtime.InteropServices;
 using UnhollowerBaseLib;
 
 namespace GGD_Hack.Events
@@ -80,14 +79,14 @@ namespace GGD_Hack.Events
                             }
 
                             MelonLogger.Msg(System.ConsoleColor.Green, parameters.ToStringFull());
-                           
+
                             break;
                         }
                     case EventDataCode.TURN_INVISIBLE:
                         {
                             //[04:33:00.297] [[开发者专用版]_Liuhaixv's_GGD_Hack_mod] 接收到事件: TURN_INVISIBLE
                             //[04:33:00.297] [[开发者专用版] _Liuhaixv's_GGD_Hack_mod] Event 77: {(Byte)245=(String[]){HRr2vu3eMTOXaOt9lPcMWN43fX22,true}, (Byte)254=(Int32)0}
-                            
+
                             Il2CppStringArray stringArray = parameters.Get<Il2CppStringArray>(245);
                             string userId = stringArray[0];
                             bool invisible = stringArray[1] == "true";
@@ -97,7 +96,28 @@ namespace GGD_Hack.Events
                             InGameEvents.Turn_Invisible(userId, invisible);
 
                             MelonLogger.Msg(System.ConsoleColor.Green, parameters.ToStringFull());
-                            
+
+                            break;
+                        }
+                    case EventDataCode.CHAT_MESSAGE:
+                        {
+                            //[08:19:39.574] [[开发者专用版]_Liuhaixv's_GGD_Hack_mod] 接收到事件: CHAT_MESSAGE
+                            //[08:19:39.575] [[开发者专用版] _Liuhaixv's_GGD_Hack_mod] Event 66: {(Byte)245=(Object[])System.Object[], (Byte)254=(Int32)0}
+                            Il2CppArrayBase<Il2CppSystem.Object> objArray = parameters.Get<Il2CppArrayBase<Il2CppSystem.Object>>(245);
+
+                            MelonLogger.Msg(System.ConsoleColor.Green, "收到聊天消息");
+                            foreach (Il2CppSystem.Object obj in objArray)
+                            {
+                                MelonLogger.Msg(System.ConsoleColor.Green, obj.ToString());
+                            }
+
+                            Il2CppStringArray il2CppStringArray = new Il2CppStringArray(objArray[1].Pointer);
+
+                            foreach (var str in il2CppStringArray)
+                            {
+                                MelonLogger.Msg(System.ConsoleColor.Green, str);
+                            }
+
                             break;
                         }
 
