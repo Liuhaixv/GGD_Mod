@@ -3,6 +3,7 @@ using Handlers.GameHandlers.PlayerHandlers;
 using HarmonyLib;
 using Managers;
 using Managers.ConnectionManagers;
+using MelonLoader;
 
 namespace GGD_Hack.Features
 {
@@ -10,10 +11,10 @@ namespace GGD_Hack.Features
     public class AllowToSeeDeadPlayersChatMessages
     {
         //该函数中会判断是否是幽灵，然后显示死亡玩家的消息
-        [HarmonyPatch(typeof(ChatManager), nameof(ChatManager.IKMLHFKHHDD))]
+        [HarmonyPatch(typeof(ChatManager), nameof(ChatManager.IKMLHFKHHDD), typeof(Il2CppSystem.Object))]
         class OnReceivedMessage
         {
-            static void Prefix(ref bool __state)
+            static void Prefix(ref bool __state, Il2CppSystem.Object __0)
             {
                 if ((byte)MainManager.Instance.gameManager.gameState != (byte)GameData.GameState.Voting)
                 {
@@ -24,6 +25,11 @@ namespace GGD_Hack.Features
                 //非幽灵
                 if (!__state)
                 {
+                    //判断是否是本地玩家发送的消息
+                    EventData eventData = __0 as EventData;
+
+                    MelonLogger.Msg(eventData.ToStringFull());
+
                     //暂时改为幽灵
                     LocalPlayer.Instance.Player.isGhost = true;
                 }

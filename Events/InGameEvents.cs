@@ -5,6 +5,7 @@ using APIs.Photon;
 using GGD_Hack.GameData;
 using ExitGames.Client.Photon;
 using UnhollowerBaseLib;
+using GGD_Hack.Features;
 
 namespace GGD_Hack.Events
 {
@@ -43,6 +44,11 @@ namespace GGD_Hack.Events
         {
             MelonLogger.Msg(System.ConsoleColor.Green, "隐身事件：玩家:{0} 隐身中:{1}", userId, invisible ? "是" : "否");
         }
+
+        public static void Grab_Body(string undertakerUserId, string bodyUserId)
+        {
+            MelonLogger.Msg(System.ConsoleColor.Green, "开始拖拽尸体事件：丧葬者:{0} 被拖拽的尸体:{1}", undertakerUserId, bodyUserId);
+        }
     }
 
     [HarmonyPatch(typeof(PhotonEventAPI), nameof(PhotonEventAPI.OnEvent), typeof(ExitGames.Client.Photon.EventData))]
@@ -73,7 +79,6 @@ namespace GGD_Hack.Events
 
                             //[03:45:56.043] [[开发者专用版]_Liuhaixv's_GGD_Hack_mod] 接收到事件: PELICAN_EAT
                             //[03:45:56.043][[开发者专用版] _Liuhaixv's_GGD_Hack_mod] Event 78: {(Byte)245=(String[]){,gmf2ssN689dDRprV28CuJOhDLLt2}, (Byte)254=(Int32)0}
-
 
                             Il2CppStringArray stringArray = parameters.Get<Il2CppStringArray>(245);
                             string pelicanUserId = stringArray[0];
@@ -158,7 +163,23 @@ namespace GGD_Hack.Events
 
                             break;
                         }
+                    case EventDataCode.GRAB_BODY:
+                        //[13:21:00.182] [[开发者专用版]_Liuhaixv's_GGD_Hack_mod] 接收到事件: GRAB_BODY
+                        //[13:21:00.183] [[开发者专用版] _Liuhaixv's_GGD_Hack_mod] Event 59: {(Byte)245=(String[]){1l4kqYawXVQs55e23TlT6KKyCEB3,7GWsdxRFvkRYaH4qZqJBMtqHqH72}, (Byte)254=(Int32)0}
+                        {
+                            Il2CppStringArray stringArray = parameters.Get<Il2CppStringArray>(245);
+                            string undertakerUserId = stringArray[0];
+                            string bodyUserId = stringArray[1];
 
+
+                            InGameEvents.Grab_Body(undertakerUserId, bodyUserId);
+
+
+                            MelonLogger.Msg(System.ConsoleColor.Green, parameters.ToStringFull());
+
+                            break;
+                            break;
+                        }
                     case EventDataCode.AppStats:
                         {
                             break;

@@ -173,6 +173,10 @@ namespace GGD_Hack.Features
                 textMeshProUGUI.text = playerController.nickname;
                 textMeshProUGUI.ForceMeshUpdate();
             }
+
+            //修改显示范围
+            //TODO:
+            //textMeshProUGUI.firstOverflowCharacterIndex
         }
 
         private static void DestroyAllPlayers()

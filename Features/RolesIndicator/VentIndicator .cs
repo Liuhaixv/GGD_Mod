@@ -20,7 +20,7 @@ namespace GGD_Hack.Features.RolesIndicator
             //修改名字
             {
                 //TODO: 修改VotePrefabHandler的playerName
-                string ventPrefix = isChineseOS ? "[使用过管道] " : "[Vented] ";
+                string ventPrefix = isChineseOS ? "[用过管道] " : "[Vented] ";
                 if (!playerController.nickname.Contains(ventPrefix))
                 {
                     playerController.nickname = string.Format("{0}{1}", ventPrefix, playerController.nickname);

@@ -169,6 +169,7 @@
     <Compile Include="Features\ChangeName.cs" />
     <Compile Include="Features\ClearAllBodies.cs" />
     <Compile Include="Features\Override\MaxChatMessages.cs" />
+    <Compile Include="Features\RolesIndicator\UndertakerIndicator.cs" />
     <Compile Include="Features\RolesIndicator\VentIndicator .cs" />
     <Compile Include="Features\RolesIndicator\EngineerIndicator.cs" />
     <Compile Include="Features\RolesIndicator\ForceEnableRoleReveal.cs" />
