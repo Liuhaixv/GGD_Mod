@@ -1,5 +1,6 @@
 ﻿using ExitGames.Client.Photon;
 using Handlers.GameHandlers.PlayerHandlers;
+using Handlers.PrefabAttachedHandlers;
 using HarmonyLib;
 using Managers;
 using Managers.ConnectionManagers;
@@ -25,11 +26,6 @@ namespace GGD_Hack.Features
                 //非幽灵
                 if (!__state)
                 {
-                    //判断是否是本地玩家发送的消息
-                    EventData eventData = __0 as EventData;
-
-                    MelonLogger.Msg(eventData.ToStringFull());
-
                     //暂时改为幽灵
                     LocalPlayer.Instance.Player.isGhost = true;
                 }
@@ -44,6 +40,19 @@ namespace GGD_Hack.Features
 
                 //恢复原先的幽灵状态
                 LocalPlayer.Instance.Player.isGhost = __state;
+            }
+        }
+
+        //修复因为强制显示幽灵聊天导致的本地玩家聊天信息错误显示为死亡状态
+        [HarmonyPatch(typeof(MessagePrefabHandler), nameof(MessagePrefabHandler.Initialize))]
+        class FixLocalPlayerWrongDeathIcon
+        {
+            static void Prefix(MessagePrefabHandler __instance)
+            {
+                if (__instance.sender == LocalPlayer.Instance.Player.userId)
+                {
+                    __instance.isGhost = (LocalPlayer.Instance.Player.timeOfDeath > 0);
+                }
             }
         }
     }
