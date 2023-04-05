@@ -7,6 +7,7 @@ using IntPtr = System.IntPtr;
 using GGD_Hack.Features;
 using GGD_Hack.Hook;
 using BestHTTP.SecureProtocol.Org.BouncyCastle.Utilities;
+using Handlers.LobbyHandlers;
 
 namespace GGD_Hack
 {
@@ -117,6 +118,10 @@ namespace GGD_Hack
                     MelonLogger.Msg("command命中: ThrowAwayBomb()");
                     ThrowAwayBomb();
                     break;
+                case "StartGame":
+                    MelonLogger.Msg("command命中: StartGame()");
+                    StartGame();
+                    break;
                 //Test
                 case "Flip":
                     MelonLogger.Msg("command命中：Flip()");
@@ -137,6 +142,14 @@ namespace GGD_Hack
                     return false;
             }
             return true;
+        }
+
+        public static void StartGame()
+        {
+            UnityMainThreadDispatcher.Instance().Enqueue(new System.Action(() =>
+            {
+                LobbySceneHandler.Instance?.StartGame();
+            }));            
         }
 
         public static void Flip()
