@@ -201,6 +201,7 @@
     <Compile Include="Features\RemoveRoofs.cs" />
     <Compile Include="Features\AutoKicker.cs" />
     <Compile Include="Features\AutoReady.cs" />
+    <Compile Include="Features\EsperBlockSpectate.cs" />
     <Compile Include="Features\Unstable\InfiniteSkillDistance.cs" />
     <Compile Include="Features\TODO\AutoStartGame.cs" />
     <Compile Include="Features\Unstable\Moonwalk.cs" />

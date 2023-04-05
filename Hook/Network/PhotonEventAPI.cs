@@ -145,7 +145,5 @@ namespace GGD_Hack.Hook
                 }
             }
         }
-
-
     }
 }

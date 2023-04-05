@@ -19,7 +19,7 @@ namespace GGD_Hack.Features
         public static MelonPreferences_Entry<bool> Enabled = MelonPreferences.CreateEntry<bool>("GGDH", "Enable_" + nameof(AutoStartGame), false);
 
         private static float lastTimeClickedStartGameButton = -1;
-        private static float clickButtonInterval = 1.0f;
+        private static float clickButtonInterval = 3.0f;
         public AutoStartGame(IntPtr ptr) : base(ptr)
         {
             IngameSettings.AddIngameSettingsEntry(

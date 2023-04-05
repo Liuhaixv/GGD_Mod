@@ -24,8 +24,8 @@ namespace GGD_Hack.Features
                                new IngameSettings.IngameSettingsEntry()
                                {
                                    entry = Enabled,
-                                   name_cn = "无限距离技能: \n鸽子、殡仪、侦探、跟踪者、爆炸王、秃鹫",
-                                   name_eng = "Skill Ignore Distance: \nPigeon, Mortician, Detective, Stalker, Demolitionist, Vulture"
+                                   name_cn = "无限距离技能: \n鸽子、殡仪、侦探、跟踪者、爆炸王、秃鹫、超能力",
+                                   name_eng = "Skill Ignore Distance: \nPigeon, Mortician, Detective, Stalker, Demolitionist, Vulture, Esper"
                                }
                                           );
         }
@@ -87,7 +87,8 @@ namespace GGD_Hack.Features
                         && playerRoleId != IPLJDOHJOLM.Stalker
                         && playerRoleId != IPLJDOHJOLM.Demolitionist
                         && playerRoleId != IPLJDOHJOLM.Vulture
-                         && playerRoleId != IPLJDOHJOLM.DNDVulture)
+                         && playerRoleId != IPLJDOHJOLM.DNDVulture
+                         && playerRoleId != IPLJDOHJOLM.EsperDuck)
                     {
 #if Developer
                         MelonLogger.Error("玩家角色不符合无限距离");
