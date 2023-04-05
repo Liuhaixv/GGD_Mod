@@ -55,6 +55,8 @@ namespace GGD_Hack.Features
             {
                 if (!Enabled.Value) return;
 
+                if(LocalPlayer.Instance?.Player == null) return;
+
                 __state = LocalPlayer.Instance.Player.isGhost;
 
                 if ((byte)MainManager.Instance.gameManager.gameState != (byte)GameData.GameState.Voting)
@@ -69,6 +71,8 @@ namespace GGD_Hack.Features
             static void Postfix(ref bool __state)
             {
                 if (!Enabled.Value) return;
+
+                if (LocalPlayer.Instance?.Player == null) return;
 
                 //恢复原先的幽灵状态
                 LocalPlayer.Instance.Player.isGhost = __state;

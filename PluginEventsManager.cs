@@ -199,9 +199,9 @@ namespace GGD_Hack
         }
 
         //E8 ?? ?? ?? ?? 48 8B 15 ?? ?? ?? ?? 48 85 DB 0F 84 AB 0F 00 00
-        public static void RevealRoleInternalLink(string a, int roleId)
+        public static void RevealRoleInternalLink(string userId, int roleId)
         {
-            Managers.MainManager.Instance.pluginEventsManager.NGCEEDDMGEH(a, (IPLJDOHJOLM)roleId);
+            Managers.MainManager.Instance.pluginEventsManager.NGCEEDDMGEH(userId, (IPLJDOHJOLM)roleId);
         }
     }
 }

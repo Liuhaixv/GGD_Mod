@@ -22,12 +22,14 @@ namespace GGD_Hack.Features.RolesIndicator
             //修改名字
             {
                 //TODO: 修改VotePrefabHandler的playerName
-                string invisibilityPrefix = isChineseOS ? "[隐形鸭] " : "[Invisibility] ";
-                if(!playerController.nickname.Contains(invisibilityPrefix))
+                string rolePrefix = isChineseOS ? "[隐形鸭] " : "[Invisibility] ";
+                if(!playerController.nickname.Contains(rolePrefix))
                 {
-                    playerController.nickname = string.Format("{0}{1}", invisibilityPrefix, playerController.nickname);
+                    playerController.nickname = string.Format("{0}{1}", rolePrefix, playerController.nickname);
                 }            
             }
+
+            PluginEventsManager.RevealRoleInternalLink(playerController.userId, (int)GameData.RoleId.Invisibility);
 
             MelonLogger.Msg(System.ConsoleColor.Green, "已标记玩家{0}为隐形鸭子", playerController.nickname);
         }

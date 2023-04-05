@@ -32,15 +32,15 @@ namespace GGD_Hack.Features.RolesIndicator
             //修改名字
             {
                 //TODO: 修改VotePrefabHandler的playerName
-                string pelicanPrefix = isChineseOS ? "[鹈鹕] " : "[Pelican] ";
-                if (!playerController.nickname.Contains(pelicanPrefix))
+                string rolePrefix = isChineseOS ? "[鹈鹕] " : "[Pelican] ";
+                if (!playerController.nickname.Contains(rolePrefix))
                 {
-                    playerController.nickname = string.Format("{0}{1}", pelicanPrefix, playerController.nickname);
+                    playerController.nickname = string.Format("{0}{1}", rolePrefix, playerController.nickname);
                 }
             }
 
             //playerController.spawnedPlayerHandler.SetPlayerRole(IPLJDOHJOLM.Pelican);
-            //PluginEventsManager.RevealRoleInternalLink(playerController.userId, (int)GameData.RoleId.Pelican);
+            PluginEventsManager.RevealRoleInternalLink(playerController.userId, (int)GameData.RoleId.Pelican);
 
             MelonLogger.Msg(System.ConsoleColor.Green, "已标记玩家{0}为鹈鹕", playerController.nickname);
         }

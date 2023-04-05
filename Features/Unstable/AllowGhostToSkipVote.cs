@@ -8,57 +8,30 @@ namespace GGD_Hack.Features
 {
     public class AllowGhostToSkipVote
     {
-        /*
-        [HarmonyPatch(typeof(VotePrefabHandler), nameof(VotePrefabHandler.Start))]
-        class ReplaceSkipButtonOnclick
-        {
-            static void Post(VotePrefabHandler __instance)
-            {
-                if (!__instance.isSkip)
-                {
-                    return;
-                }
-
-                __instance.voteButton = new UnityEngine.UI.Button();
-                __instance.voteButton.interactable = true;
-            }
-        }
-        */
-
-        //TODO: 暂时禁用 [HarmonyPatch(typeof(VotePrefabHandler), nameof(VotePrefabHandler.Update))]
+        [HarmonyPatch(typeof(VotePrefabHandler), nameof(VotePrefabHandler.Update))]
         class ForceSkipButtonInteractable
         {
-            static void Prefix(VotePrefabHandler __instance)
+            static void Prefix(ref bool __state)
+            {                
+                if(LocalPlayer.Instance?.Player == null) return;
+
+                __state = LocalPlayer.Instance.Player.isGhost;
+
+                if ((byte)MainManager.Instance.gameManager.gameState != (byte)GameData.GameState.Voting)
+                {
+                    return;
+                }
+
+                //暂时改为非幽灵
+                LocalPlayer.Instance.Player.isGhost = false;
+            }
+
+            static void Postfix(ref bool __state)
             {
+                if (LocalPlayer.Instance?.Player == null) return;
 
-                if (!__instance.isSkip)
-                {
-                    return;
-                }
-
-                PlayerController player = LocalPlayer.Instance?.Player ?? null;
-
-                if(player == null)
-                {
-                    return;
-                }
-
-                if ((byte)MainManager.Instance.gameManager.gameState == (byte)GameData.GameState.Voting)
-                {
-                    __instance.voteButton.interactable = true;
-
-                    //投票设置为非幽灵，可以跳过投票
-                    player.isGhost = false;
-                }
-
-                /*
-                if (__instance.voteButton.onClick.m_PersistentCalls.Count == 1)
-                {
-                    __instance.voteButton.onClick.AddListener(new System.Action(() =>
-                    {
-                        PhotonEventAPI.SendEventToPlugin((byte)GameData.EventDataCode.VOTE, "skip");
-                    }));
-                }*/
+                //恢复原先的幽灵状态
+                LocalPlayer.Instance.Player.isGhost = __state;
             }
         }
     }

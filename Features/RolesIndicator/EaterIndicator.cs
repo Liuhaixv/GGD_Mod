@@ -22,10 +22,10 @@ namespace GGD_Hack.Features.RolesIndicator
             //修改名字
             {
                 //TODO: 修改VotePrefabHandler的playerName
-                string EaterPrefix = isChineseOS ? "[吃过尸体] " : "[Ate body] ";
-                if(!playerController.nickname.Contains(EaterPrefix))
+                string rolePrefix = isChineseOS ? "[吃过尸体] " : "[Ate body] ";
+                if(!playerController.nickname.Contains(rolePrefix))
                 {
-                    playerController.nickname = string.Format("{0}{1}", EaterPrefix, playerController.nickname);
+                    playerController.nickname = string.Format("{0}{1}", rolePrefix, playerController.nickname);                    
                 }            
             }
 

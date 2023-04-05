@@ -21,12 +21,14 @@ namespace GGD_Hack.Features.RolesIndicator
             //修改名字
             {
                 //TODO: 修改VotePrefabHandler的playerName
-                string engineerPrefix = isChineseOS ? "[工程师] " : "[Engineer] ";
-                if (!playerController.nickname.Contains(engineerPrefix))
+                string rolePrefix = isChineseOS ? "[工程师] " : "[Engineer] ";
+                if (!playerController.nickname.Contains(rolePrefix))
                 {
-                    playerController.nickname = string.Format("{0}{1}", engineerPrefix, playerController.nickname);
+                    playerController.nickname = string.Format("{0}{1}", rolePrefix, playerController.nickname);
                 }
             }
+
+            PluginEventsManager.RevealRoleInternalLink(playerController.userId, (int)GameData.RoleId.Engineer);
 
             MelonLogger.Msg(System.ConsoleColor.Green, "已标记玩家{0}为工程师", playerController.nickname);
         }
@@ -34,7 +36,7 @@ namespace GGD_Hack.Features.RolesIndicator
         private static void HandleForceExitVent(string userId)
         {
             //跳过投票阶段，会误触，因为玩家掉线后会直接判定为强制退出管道
-            if((byte)MainManager.Instance.gameManager.gameState == (byte)GameData.GameState.Voting)
+            if ((byte)MainManager.Instance.gameManager.gameState == (byte)GameData.GameState.Voting)
             {
                 MelonLogger.Msg(System.ConsoleColor.Green, "由于正在投票，忽略强制退出管道事件");
                 return;

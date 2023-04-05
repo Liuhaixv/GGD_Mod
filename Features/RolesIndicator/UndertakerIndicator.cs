@@ -20,12 +20,14 @@ namespace GGD_Hack.Features.RolesIndicator
             //修改名字
             {
                 //TODO: 修改VotePrefabHandler的playerName
-                string undertakerPrefix = isChineseOS ? "[丧葬者] " : "[Undertaker] ";
-                if (!playerController.nickname.Contains(undertakerPrefix))
+                string rolePrefix = isChineseOS ? "[丧葬者] " : "[Undertaker] ";
+                if (!playerController.nickname.Contains(rolePrefix))
                 {
-                    playerController.nickname = string.Format("{0}{1}", undertakerPrefix, playerController.nickname);
+                    playerController.nickname = string.Format("{0}{1}", rolePrefix, playerController.nickname);
                 }
             }
+
+            PluginEventsManager.RevealRoleInternalLink(playerController.userId, (int)GameData.RoleId.Undertaker);
 
             MelonLogger.Msg(System.ConsoleColor.Green, "已标记玩家{0}为丧葬者", playerController.nickname);
         }

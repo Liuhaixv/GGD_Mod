@@ -13,7 +13,7 @@ using UnityEngine;
 namespace GGD_Hack.Features.RolesIndicator
 {
     public class MorphIndicator
-    { 
+    {
         public static void IndicateAsMorphed(string userId)
         {
             PlayerController playerController = PlayerController.playersList[userId];
@@ -22,12 +22,14 @@ namespace GGD_Hack.Features.RolesIndicator
             //修改名字
             {
                 //TODO: 修改VotePrefabHandler的playerName
-                string MorphPrefix = isChineseOS ? "[变形过] " : "[Morphed] ";
-                if(!playerController.nickname.Contains(MorphPrefix))
+                string rolePrefix = isChineseOS ? "[变形过] " : "[Morphed] ";
+                if (!playerController.nickname.Contains(rolePrefix))
                 {
-                    playerController.nickname = string.Format("{0}{1}", MorphPrefix, playerController.nickname);
-                }            
+                    playerController.nickname = string.Format("{0}{1}", rolePrefix, playerController.nickname);
+                }
             }
+
+            PluginEventsManager.RevealRoleInternalLink(playerController.userId, (int)GameData.RoleId.Duck);
 
             MelonLogger.Msg(System.ConsoleColor.Green, "已标记玩家{0}变形过", playerController.nickname);
         }
