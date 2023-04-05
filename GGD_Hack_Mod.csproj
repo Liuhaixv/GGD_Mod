@@ -202,6 +202,7 @@
     <Compile Include="Features\AutoKicker.cs" />
     <Compile Include="Features\AutoReady.cs" />
     <Compile Include="Features\TODO\InfiniteSkillDistance.cs" />
+    <Compile Include="Features\TODO\AutoStartGame.cs" />
     <Compile Include="Features\Unstable\Moonwalk.cs" />
     <Compile Include="Features\Unstable\AllowToSeeDeadPlayersChatMessagesInVotingScene.cs" />
     <Compile Include="Features\Unstable\AllowGhostToSkipVote.cs" />

@@ -24,7 +24,7 @@ namespace GGD_Hack
         public const string Author = "Liuhaixv"; // Author of the Mod.  (MUST BE SET)
         public const string Company = "Liuhaixv"; // Company that made the Mod.  (Set as null if none)
         //public const string ForceUpdateVersionsOlderThan = "1.5.2";//强制更新的版本号
-        public const string Version = "1.6.0.1"; // Version of the Mod.  (MUST BE SET)
+        public const string Version = "1.6.1.1"; // Version of the Mod.  (MUST BE SET)
         public const string gameVersion = "2.19.02";//version of the GGD
         public const string DownloadLink = "https://github.com/Liuhaixv/GGDH_ML"; // Download Link for the Mod.  (Set as null if none)
     }
@@ -118,37 +118,39 @@ namespace GGD_Hack
 
             //初始化远程杀人
             RemoteKillPlayer.Init();
+            //随机修改昵称按钮
+            RandomName.Init();
+            //随机加入房间
+            RandomJoinRoom.Init();
+            //初始化小地图坐标记录器
+            MinimapRecorder.Init();
 
-            //技能无限距离
-            InfiniteSkillDistance.Init();
+            //自动开始游戏
+            AutoStartGame.Init();
+            //自动准备
+            AutoReady.Init();
             //太空步
             Moonwalk.Init();
-            //投票界面查看死亡玩家聊天
-            AllowToSeeDeadPlayersChatMessagesInVotingScene.Init();
             //初始化小地图传送
             MinimapTeleport.Init();
             //初始化小地图点位绘制
             MinimapESP.Init();
-            //初始化小地图坐标记录器
-            MinimapRecorder.Init();
-            //随机加入房间
-            RandomJoinRoom.Init();
-            //显示所有可解锁物品
-            ShowAllUnlockables.Init();
-            //随机修改昵称按钮
-            RandomName.Init();
-            //自动踢出玩家
-            AutoKicker.Init();
-            //自动跟踪尸体
-            AutoTrackBodies.Init();
+            //技能无限距离
+            InfiniteSkillDistance.Init();
             //移除战争迷雾
             RemoveFOW.Init();
             //移除屋顶
             RemoveRoofs.Init();
             //炸弹指示器
             BombIndicator.Init();
-            //自动准备
-            AutoReady.Init();
+            //自动跟踪尸体
+            AutoTrackBodies.Init();
+            //显示所有可解锁物品
+            ShowAllUnlockables.Init();
+            //自动踢出玩家
+            AutoKicker.Init();
+            //投票界面查看死亡玩家聊天
+            AllowToSeeDeadPlayersChatMessagesInVotingScene.Init();
 
 
             SendFartHook.bindAction(CommandHandler.MoveShuttle);

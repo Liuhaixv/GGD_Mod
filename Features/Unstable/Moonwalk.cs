@@ -67,9 +67,9 @@ namespace GGD_Hack.Features
             UnhollowerBaseLib.Il2CppReferenceArray<Il2CppSystem.Object> Objects = new Il2CppReferenceArray<Il2CppSystem.Object>(2);
             Objects[0] = new Il2CppSystem.Int32 { m_value = shouldTurnRight ? 1 : 0 }.BoxIl2CppObject();
             Objects[1] = new Il2CppSystem.Int32 { m_value = photonView.ViewID }.BoxIl2CppObject();
-
+#if Developer
             MelonLogger.Msg("准备发送Flip");
-
+#endif
             try
             {
                 string rpcInfo = "暂未获取rpc方法";
@@ -114,6 +114,8 @@ namespace GGD_Hack.Features
         {
             static void Prefix(LocalPlayer __instance, Vector3 __0)
             {
+                if(!Enabled.Value) { return; }
+
                 movingRight = __0.x - LocalPlayer.Instance.gameObject.transform.position.x > 0;
                 if(movingRight != lastFrameMovingRight)
                 {
