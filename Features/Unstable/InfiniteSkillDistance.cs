@@ -7,6 +7,8 @@ using HarmonyLib;
 using IntPtr = System.IntPtr;
 using Handlers.GameHandlers.PlayerHandlers;
 using Handlers.LobbyHandlers;
+using Handlers.GameHandlers.TaskHandlers;
+using Handlers.GameHandlers;
 
 namespace GGD_Hack.Features
 {
@@ -45,38 +47,40 @@ namespace GGD_Hack.Features
         }
 
         //Handlers_GameHandlers_PlayerHandlers_LocalPlayer__TriggerEnter
-        [HarmonyPatch(typeof(LocalPlayer), nameof(LocalPlayer.Update))]
-        class LocalPlayer_Update
+        [HarmonyPatch(typeof(PlayerController), nameof(PlayerController.Update))]
+        class PlayerController_Update
         {
-            static void Postfix(LocalPlayer __instance)
+            static void Postfix(PlayerController __instance)
             {
                 if (!Enabled.Value)
                 {
                     return;
                 }
 
+                //跳过本地玩家
+                if (__instance.isLocal)
+                {
+                    return;
+                }
+
                 //调用其他玩家进入本地玩家范围的函数
-                LocalPlayer localplayer = LocalPlayer.Instance;
+                PlayerController localPlayerController = LocalPlayer.Instance?.Player;
 
-                if (localplayer == null) { return; }
+                if (localPlayerController == null) { return; }
 
-                if (!LobbySceneHandler.Instance.gameStarted)
+                if (!(LobbySceneHandler.Instance?.gameStarted ?? false))
+                {
+                    return;
+                }
+
+                if (localPlayerController.playerRole == null)
                 {
                     return;
                 }
 
                 //仅限以下角色启用
                 {
-                    PlayerController player = localplayer.Player;
-                    if (player == null || player.playerRole == null)
-                    {
-#if Developer
-                        MelonLogger.Error("player.playerRole为null");
-#endif
-                        return;
-                    }
-
-                    IPLJDOHJOLM playerRoleId = localplayer.Player.playerRole.IJOICOIDMHC;
+                    IPLJDOHJOLM playerRoleId = localPlayerController.playerRole.IJOICOIDMHC;
                     if (playerRoleId != IPLJDOHJOLM.Pigeon
                         && playerRoleId != IPLJDOHJOLM.Mortician
                         && playerRoleId != IPLJDOHJOLM.Detective
@@ -96,14 +100,32 @@ namespace GGD_Hack.Features
                 //MelonLogger.Msg(System.ConsoleColor.Green, "即将遍历所有玩家");
 #endif
 
-                foreach (var otherPlayer in PlayerController.playersList.Values)
-                {
-                    if (otherPlayer == null || otherPlayer.isLocal) continue;
 
-                    localplayer.TriggerEnter(
-                            otherPlayer.gameObject.transform.Find("Colliders").gameObject.GetComponent<CircleCollider2D>()
-                        );
+                LocalPlayer.Instance.TriggerEnter(
+                        __instance.gameObject.transform.Find("Colliders").gameObject.GetComponent<CircleCollider2D>()
+                    );
+            }
+        }
+
+        //尸体碰撞自己
+        [HarmonyPatch(typeof(BodyHandler), nameof(BodyHandler.FixedUpdate))]
+        public class BodyHandler_Update
+        {
+            static void Postfix(BodyHandler __instance)
+            {
+                if (!Enabled.Value)
+                {
+                    return;
                 }
+
+                //跳过专杀尸体，防止直接报警
+                if(__instance.killedByProfessional)
+                {
+                    return;
+                }
+
+                LocalPlayer.Instance.TriggerEnter(__instance.gameObject.GetComponent<PolygonCollider2D>());
+                LocalPlayer.Instance.TriggerEnter(__instance.gameObject.GetComponent<BoxCollider2D>());
             }
         }
     }
