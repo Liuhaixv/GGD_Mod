@@ -113,21 +113,21 @@ namespace GGD_Hack.Features.RolesIndicator
             }
 
             //根据一定范围内，才确定为鹈鹕，防止鹈鹕吃人时有多个玩家靠近鹈鹕，被错误标记为鹈鹕
-            //只有在1.5半径范围内没有其他玩家才会标记鹈鹕
-            float nearstDistance = Vector3.Distance(playersNearby.ElementAt(0).ACGBAGHOFIP, eatenPosition);
             PlayerController nearstPlayer = playersNearby.ElementAt(0);
-            PlayerController secondNearstPlayer = null;
-
+           
             if (playersNearby.Count == 1)
             {
                 pelicanPlayerController = nearstPlayer;
             }
             else
             {
-                secondNearstPlayer = playersNearby.ElementAt(1);
+                float nearstDistance = Vector3.Distance(nearstPlayer.ACGBAGHOFIP, eatenPosition);
+
+                PlayerController secondNearstPlayer =  playersNearby.ElementAt(1);
 
                 float secondNearstDistance = Vector3.Distance(secondNearstPlayer.ACGBAGHOFIP, eatenPosition);
-                if (secondNearstDistance > 1.5f)
+
+                if (secondNearstDistance - nearstDistance > 1f)
                 {
                     pelicanPlayerController = nearstPlayer;
                 }
