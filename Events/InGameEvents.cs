@@ -101,7 +101,7 @@ namespace GGD_Hack.Events
                             string pelicanUserId = stringArray[0];
                             string playerEaten = stringArray[1];
 
-                            if (pelicanUserId != null)
+                            if (!string.IsNullOrWhiteSpace(pelicanUserId))
                             {
                                 InGameEvents.Pelican_Eat(playerEaten, pelicanUserId);
                             }
@@ -239,7 +239,6 @@ namespace GGD_Hack.Events
 
                             MelonLogger.Msg(System.ConsoleColor.Green, parameters.ToStringFull());
 
-                            break;
                             break;
                         }
                     case EventDataCode.AppStats:

@@ -6,6 +6,7 @@ using HarmonyLib;
 
 using IntPtr = System.IntPtr;
 using Handlers.GameHandlers.PlayerHandlers;
+using Handlers.LobbyHandlers;
 
 namespace GGD_Hack.Features
 {
@@ -21,8 +22,8 @@ namespace GGD_Hack.Features
                                new IngameSettings.IngameSettingsEntry()
                                {
                                    entry = Enabled,
-                                   name_cn = "无限距离技能: \n鸽子、殡仪、侦探、跟踪者、爆炸王",
-                                   name_eng = "Skill Ignore Distance: \nPigeon, Mortician, Detective, Stalker, Demolitionist"
+                                   name_cn = "无限距离技能: \n鸽子、殡仪、侦探、跟踪者、爆炸王、秃鹫",
+                                   name_eng = "Skill Ignore Distance: \nPigeon, Mortician, Detective, Stalker, Demolitionist, Vulture"
                                }
                                           );
         }
@@ -59,11 +60,19 @@ namespace GGD_Hack.Features
 
                 if (localplayer == null) { return; }
 
+                if (!LobbySceneHandler.Instance.gameStarted)
+                {
+                    return;
+                }
+
                 //仅限以下角色启用
                 {
                     PlayerController player = localplayer.Player;
                     if (player == null || player.playerRole == null)
                     {
+#if Developer
+                        MelonLogger.Error("player.playerRole为null");
+#endif
                         return;
                     }
 
@@ -72,11 +81,20 @@ namespace GGD_Hack.Features
                         && playerRoleId != IPLJDOHJOLM.Mortician
                         && playerRoleId != IPLJDOHJOLM.Detective
                         && playerRoleId != IPLJDOHJOLM.Stalker
-                        && playerRoleId != IPLJDOHJOLM.Demolitionist)
+                        && playerRoleId != IPLJDOHJOLM.Demolitionist
+                        && playerRoleId != IPLJDOHJOLM.Vulture
+                         && playerRoleId != IPLJDOHJOLM.DNDVulture)
                     {
+#if Developer
+                        MelonLogger.Error("玩家角色不符合无限距离");
+#endif
                         return;
                     }
                 }
+
+#if Developer
+                MelonLogger.Msg(System.ConsoleColor.Green, "即将遍历所有玩家");
+#endif
 
                 foreach (var otherPlayer in PlayerController.playersList.Values)
                 {

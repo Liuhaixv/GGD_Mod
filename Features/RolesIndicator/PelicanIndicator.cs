@@ -93,7 +93,7 @@ namespace GGD_Hack.Features.RolesIndicator
         {
             PlayerController pelicanPlayerController = null;
 
-            if (pelican != null)
+            if (!string.IsNullOrWhiteSpace(pelican))
             {
                 pelicanPlayerController = PlayerController.playersList[pelican];
                 IndicateAsPelican(pelicanPlayerController);

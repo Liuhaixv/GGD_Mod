@@ -17,7 +17,7 @@ namespace GGD_Hack.Features
     public class RemoveFOW : MonoBehaviour
     {
         public static RemoveFOW Instance;
-        public static MelonPreferences_Entry<bool> Enabled = MelonPreferences.CreateEntry<bool>("GGDH", "Enable_" + nameof(RemoveFOW), false);
+        public static MelonPreferences_Entry<bool> Enabled = MelonPreferences.CreateEntry<bool>("GGDH", "Enable_" + nameof(RemoveFOW), true);
 
         private static float lastTimeHackedLayerMask = -1;
 
