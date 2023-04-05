@@ -93,7 +93,7 @@ namespace GGD_Hack.Features
                 }
 
 #if Developer
-                MelonLogger.Msg(System.ConsoleColor.Green, "即将遍历所有玩家");
+                //MelonLogger.Msg(System.ConsoleColor.Green, "即将遍历所有玩家");
 #endif
 
                 foreach (var otherPlayer in PlayerController.playersList.Values)

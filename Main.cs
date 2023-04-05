@@ -24,7 +24,7 @@ namespace GGD_Hack
         public const string Author = "Liuhaixv"; // Author of the Mod.  (MUST BE SET)
         public const string Company = "Liuhaixv"; // Company that made the Mod.  (Set as null if none)
         //public const string ForceUpdateVersionsOlderThan = "1.5.2";//强制更新的版本号
-        public const string Version = "1.6.2.1"; // Version of the Mod.  (MUST BE SET)
+        public const string Version = "1.6.2.2"; // Version of the Mod.  (MUST BE SET)
         public const string gameVersion = "2.19.02";//version of the GGD
         public const string DownloadLink = "https://github.com/Liuhaixv/GGDH_ML"; // Download Link for the Mod.  (Set as null if none)
     }
@@ -135,10 +135,8 @@ namespace GGD_Hack
             MinimapTeleport.Init();
             //初始化小地图点位绘制
             MinimapESP.Init();
-#if Developer
             //技能无限距离
             InfiniteSkillDistance.Init();
-#endif
             //移除战争迷雾
             RemoveFOW.Init();
             //移除屋顶
