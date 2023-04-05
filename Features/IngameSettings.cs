@@ -224,6 +224,7 @@ namespace GGD_Hack.Features
                                         {
                                             bool newValue = toggle.isOn;
                                             ingameSettingsEntry.entry.BoxedValue = newValue;
+                                            MelonPreferences.Save();
                                         })
                                     );
                             }

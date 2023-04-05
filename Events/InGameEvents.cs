@@ -52,7 +52,7 @@ namespace GGD_Hack.Events
 
         public static void Receive_Kill(string killerUserId, string killedUserId, string stingerId)
         {
-            MelonLogger.Msg(System.ConsoleColor.Green, "玩家被杀事件：击杀者:{0} 被杀者:{1} 死亡动画id:{2}", string.IsNullOrEmpty(killerUserId) ? "未知" : killedUserId, killedUserId, stingerId);
+            MelonLogger.Msg(System.ConsoleColor.Green, "玩家被杀事件：击杀者:{0} 被杀者:{1} 死亡动画id:{2}", string.IsNullOrEmpty(killerUserId) ? "未知" : killerUserId, killedUserId, stingerId);
         }
 
         //食鸟鸭或秃鹫
@@ -250,7 +250,7 @@ namespace GGD_Hack.Events
             }
             catch (System.Exception e)
             {
-                MelonLogger.Error(e.ToString());
+                MelonLogger.Error("InGameEvent发生异常：" + e.ToString());
             }
         }
     }

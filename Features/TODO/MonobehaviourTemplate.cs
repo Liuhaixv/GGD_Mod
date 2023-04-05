@@ -1,4 +1,5 @@
-﻿using MelonLoader;
+﻿#if false
+using MelonLoader;
 using UnhollowerRuntimeLib;
 using UnityEngine;
 
@@ -41,3 +42,4 @@ namespace GGD_Hack.Features
         }
     }
 }
+#endif

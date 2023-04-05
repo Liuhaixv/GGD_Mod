@@ -53,6 +53,7 @@ namespace GGD_Hack.Hook
                     {
                         case (int)EventDataCode.UnreliableRead:
                         case (int)EventDataCode.ReliableRead:
+                        case (int)EventDataCode.Rpc:
                             return true;
                     }
 
@@ -84,7 +85,7 @@ namespace GGD_Hack.Hook
                                     break;
                                 }
                                 */
-                                
+
                             }
                             catch (Exception e)
                             {

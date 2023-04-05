@@ -1,11 +1,13 @@
-﻿using Handlers.GameHandlers.PlayerHandlers;
+﻿#if Developer
+using Handlers.GameHandlers.PlayerHandlers;
 using Handlers.GameHandlers.TaskHandlers;
 using Handlers.LobbyHandlers;
 using HarmonyLib;
 using Managers;
 using MelonLoader;
+using UnityEngine;
 
-namespace GGD_Hack.Features.TODO
+namespace GGD_Hack.Features
 {
     public class OneTapCompleteTask
     {
@@ -32,8 +34,8 @@ namespace GGD_Hack.Features.TODO
             }
         }
 
-        //任务被点击
-        [HarmonyPatch(typeof(TaskPrefabHandler), nameof(TaskPrefabHandler.TargetTask))]
+        //任务被追踪
+        //[HarmonyPatch(typeof(TaskPrefabHandler), nameof(TaskPrefabHandler.TargetTask))]
         class TaskPrefabHandler_TargetTask
         {
             static void Postfix(TaskPrefabHandler __instance)
@@ -43,8 +45,9 @@ namespace GGD_Hack.Features.TODO
 
                 PluginEventsManager.Precursor(true);
 
-                LobbySceneHandler.Instance.tasksHandler.CompleteTask(task.taskId, false, false, true, true);
-                //PluginEventsManager.Complete_Task(LocalPlayer.Instance.Player.userId, task.taskId);
+                //LobbySceneHandler.Instance.tasksHandler.CompleteTask(task.taskId, false, false, true, true);
+                PluginEventsManager.Complete_Task(LocalPlayer.Instance.Player.userId, task.taskId);
+                GameObject.Destroy(__instance.gameObject);
 
                 PluginEventsManager.Precursor(false);
 
@@ -55,3 +58,4 @@ namespace GGD_Hack.Features.TODO
         }
     }
 }
+#endif
