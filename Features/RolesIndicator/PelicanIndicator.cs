@@ -134,7 +134,7 @@ namespace GGD_Hack.Features.RolesIndicator
                 else
                 {
                     pelicanPlayerController = null;
-                    MelonLogger.Msg(System.ConsoleColor.Green, "鹈鹕吃人事件: 被吃的玩家: {0} 附近有多个玩家，无法判断鹈鹕", playerEaten);
+                    MelonLogger.Msg(System.ConsoleColor.Red, "鹈鹕吃人事件: 被吃的玩家: {0} 附近有多个玩家，无法判断鹈鹕", playerEaten);
                 }
             }
 

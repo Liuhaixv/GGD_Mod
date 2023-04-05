@@ -2,6 +2,7 @@
 using MelonLoader;
 using UnhollowerRuntimeLib;
 using UnityEngine;
+using HarmonyLib;
 
 using IntPtr = System.IntPtr;
 

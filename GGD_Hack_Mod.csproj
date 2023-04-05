@@ -156,6 +156,7 @@
     <Compile Include="AntiAC\BypassMelonLoaderDllCheck.cs" />
     <None Include="CheatSheet\int转object.md" />
     <None Include="CheatSheet\获取游戏是否开启身份揭示.md" />
+    <None Include="CheatSheet\通过碰撞体获取玩家尸体或者玩家对象等.md" />
     <Compile Include="CommandHandler.cs" />
     <Compile Include="Events\InGameEvents.cs" />
     <Compile Include="Features\Admin\AdminPower.cs" />
@@ -200,6 +201,7 @@
     <Compile Include="Features\RemoveRoofs.cs" />
     <Compile Include="Features\AutoKicker.cs" />
     <Compile Include="Features\AutoReady.cs" />
+    <Compile Include="Features\TODO\InfiniteSkillDistance.cs" />
     <Compile Include="Features\Unstable\Moonwalk.cs" />
     <Compile Include="Features\Unstable\AllowToSeeDeadPlayersChatMessagesInVotingScene.cs" />
     <Compile Include="Features\Unstable\AllowGhostToSkipVote.cs" />
