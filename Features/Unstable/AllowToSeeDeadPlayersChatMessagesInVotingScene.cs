@@ -55,28 +55,20 @@ namespace GGD_Hack.Features
             {
                 if (!Enabled.Value) return;
 
+                __state = LocalPlayer.Instance.Player.isGhost;
+
                 if ((byte)MainManager.Instance.gameManager.gameState != (byte)GameData.GameState.Voting)
                 {
                     return;
                 }
 
-                __state = LocalPlayer.Instance.Player.isGhost;
-                //非幽灵
-                if (!__state)
-                {
-                    //暂时改为幽灵
-                    LocalPlayer.Instance.Player.isGhost = true;
-                }
+                //暂时改为幽灵
+                LocalPlayer.Instance.Player.isGhost = true;
             }
 
             static void Postfix(ref bool __state)
             {
                 if (!Enabled.Value) return;
-
-                if ((byte)MainManager.Instance.gameManager.gameState != (byte)GameData.GameState.Voting)
-                {
-                    return;
-                }
 
                 //恢复原先的幽灵状态
                 LocalPlayer.Instance.Player.isGhost = __state;
