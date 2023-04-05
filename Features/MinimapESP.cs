@@ -175,8 +175,7 @@ namespace GGD_Hack.Features
             }
 
             //修改显示范围
-            //TODO:
-            //textMeshProUGUI.firstOverflowCharacterIndex
+            textMeshProUGUI.rectTransform.anchorMax = new Vector2(10, 0.5f);
         }
 
         private static void DestroyAllPlayers()
