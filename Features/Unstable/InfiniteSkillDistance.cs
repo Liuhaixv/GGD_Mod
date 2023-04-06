@@ -120,13 +120,15 @@ namespace GGD_Hack.Features
                 }
 
                 //跳过专杀尸体，防止直接报警
-                if(__instance.killedByProfessional)
+                if (__instance.killedByProfessional)
                 {
                     return;
                 }
 
-                LocalPlayer.Instance.TriggerEnter(__instance.gameObject.GetComponent<PolygonCollider2D>());
-                LocalPlayer.Instance.TriggerEnter(__instance.gameObject.GetComponent<BoxCollider2D>());
+                PolygonCollider2D polygonCollider2D = __instance.gameObject.GetComponent<PolygonCollider2D>();
+                if (polygonCollider2D != null)
+                    LocalPlayer.Instance.TriggerEnter(__instance.gameObject.GetComponent<PolygonCollider2D>());
+                // LocalPlayer.Instance.TriggerEnter(__instance.gameObject.GetComponent<BoxCollider2D>());
             }
         }
     }

@@ -179,7 +179,7 @@
     <Compile Include="Features\RolesIndicator\ForceEnableRoleReveal.cs" />
     <Compile Include="Features\RolesIndicator\InvisibilityIndicator.cs" />
     <Compile Include="Features\RolesIndicator\PelicanIndicator.cs" />
-    <Compile Include="Features\Test\BlacklistedAccount.cs" />
+    <Compile Include="Features\Test\BlacklistedAccountIndicator.cs" />
     <Compile Include="Features\IngameSettings.cs" />
     <Compile Include="Features\RandomName.cs" />
     <Compile Include="Features\DragAllBodies.cs" />
@@ -202,8 +202,9 @@
     <Compile Include="Features\AutoKicker.cs" />
     <Compile Include="Features\AutoReady.cs" />
     <Compile Include="Features\EsperBlockSpectate.cs" />
+    <Compile Include="Features\TODO\AutoTasks.cs" />
     <Compile Include="Features\Unstable\InfiniteSkillDistance.cs" />
-    <Compile Include="Features\TODO\AutoStartGame.cs" />
+    <Compile Include="Features\AutoStartGame.cs" />
     <Compile Include="Features\Unstable\Moonwalk.cs" />
     <Compile Include="Features\Unstable\AllowToSeeDeadPlayersChatMessagesInVotingScene.cs" />
     <Compile Include="Features\Unstable\AllowGhostToSkipVote.cs" />

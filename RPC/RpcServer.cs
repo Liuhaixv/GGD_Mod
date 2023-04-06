@@ -312,7 +312,7 @@ namespace GGD_Hack.RPC
                 try
                 {
 #if Developer
-                    MelonLogger.Msg("收到伪造rpc请求");
+                    //MelonLogger.Msg("收到伪造rpc请求");
 # endif
                     RpcServer.OnReceivedHackedRpc(__0);
                 }

@@ -1,4 +1,5 @@
 ﻿using GGD_Hack.Features;
+using GGD_Hack.Features.Test;
 using GGD_Hack.Hook;
 using GGD_Hack.Utils;
 using MelonLoader;
@@ -24,7 +25,7 @@ namespace GGD_Hack
         public const string Author = "Liuhaixv"; // Author of the Mod.  (MUST BE SET)
         public const string Company = "Liuhaixv"; // Company that made the Mod.  (Set as null if none)
         //public const string ForceUpdateVersionsOlderThan = "1.5.2";//强制更新的版本号
-        public const string Version = "1.6.5"; // Version of the Mod.  (MUST BE SET)
+        public const string Version = "1.6.6"; // Version of the Mod.  (MUST BE SET)
         public const string gameVersion = "2.19.02";//version of the GGD
         public const string DownloadLink = "https://github.com/Liuhaixv/GGDH_ML"; // Download Link for the Mod.  (Set as null if none)
     }
@@ -44,8 +45,24 @@ namespace GGD_Hack
         {
             MelonLogger.Msg("OnLateInitializeMelon");
 
-            TCPTestServer testServer = new TCPTestServer(29241);
-            testServer.Start();
+            try
+            {
+                int port = 29241;
+                if (!TCPTestServer.IsPortAvailable(port))
+                {
+                    MelonLogger.Error("端口 " + port.ToString() + " 已被占用");
+                    MelonLogger.Error("TCP服务器启动失败！如果你是多开游戏请忽略");
+                    return;
+                }
+                else
+                {
+                    TCPTestServer testServer = new TCPTestServer(29241);
+                    testServer.Start();
+                }
+            }catch(Exception e)
+            {
+                MelonLogger.Error("TCP服务器启动失败！如果你是多开游戏请忽略:" + e.Message);
+            }
 
             //检查当前游戏版本是否匹配
             bool correctGameVersion = CheckModVersion();
@@ -115,7 +132,8 @@ namespace GGD_Hack
             //Unity主线程调度
             UnityMainThreadDispatcher.Init();
 
-
+            //初始化黑名单账号检测
+            BlacklistedAccountIndicator.Init();
             //初始化远程杀人
             RemoteKillPlayer.Init();
             //随机修改昵称按钮
@@ -125,8 +143,10 @@ namespace GGD_Hack
             //初始化小地图坐标记录器
             MinimapRecorder.Init();
 
+            //自动任务
+            AutoTasks.Init();
             //超能力取消二阶段附身
-            EsperBlockSpectate.Init();
+            EsperBlockSpectate.Init();            
             //自动开始游戏
             AutoStartGame.Init();
             //自动准备

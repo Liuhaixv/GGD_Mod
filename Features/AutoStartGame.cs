@@ -26,7 +26,7 @@ namespace GGD_Hack.Features
                                new IngameSettings.IngameSettingsEntry()
                                {
                                    entry = Enabled,
-                                   name_cn = "房主自动开始游戏",
+                                   name_cn = "自动开始游戏(轮抽会无限重开)",
                                    name_eng = "Auto Start Game"
                                }
                                           );

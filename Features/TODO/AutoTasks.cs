@@ -1,0 +1,211 @@
+﻿using MelonLoader;
+using UnhollowerRuntimeLib;
+using UnityEngine;
+using HarmonyLib;
+
+using IntPtr = System.IntPtr;
+using Handlers.GameHandlers.PlayerHandlers;
+using Handlers.LobbyHandlers;
+using Il2CppSystem.Collections.Generic;
+using Handlers.GameHandlers.TaskHandlers;
+using Objects;
+using Managers;
+
+namespace GGD_Hack.Features
+{
+    //[09:47:19.527]PRECURSOR True
+    //[09:47:22.806]COMPLETE_TASK System.String[]
+    //[09:47:24.306]PRECURSOR False
+    [RegisterTypeInIl2Cpp]
+    public class AutoTasks : MonoBehaviour
+    {
+        public enum TasksState
+        {
+            //初始状态，判断是否有需要完成的任务
+            Idle,
+            //开始初始化任务
+            Beginning,
+            //等待x秒
+            Doing,
+            //任务完成后发送任务完成事件
+            Finish,
+            //通知服务器结束
+            Ending,
+            //完成任务后再次开始做任务的冷却时间
+            Cooldowning
+        }
+
+        public static AutoTasks Instance;
+        public static MelonPreferences_Entry<bool> Enabled = MelonPreferences.CreateEntry<bool>("GGDH", "Enable_" + nameof(AutoTasks), false);
+
+        public static MelonPreferences_Entry<float> taskInterval = MelonPreferences.CreateEntry<float>("GGDH", nameof(AutoTasks) + "_" + nameof(taskInterval), 8.0f);
+        public static MelonPreferences_Entry<float> cooldownInterval = MelonPreferences.CreateEntry<float>("GGDH", nameof(AutoTasks) + "_" + nameof(cooldownInterval), 8.0f);
+        public const float precursorAfterCompletingTaskInterval = 2.0f;
+
+        private TasksState state = TasksState.Idle;
+        private static GameTask currentTask = null;
+
+        private float taskTime = -1f;
+        private float cooldownWaitingTime = -1f;
+        private float precursorWaitingTime = -1f;
+
+        private static List<GameTask> tasksToFinish = new List<GameTask>();
+        public AutoTasks(IntPtr ptr) : base(ptr)
+        {
+            IngameSettings.AddIngameSettingsEntry(
+                               new IngameSettings.IngameSettingsEntry()
+                               {
+                                   entry = Enabled,
+                                   name_cn = "自动任务(严禁同时手动做任务!)",
+                                   name_eng = "Auto Tasks(Never do tasks manually when checked!)"
+                               }
+                                          );
+        }
+
+        public AutoTasks() : base(ClassInjector.DerivedConstructorPointer<AutoTasks>()) => ClassInjector.DerivedConstructorBody(this);
+        public static void Init()
+        {
+            GameObject ML_Manager = GameObject.Find("ML_Manager");
+            if (ML_Manager == null)
+            {
+                ML_Manager = new GameObject("ML_Manager");
+                DontDestroyOnLoad(ML_Manager);
+            }
+
+            if (ML_Manager.GetComponent<AutoTasks>() == null)
+            {
+                Instance = ML_Manager.AddComponent<AutoTasks>();
+            }
+        }
+
+        private void Update()
+        {
+            if (!Enabled.Value)
+            {
+                return;
+            }
+
+            if (
+                //本地玩家未初始化？
+                (LocalPlayer.Instance?.Player == null)
+               //游戏未开始？
+               || (!LobbySceneHandler.Instance?.gameStarted ?? true)
+             )
+            {
+                tasksToFinish.Clear();
+                return;
+            }
+
+            switch (state)
+            {
+                case TasksState.Idle:
+                    currentTask = null;
+
+                    if (tasksToFinish.Count > 0)
+                    {
+                        //从tasksToFinish中获取第一个任务并移除，然后设置currentTask
+                        currentTask = tasksToFinish[0];
+                        tasksToFinish.RemoveAt(0);
+
+                        MelonLogger.Msg(System.ConsoleColor.Green, "已获取到可用任务，即将开始做任务:{0}", currentTask.taskDisplayName);
+                        state = TasksState.Beginning;
+                    }
+                    else
+                    {
+#if Developer
+                        MelonLogger.Error("当前没有任务需要完成");
+#endif
+                    }
+                    break;
+                case TasksState.Beginning:
+                    BeginToDoTask();
+                    break;
+                case TasksState.Doing:
+                    DoingTask();
+                    break;
+                case TasksState.Finish:
+                    FinishTask();
+                    break;
+                case TasksState.Ending:
+                    EndTask();
+                    break;
+                case TasksState.Cooldowning:
+                    Cooldown();
+                    break;
+            }
+        }
+
+        private void BeginToDoTask()
+        {
+            PluginEventsManager.Precursor(true);
+            state = TasksState.Doing;
+            taskTime = Time.time + taskInterval.Value;
+            MelonLogger.Msg(System.ConsoleColor.Green, "已经通知服务器正在做任务，{0}秒后任务将完成", taskInterval);
+        }
+
+        private void DoingTask()
+        {
+            //等待几秒后再发送任务完成
+            if (Time.time > taskTime)
+            {
+                state = TasksState.Finish;
+                MelonLogger.Msg(System.ConsoleColor.Green, "任务过程已模拟完毕，即将完成任务");
+            }
+        }
+
+        private void FinishTask()
+        {
+            //检查是否正在投票
+            if ((byte)MainManager.Instance.gameManager.gameState == (byte)GameData.GameState.Voting)
+            {
+                tasksToFinish.Add(currentTask);
+                MelonLogger.Msg(System.ConsoleColor.Green, "检测到当前正在投票，任务回滚中");
+
+                PluginEventsManager.Precursor(false);
+                state = TasksState.Idle;
+                return;
+            }
+
+            //摧毁任务的面板对象
+            Destroy(currentTask.taskUIInList.gameObject);
+            //任务完成通知服务器
+            PluginEventsManager.Complete_Task(LocalPlayer.Instance.Player.userId, currentTask.taskId);
+            //播放任务完成的声音
+            Handlers.CommonHandlers.SoundHandler.Instance?.PlayTaskCompleteSFX();
+            //设置在任务完成事件发送后一段时间再通知precursor
+            precursorWaitingTime = Time.time + precursorAfterCompletingTaskInterval;
+            MelonLogger.Msg(System.ConsoleColor.Green, "任务已完成，即将通知服务器");
+            state = TasksState.Ending;
+        }
+
+        private void EndTask()
+        {
+            if (Time.time > precursorWaitingTime)
+            {
+                PluginEventsManager.Precursor(false);
+                //设置冷却时间
+                cooldownWaitingTime = Time.time + cooldownInterval.Value;
+                MelonLogger.Msg(System.ConsoleColor.Green, "任务已完成，即将进入冷却期等待{0}秒...", cooldownInterval);
+                state = TasksState.Cooldowning;
+            }
+        }
+        private void Cooldown()
+        {
+            if (Time.time > cooldownWaitingTime)
+            {
+                MelonLogger.Msg(System.ConsoleColor.Green, "冷却期已完成，即将进入Idle状态");
+                state = TasksState.Idle;
+            }
+        }
+
+        [HarmonyPatch(typeof(TasksHandler), nameof(TasksHandler.AssignTask), typeof(GameTask), typeof(bool))]
+        class TasksHandler_AssignTask
+        {
+            static void Postfix(GameTask __0, bool __1)
+            {
+                tasksToFinish.Add(__0);
+                MelonLogger.Msg(System.ConsoleColor.Green, "已添加任务:{0} 到待完成任务列表，当前待做任务数量:{1}", __0.taskDisplayName, tasksToFinish.Count);
+            }
+        }
+    }
+}

@@ -125,5 +125,20 @@ public class TCPTestServer
                 client = null;
             }
         }
+        public static bool IsPortAvailable(int port)
+        {
+            try
+            {
+                using (var client = new TcpClient())
+                {
+                    client.Connect(IPAddress.Loopback, port);
+                    return false; // port in use
+                }
+            }
+            catch (SocketException)
+            {
+                return true; // port available
+            }
+        }
     }
 }

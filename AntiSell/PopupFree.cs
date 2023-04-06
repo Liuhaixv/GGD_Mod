@@ -151,7 +151,6 @@ namespace GGD_Hack.AntiSell
                 System.Diagnostics.Process.Start("https://github.com/Liuhaixv");
             });
 
-
             GlobalPanelsHandler.Instance.OpenCheckboxPanel(
                 title,
                 content,
