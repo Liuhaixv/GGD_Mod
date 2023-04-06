@@ -69,6 +69,11 @@ namespace GGD_Hack.Events
         {
             //TODO
         }
+
+        public static void Whistleblow_Bomb()
+        {
+            //TODO
+        }
     }
 
     [HarmonyPatch(typeof(PhotonEventAPI), nameof(PhotonEventAPI.OnEvent), typeof(ExitGames.Client.Photon.EventData))]
@@ -249,10 +254,24 @@ namespace GGD_Hack.Events
 
                             break;
                         }
-                    case EventDataCode.AppStats:
+                    case EventDataCode.WHISTLEBLOW_BOMB:
                         {
+                            Il2CppArrayBase<Il2CppSystem.Object> objArray = parameters.Get<Il2CppArrayBase<Il2CppSystem.Object>>(245);
+
+                            MelonLogger.Msg(System.ConsoleColor.Green, "收到炸弹");
+                            foreach (Il2CppSystem.Object obj in objArray)
+                            {
+                                MelonLogger.Msg(System.ConsoleColor.Green, obj.ToString());
+                            }
+
                             break;
                         }
+                    case EventDataCode.AppStats:
+                        {
+                            //TODO
+                            break;
+                        }
+                        
                 }
             }
             catch (System.Exception e)

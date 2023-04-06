@@ -41,8 +41,8 @@ namespace GGD_Hack.Features
 
 
         public static MelonPreferences_Entry<float> beforePrecursorTrueInterval = MelonPreferences.CreateEntry<float>("GGDH", nameof(AutoTasks) + "_" + nameof(beforePrecursorTrueInterval), 2.0f);
-        public static MelonPreferences_Entry<float> taskInterval = MelonPreferences.CreateEntry<float>("GGDH", nameof(AutoTasks) + "_" + nameof(taskInterval), 8.0f);
-        public static MelonPreferences_Entry<float> cooldownInterval = MelonPreferences.CreateEntry<float>("GGDH", nameof(AutoTasks) + "_" + nameof(cooldownInterval), 3.0f);
+        public static MelonPreferences_Entry<float> taskInterval = MelonPreferences.CreateEntry<float>("GGDH", nameof(AutoTasks) + "_" + nameof(taskInterval), 10.0f);
+        public static MelonPreferences_Entry<float> cooldownInterval = MelonPreferences.CreateEntry<float>("GGDH", nameof(AutoTasks) + "_" + nameof(cooldownInterval), 10.0f);
         public const float precursorAfterCompletingTaskInterval = 0.5f;
         public const float doTaskAfterGameStartedInterval = 6.0f;
 
@@ -133,12 +133,22 @@ namespace GGD_Hack.Features
                         }*/
 
                         GameObject tasksList = LobbySceneHandler.Instance.tasksListHandler.tasksList;
+
                         //获取所有子对象
-                        if (tasksList.transform.childCount > 0)
+                        for(int i = 0; i < tasksList.transform.childCount; i++)
                         {
-                            Transform taskTransform = tasksList.transform.GetChild(0);
+                            Transform taskTransform = tasksList.transform.GetChild(i);
                             TaskPrefabHandler taskPrefabHandler = taskTransform.gameObject.GetComponent<TaskPrefabHandler>();
-                            currentTask = taskPrefabHandler.task;                           
+                            GameTask task = taskPrefabHandler.task;
+
+                            //无可交互点，可能是鹈鹕时刻或者猎鹰时刻
+                            if(task.taskObject.interactable == null)
+                            {
+                                continue;
+                            }
+
+                            currentTask = task;
+                            break;
                         }
 
                         if(currentTask != null)
@@ -178,6 +188,7 @@ namespace GGD_Hack.Features
             //瞬移到任务点
             if (tpToTaskPosition)
             {
+
                 Vector3 taskPosition = currentTask.taskObject.interactable.gameObject.transform.position;
                 LocalPlayer.Instance.gameObject.transform.position = taskPosition;
                 LocalPlayer.Instance.disableMovement = true;

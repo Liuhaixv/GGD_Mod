@@ -205,6 +205,7 @@
     <Compile Include="Features\EsperBlockSpectate.cs" />
     <Compile Include="Features\TODO\AutoTasks.cs" />
     <Compile Include="Features\TODO\AutoNavigateLocalPlayerToPosition.cs" />
+    <Compile Include="Features\TODO\AutoThrowAwayBomb.cs" />
     <Compile Include="Features\Unstable\ForceShowRolenameText.cs" />
     <Compile Include="Features\Unstable\InfiniteSkillDistance.cs" />
     <Compile Include="Features\AutoStartGame.cs" />

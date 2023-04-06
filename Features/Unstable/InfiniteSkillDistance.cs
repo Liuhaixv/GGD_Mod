@@ -24,8 +24,10 @@ namespace GGD_Hack.Features
                                new IngameSettings.IngameSettingsEntry()
                                {
                                    entry = Enabled,
-                                   name_cn = "无限距离技能: \n鸽子、殡仪、侦探、跟踪者、爆炸王、秃鹫、超能力",
-                                   name_eng = "Skill Ignore Distance: \nPigeon, Mortician, Detective, Stalker, Demolitionist, Vulture, Esper"
+                                   //name_cn = "无限距离技能: \n鸽子、殡仪、侦探、跟踪者、爆炸王、秃鹫、超能力",
+                                   //name_eng = "Skill Ignore Distance: \nPigeon, Mortician, Detective, Stalker, Demolitionist, Vulture, Esper"
+                                   name_cn = "无限距离技能: \n鸽子、侦探、跟踪者、爆炸王、超能力",
+                                   name_eng = "Skill Ignore Distance: \nPigeon, Detective, Stalker, Demolitionist, Esper"
                                }
                                           );
         }
@@ -109,7 +111,7 @@ namespace GGD_Hack.Features
         }
 
         //尸体碰撞自己
-        [HarmonyPatch(typeof(BodyHandler), nameof(BodyHandler.FixedUpdate))]
+        //[HarmonyPatch(typeof(BodyHandler), nameof(BodyHandler.FixedUpdate))]
         public class BodyHandler_Update
         {
             static void Postfix(BodyHandler __instance)
