@@ -303,6 +303,11 @@ namespace GGD_Hack.RPC
         {
             static void Postfix(Handlers.GameHandlers.PlayerHandlers.PlayerController __instance, string __0)
             {
+                if(string.IsNullOrEmpty(__0))
+                {
+                    return;
+                }
+
                 //过滤掉正常更换房间rpc
                 if (Regex.IsMatch(__0, "^[A-Z0-9]{6}$"))
                 {

@@ -201,6 +201,11 @@ namespace GGD_Hack
         //E8 ?? ?? ?? ?? 48 8B 15 ?? ?? ?? ?? 48 85 DB 0F 84 AB 0F 00 00
         public static void RevealRoleInternalLink(string userId, int roleId)
         {
+            if(LocalPlayer.Instance.Player.userId == userId)
+            {
+                //防止出bug
+                return;
+            }
             Managers.MainManager.Instance.pluginEventsManager.NGCEEDDMGEH(userId, (IPLJDOHJOLM)roleId);
         }
     }

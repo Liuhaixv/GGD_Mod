@@ -11,11 +11,9 @@ namespace GGD_Hack.Events
 {
     public class InGameEvents
     {
-        public static void OnGameStart()
+        public static void Start_Game()
         {
-            MelonLogger.Msg(System.ConsoleColor.Green, "游戏开始");
-            //TODO:
-            throw new NotImplementedException();
+            MelonLogger.Msg(System.ConsoleColor.Green, "游戏开始事件");
         }
 
         public static void OnGameEnded()
@@ -66,6 +64,11 @@ namespace GGD_Hack.Events
         {
             MelonLogger.Msg(System.ConsoleColor.Green, "变形事件：From:{0} To:{1}", from, to);
         }
+
+        public static void Task_Completed(string userId, string taskId, int i, string tokenName, int earnedTokenNums)
+        {
+            //TODO
+        }
     }
 
     [HarmonyPatch(typeof(PhotonEventAPI), nameof(PhotonEventAPI.OnEvent), typeof(ExitGames.Client.Photon.EventData))]
@@ -88,6 +91,11 @@ namespace GGD_Hack.Events
                 //打印事件
                 switch (eventDataCode)
                 {
+                    case EventDataCode.START_GAME:
+                        {
+                            InGameEvents.Start_Game();
+                            break;
+                        }
                     case EventDataCode.PELICAN_EAT:
                         {  //[03:21:39.440] [[开发者专用版]_Liuhaixv's_GGD_Hack_mod] 接收到事件: PELICAN_EAT
                            //[03:21:39.441][[开发者专用版] _Liuhaixv's_GGD_Hack_mod] Event 78: {(Byte)245=(String[]){7GWsdxRFvkRYaH4qZqJBMtqHqH72,hgqoiMN88QVgFMdgHMh512CJS0H3}, (Byte)254=(Int32)0}

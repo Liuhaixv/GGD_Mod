@@ -155,6 +155,7 @@
     <Compile Include="AntiSell\SpamDetector.cs" />
     <Compile Include="AntiAC\BypassMelonLoaderDllCheck.cs" />
     <None Include="CheatSheet\int转object.md" />
+    <None Include="CheatSheet\自动任务不出币.md" />
     <None Include="CheatSheet\获取游戏是否开启身份揭示.md" />
     <None Include="CheatSheet\通过碰撞体获取玩家尸体或者玩家对象等.md" />
     <Compile Include="CommandHandler.cs" />
@@ -203,6 +204,8 @@
     <Compile Include="Features\AutoReady.cs" />
     <Compile Include="Features\EsperBlockSpectate.cs" />
     <Compile Include="Features\TODO\AutoTasks.cs" />
+    <Compile Include="Features\TODO\AutoNavigateLocalPlayerToPosition.cs" />
+    <Compile Include="Features\Unstable\ForceShowRolenameText.cs" />
     <Compile Include="Features\Unstable\InfiniteSkillDistance.cs" />
     <Compile Include="Features\AutoStartGame.cs" />
     <Compile Include="Features\Unstable\Moonwalk.cs" />
