@@ -12,7 +12,7 @@ namespace GGD_Hack.Features
     public class AutoThrowAwayBomb : MonoBehaviour
     {
         public static AutoThrowAwayBomb Instance;
-        public static MelonPreferences_Entry<bool> Enabled = MelonPreferences.CreateEntry<bool>("GGDH", "Enable_" + nameof(AutoThrowAwayBomb), false);
+        public static MelonPreferences_Entry<bool> Enabled = MelonPreferences.CreateEntry<bool>("GGDH", "Enable_" + nameof(AutoThrowAwayBomb), true);
         //public static MelonPreferences_Entry<float> ThrowAwayBombWhenLessThanSeconds = MelonPreferences.CreateEntry<float>("GGDH", nameof(AutoThrowAwayBomb) + "_" + nameof(ThrowAwayBombWhenLessThanSeconds), 1.0f);
 
         public AutoThrowAwayBomb(IntPtr ptr) : base(ptr)

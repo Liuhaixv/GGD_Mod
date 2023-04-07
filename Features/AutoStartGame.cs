@@ -26,7 +26,7 @@ namespace GGD_Hack.Features
                                new IngameSettings.IngameSettingsEntry()
                                {
                                    entry = Enabled,
-                                   name_cn = "自动开始游戏(轮抽会无限重开)",
+                                   name_cn = "自动开始游戏",
                                    name_eng = "Auto Start Game"
                                }
                                           );
@@ -57,9 +57,10 @@ namespace GGD_Hack.Features
 
                 //判断游戏是否开始
                 if (__instance.gameStarted) return;
+                if ((byte)MainManager.Instance.gameManager.gameState != (byte)GameData.GameState.InLobby) { return; }
 
                 //判断房间内人数
-                if(PlayerController.playersList.Count < 5)
+                if (PlayerController.playersList.Count < 5)
                 {
                     return;
                 }

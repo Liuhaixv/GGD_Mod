@@ -139,10 +139,15 @@ namespace GGD_Hack.Features
                         {
                             Transform taskTransform = tasksList.transform.GetChild(i);
                             TaskPrefabHandler taskPrefabHandler = taskTransform.gameObject.GetComponent<TaskPrefabHandler>();
-                            GameTask task = taskPrefabHandler.task;
+                            GameTask task = taskPrefabHandler?.task;
+
+                            if(task == null)
+                            {
+                                break;
+                            }
 
                             //无可交互点，可能是鹈鹕时刻或者猎鹰时刻
-                            if(task.taskObject.interactable == null)
+                            if(task?.taskObject?.interactable == null)
                             {
                                 continue;
                             }

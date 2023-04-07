@@ -84,12 +84,9 @@ namespace GGD_Hack.Features
                 {
                     IPLJDOHJOLM playerRoleId = localPlayerController.playerRole.IJOICOIDMHC;
                     if (playerRoleId != IPLJDOHJOLM.Pigeon
-                        && playerRoleId != IPLJDOHJOLM.Mortician
                         && playerRoleId != IPLJDOHJOLM.Detective
                         && playerRoleId != IPLJDOHJOLM.Stalker
                         && playerRoleId != IPLJDOHJOLM.Demolitionist
-                        && playerRoleId != IPLJDOHJOLM.Vulture
-                         && playerRoleId != IPLJDOHJOLM.DNDVulture
                          && playerRoleId != IPLJDOHJOLM.EsperDuck)
                     {
 #if Developer

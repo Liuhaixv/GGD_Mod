@@ -14,6 +14,8 @@ namespace GGD_Hack.Features
         public static BombIndicator Instance;
         public static MelonPreferences_Entry<bool> Enabled = MelonPreferences.CreateEntry<bool>("GGDH", "Enable_" + nameof(BombIndicator), true);
 
+        private const string bombSpriteName = "BombSprite";
+
         public static Sprite Bomb
         {
             get
@@ -60,7 +62,7 @@ namespace GGD_Hack.Features
 
                 GameObject player = __instance.gameObject;
 
-                GameObject bomb = new GameObject("BombSprite");
+                GameObject bomb = new GameObject(bombSpriteName);
                 bomb.transform.SetParent(player.transform);
 
                 SpriteRenderer bombSpriteRenderer = bomb.AddComponent<SpriteRenderer>();
@@ -86,7 +88,7 @@ namespace GGD_Hack.Features
 
                 GameObject player = __instance.gameObject;
 
-                GameObject bomb = player.transform.Find("BombSprite").gameObject;
+                GameObject bomb = player.transform.Find(bombSpriteName).gameObject;
 
                 bomb.SetActive(__instance.hasBomb);
             }
