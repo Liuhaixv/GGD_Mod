@@ -1,5 +1,4 @@
-﻿#if false
-using MelonLoader;
+﻿using MelonLoader;
 using UnhollowerRuntimeLib;
 using UnityEngine;
 using HarmonyLib;
@@ -9,13 +8,13 @@ using IntPtr = System.IntPtr;
 namespace GGD_Hack.Features
 {
     [RegisterTypeInIl2Cpp]
-    public class MonobehaviourTemplate : MonoBehaviour
+    public class UpdateVotePrefabNameColor : MonoBehaviour
     {
-        public static MonobehaviourTemplate Instance;
-        public static MelonPreferences_Entry<bool> Enabled = MelonPreferences.CreateEntry<bool>("GGDH", "Enable_" + nameof(MonobehaviourTemplate), true);
+        public static UpdateVotePrefabNameColor Instance;
+        public static MelonPreferences_Entry<bool> Enabled = MelonPreferences.CreateEntry<bool>("GGDH", "Enable_" + nameof(UpdateVotePrefabNameColor), true);
 
-        public MonobehaviourTemplate(IntPtr ptr) : base(ptr)
-        {
+        public UpdateVotePrefabNameColor(IntPtr ptr) : base(ptr)
+        {/*
             IngameSettings.AddIngameSettingsEntry(
                                new IngameSettings.IngameSettingsEntry()
                                {
@@ -23,10 +22,10 @@ namespace GGD_Hack.Features
                                    name_cn = "箭头自动追踪尸体",
                                    name_eng = "Auto Track Bodies"
                                }
-                                          );
+                                          );*/
         }
 
-        public MonobehaviourTemplate() : base(ClassInjector.DerivedConstructorPointer<MonobehaviourTemplate>()) => ClassInjector.DerivedConstructorBody(this);
+        public UpdateVotePrefabNameColor() : base(ClassInjector.DerivedConstructorPointer<UpdateVotePrefabNameColor>()) => ClassInjector.DerivedConstructorBody(this);
         public static void Init()
         {
             GameObject ML_Manager = GameObject.Find("ML_Manager");
@@ -36,11 +35,10 @@ namespace GGD_Hack.Features
                 DontDestroyOnLoad(ML_Manager);
             }
 
-            if (ML_Manager.GetComponent<MonobehaviourTemplate>() == null)
+            if (ML_Manager.GetComponent<UpdateVotePrefabNameColor>() == null)
             {
-                Instance = ML_Manager.AddComponent<MonobehaviourTemplate>();
+                Instance = ML_Manager.AddComponent<UpdateVotePrefabNameColor>();
             }
         }
     }
 }
-#endif

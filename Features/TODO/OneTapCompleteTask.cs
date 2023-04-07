@@ -1,61 +1,51 @@
-﻿#if Developer
-using Handlers.GameHandlers.PlayerHandlers;
+﻿using Handlers.GameHandlers.PlayerHandlers;
 using Handlers.GameHandlers.TaskHandlers;
-using Handlers.LobbyHandlers;
 using HarmonyLib;
-using Managers;
 using MelonLoader;
-using UnityEngine;
+using UnityEngine.UI;
 
 namespace GGD_Hack.Features
 {
     public class OneTapCompleteTask
     {
-        public static void DelayedCompleteTask(string taskID)
+        private static void CompleteTask(string taskId)
         {
+            PluginEventsManager.Precursor(true);
 
+            PluginEventsManager.Complete_Task(LocalPlayer.Instance.Player.userId, taskId);
+
+            PluginEventsManager.Precursor(false);
+
+            MelonLogger.Msg(System.ConsoleColor.Green, "已秒任务:" + taskId);
         }
 
-        //Canvas/GamePanel/TasksList/List/TaskUI Victorian(Clone)/
-        //Handlers.GameHandlers.TaskHandlers.TaskPrefabHandler
-        [HarmonyPatch(typeof(TaskObjectHandler),nameof(TaskObjectHandler.AssignTask))]
-        class TaskObjectHandler_AssignTask
-        {
-            static void Postfix(Handlers.GameHandlers.TaskHandlers.TaskObjectHandler __instance, Handlers.GameHandlers.TaskHandlers.TaskPanelHandler __0)
-            {
-                try
-                {
-                    string taskID = __0.taskID;
-                }
-                catch (System.Exception ex)
-                {
-                   MelonLogger.Warning($"Exception in patch of void Handlers.GameHandlers.TaskHandlers.TaskObjectHandler::AssignTask(Handlers.GameHandlers.TaskHandlers.TaskPanelHandler PDPJBDGLOLB):\n{ex}");
-                }
-            }
-        }
-
-        //任务被追踪
-        //[HarmonyPatch(typeof(TaskPrefabHandler), nameof(TaskPrefabHandler.TargetTask))]
+        [HarmonyPatch(typeof(TaskPrefabHandler), nameof(TaskPrefabHandler.Update))]
         class TaskPrefabHandler_TargetTask
         {
             static void Postfix(TaskPrefabHandler __instance)
             {
-                string taskText = __instance.baseText;
-                Objects.GameTask task = __instance.task;
+                Button button = __instance.gameObject.transform.Find("Selector")?.GetComponent<Button>();
 
-                PluginEventsManager.Precursor(true);
+                if (button == null)
+                {
+                    return;
+                }
 
-                //LobbySceneHandler.Instance.tasksHandler.CompleteTask(task.taskId, false, false, true, true);
-                PluginEventsManager.Complete_Task(LocalPlayer.Instance.Player.userId, task.taskId);
-                GameObject.Destroy(__instance.gameObject);
-
-                PluginEventsManager.Precursor(false);
-
-                Handlers.CommonHandlers.SoundHandler.Instance.PlayTaskCompleteSFX();
-
-                MelonLogger.Msg(System.ConsoleColor.Green, "已完成任务：" + taskText);
+                if (button.onClick.GetPersistentEventCount() == 1)
+                {
+                    UnityEngine.Events.PersistentCall persistentCall = button.onClick.m_PersistentCalls.m_Calls[0];
+                    if (persistentCall.m_MethodName == "TargetTask")
+                    {
+                        button.onClick.RemoveAllListeners();
+                        button.onClick.AddListener(
+                            new System.Action(() =>
+                            {
+                                CompleteTask(__instance.task.taskId);
+                            })
+                            );
+                    }
+                }
             }
         }
     }
 }
-#endif

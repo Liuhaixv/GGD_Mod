@@ -155,6 +155,7 @@
     <Compile Include="AntiSell\SpamDetector.cs" />
     <Compile Include="AntiAC\BypassMelonLoaderDllCheck.cs" />
     <None Include="CheatSheet\int转object.md" />
+    <None Include="CheatSheet\获取游戏监听的事件对应的函数.md" />
     <None Include="CheatSheet\自动任务不出币.md" />
     <None Include="CheatSheet\获取游戏是否开启身份揭示.md" />
     <None Include="CheatSheet\通过碰撞体获取玩家尸体或者玩家对象等.md" />
@@ -164,6 +165,8 @@
     <Compile Include="Features\Admin\AutoPingPlayers.cs" />
     <Compile Include="Features\Admin\SuperBan.cs" />
     <Compile Include="Features\Effect\AssOnFire.cs" />
+    <Compile Include="Features\RolesIndicator\ForceEnableRoleRevealText.cs" />
+    <Compile Include="Features\RolesIndicator\UpdateVotePrefabNameColor.cs" />
     <Compile Include="Features\Stable\AntiIdleKick.cs" />
     <Compile Include="Features\AssasinInfiniteBullets.cs" />
     <Compile Include="Features\AutoTrackBodies.cs" />
@@ -178,7 +181,6 @@
     <Compile Include="Features\RolesIndicator\UndertakerIndicator.cs" />
     <Compile Include="Features\RolesIndicator\VentIndicator .cs" />
     <Compile Include="Features\RolesIndicator\EngineerIndicator.cs" />
-    <Compile Include="Features\RolesIndicator\ForceEnableRoleReveal.cs" />
     <Compile Include="Features\RolesIndicator\InvisibilityIndicator.cs" />
     <Compile Include="Features\RolesIndicator\PelicanIndicator.cs" />
     <Compile Include="Features\Test\BlacklistedAccountIndicator.cs" />
@@ -207,7 +209,7 @@
     <Compile Include="Features\TODO\AutoTasks.cs" />
     <Compile Include="Features\TODO\AutoNavigateLocalPlayerToPosition.cs" />
     <Compile Include="Features\AutoThrowAwayBomb.cs" />
-    <Compile Include="Features\Unstable\ForceShowRolenameText.cs" />
+    <Compile Include="Features\Failed\ForceEnableCelebrityDeath.cs" />
     <Compile Include="Features\Unstable\InfiniteSkillDistance.cs" />
     <Compile Include="Features\AutoStartGame.cs" />
     <Compile Include="Features\Unstable\Moonwalk.cs" />

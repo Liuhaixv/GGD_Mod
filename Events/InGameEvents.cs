@@ -73,6 +73,17 @@ namespace GGD_Hack.Events
         public static void Whistleblow_Bomb()
         {
             //TODO
+            MelonLogger.Msg(System.ConsoleColor.Green, "传递炸弹事件：{0}");
+        }
+
+        public static void Generate_Bomb(string userId)
+        {
+            MelonLogger.Msg(System.ConsoleColor.Green, "生成炸弹事件：{0}", userId);
+        }
+
+        public static void Celebrity_Died()
+        {
+            MelonLogger.Msg(System.ConsoleColor.Green, "网红死亡事件");
         }
     }
 
@@ -185,13 +196,13 @@ namespace GGD_Hack.Events
                         {
                             //[10:26:53.975] [[开发者专用版]_Liuhaixv's_GGD_Hack_mod] 接收到事件: FORCE_EXIT_VENT
                             //[10:26:53.975] [[开发者专用版] _Liuhaixv's_GGD_Hack_mod] Event 120: {(Byte)245=(String[]){0coZbhOkb6QhJzDhYynkqknr32l1,4}, (Byte)254=(Int32)0}
+                            MelonLogger.Msg(System.ConsoleColor.Green, parameters.ToStringFull());
+
                             Il2CppStringArray stringArray = parameters.Get<Il2CppStringArray>(245);
                             string userId = stringArray[0];
                             string ventId = stringArray[1];
 
                             InGameEvents.ForceExitVent(userId, ventId);
-
-                            //MelonLogger.Msg(System.ConsoleColor.Green, parameters.ToStringFull());
 
                             break;
                         }
@@ -200,13 +211,13 @@ namespace GGD_Hack.Events
                         //[13:21:00.183] [[开发者专用版] _Liuhaixv's_GGD_Hack_mod] Event 59: {(Byte)245=(String[]){1l4kqYawXVQs55e23TlT6KKyCEB3,7GWsdxRFvkRYaH4qZqJBMtqHqH72}, (Byte)254=(Int32)0}
                         {
                             //TODO:System.OverflowException
+                            MelonLogger.Msg(System.ConsoleColor.Green, parameters.ToStringFull());
+
                             Il2CppStringArray stringArray = parameters.Get<Il2CppStringArray>(245);
                             string undertakerUserId = stringArray[0];
                             string bodyUserId = stringArray[1];
 
                             InGameEvents.Grab_Body(undertakerUserId, bodyUserId);
-
-                            //MelonLogger.Msg(System.ConsoleColor.Green, parameters.ToStringFull());
 
                             break;
                         }
@@ -214,6 +225,9 @@ namespace GGD_Hack.Events
                         {
                             //[10:50:16.013] [[开发者专用版] _Liuhaixv's_GGD_Hack_mod] 接收到事件: RECEIVE_KILL
                             //[10:50:16.013][[开发者专用版]_Liuhaixv's_GGD_Hack_mod] Event 3: {(Byte)245=(String[]){,INHFrQihlYUg8yvPmwHREre61632,100080148,1}, (Byte)254=(Int32)0}
+
+                            MelonLogger.Msg(System.ConsoleColor.Green, parameters.ToStringFull());
+
                             Il2CppStringArray stringArray = parameters.Get<Il2CppStringArray>(245);
                             string killerUserId = stringArray[0];
                             string bodyUserId = stringArray[1];
@@ -221,13 +235,13 @@ namespace GGD_Hack.Events
 
                             InGameEvents.Receive_Kill(killerUserId, bodyUserId, stingerId);
 
-                            MelonLogger.Msg(System.ConsoleColor.Green, parameters.ToStringFull());
                             break;
                         }
                     case EventDataCode.EAT:
                         {
                             //[15:10:51.439] [[开发者专用版]_Liuhaixv's_GGD_Hack_mod] 接收到事件: EAT
                             //[15:10:51.440] [[开发者专用版] _Liuhaixv's_GGD_Hack_mod] Event 19: {(Byte)245=(String[]){FNV2BrK1ZVagjkjDoC0oQa61TgZ2,wV6chtJmnSQG9wyIMS2sAkDwUAq2}, (Byte)254=(Int32)0}
+                            MelonLogger.Msg(System.ConsoleColor.Green, parameters.ToStringFull());
 
                             Il2CppStringArray stringArray = parameters.Get<Il2CppStringArray>(245);
                             string eater = stringArray[0];
@@ -235,14 +249,13 @@ namespace GGD_Hack.Events
 
                             InGameEvents.Eat(eater, eated);
 
-                            MelonLogger.Msg(System.ConsoleColor.Green, parameters.ToStringFull());
-
                             break;
                         }
                     case EventDataCode.MORPH:
                         {
                             //[15:40:36.278] [[开发者专用版]_Liuhaixv's_GGD_Hack_mod] 接收到事件: MORPH
                             //[15:40:36.278] [[开发者专用版]_Liuhaixv's_GGD_Hack_mod] Event 21: {(Byte)245=(String[]){qWFC7AOTSsZMGNq48SaFEGB2LTd2,JtCDSJJPGVWs1Hkt8VjQzEObrV83,false}, (Byte)254=(Int32)0}
+                            MelonLogger.Msg(System.ConsoleColor.Green, parameters.ToStringFull());
 
                             Il2CppStringArray stringArray = parameters.Get<Il2CppStringArray>(245);
                             string from = stringArray[0];
@@ -250,28 +263,45 @@ namespace GGD_Hack.Events
 
                             InGameEvents.Morph(from, to);
 
-                            MelonLogger.Msg(System.ConsoleColor.Green, parameters.ToStringFull());
-
                             break;
                         }
                     case EventDataCode.WHISTLEBLOW_BOMB:
                         {
+                            //TODO
+                            MelonLogger.Msg(System.ConsoleColor.Green, parameters.ToStringFull());
+
                             Il2CppArrayBase<Il2CppSystem.Object> objArray = parameters.Get<Il2CppArrayBase<Il2CppSystem.Object>>(245);
 
-                            MelonLogger.Msg(System.ConsoleColor.Green, "收到炸弹");
-                            foreach (Il2CppSystem.Object obj in objArray)
-                            {
-                                MelonLogger.Msg(System.ConsoleColor.Green, obj.ToString());
-                            }
+                            MelonLogger.Msg(System.ConsoleColor.Green, "收到炸弹WHISTLEBLOW_BOMB");
 
                             break;
                         }
+                    case EventDataCode.GENERATE_BOMB:
+                        {
+                            //[16:51:49.082] [[开发者专用版]_Liuhaixv's_GGD_Hack_mod] 接收到事件: GENERATE_BOMB
+                            //[16:51:49.083] [[开发者专用版] _Liuhaixv's_GGD_Hack_mod] Event 62: {(Byte)245=(String)dVirhupARGcyHuwL1FEkIDBCU3n1, (Byte)254=(Int32)9}
+                            //TODO
+                            MelonLogger.Msg(System.ConsoleColor.Green, parameters.ToStringFull());
+
+                            string userId = parameters.Get<string>(245);
+
+                            MelonLogger.Msg(System.ConsoleColor.Green, "生成炸弹GENERATE_BOMB:");
+
+                            InGameEvents.Generate_Bomb(userId);
+                            break;
+                        }
+                    case EventDataCode.CELEBRITY_DIED:
+                        {
+                            InGameEvents.Celebrity_Died();
+                            break;
+                        }
+
                     case EventDataCode.AppStats:
                         {
                             //TODO
                             break;
                         }
-                        
+
                 }
             }
             catch (System.Exception e)

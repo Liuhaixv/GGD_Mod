@@ -142,7 +142,7 @@ namespace GGD_Hack.Features
             //修改文字
             if (textMeshProUGUI != null)
             {
-                //鹈鹕粉色
+                //被鹈鹕吃鹈鹕粉色
                 if (playerController.isInPelican)
                 {
                     Color pink = new Color(1.0f, 0f, 1.0f);
@@ -151,16 +151,22 @@ namespace GGD_Hack.Features
                     textMeshProUGUI.outlineColor = Color.white;
                     //sphere.color = pink;
                 }
-                else
-
                 //死亡黑色
-                if (playerController.timeOfDeath > 0)
+                else  if (playerController.timeOfDeath > 0)
                 {
                     Color black = Color.black;
 
                     textMeshProUGUI.color = black;
                     textMeshProUGUI.outlineColor = Color.white;
                     //sphere.color = black;
+                }
+                //鹈鹕绿色
+                else if (playerController.playerRole.IJOICOIDMHC == IPLJDOHJOLM.Pelican)
+                {
+                    Color green = Color.green;
+
+                    textMeshProUGUI.color = green;
+                    textMeshProUGUI.outlineColor = Color.white;
                 }
                 else
                 {

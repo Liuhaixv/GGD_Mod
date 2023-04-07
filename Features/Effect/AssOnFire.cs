@@ -35,6 +35,7 @@ namespace GGD_Hack.Features.Effect
         private static GameObject GetFire()
         {
             SceneManager.LoadScene("MotherGoose", LoadSceneMode.Additive);
+            return null;
         }
     }
 }
