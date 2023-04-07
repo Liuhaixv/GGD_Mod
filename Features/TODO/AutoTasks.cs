@@ -217,7 +217,7 @@ namespace GGD_Hack.Features
                 //方案二:模拟打开面板
                 //currentTask.taskPanel.OpenPanel();
                 //方案三:调用可交互物的点击事件
-                currentTask.taskObject.interactable.onClick.Invoke();
+                currentTask.taskObject?.interactable?.onClick?.Invoke();
 
                 state = TasksState.Doing;
                 taskTime = Time.time + taskInterval.Value;

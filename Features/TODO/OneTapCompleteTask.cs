@@ -47,12 +47,12 @@ namespace GGD_Hack.Features
 
         private static void CompleteTask(TaskPrefabHandler instance)
         {
-            PluginEventsManager.Precursor(true);
+            instance.task?.taskObject?.interactable?.onClick?.Invoke();
 
-            Handlers.CommonHandlers.SoundHandler.Instance?.PlayTaskCompleteSFX();
-            PluginEventsManager.Complete_Task(LocalPlayer.Instance.Player.userId, instance.task.taskId);
+            instance.task.taskPanel.CompleteTask();
 
-            PluginEventsManager.Precursor(false);
+            instance.task.taskPanel.canClosePanel = true;
+            instance.task.taskPanel.ClosePanel();
 
             MelonLogger.Msg(System.ConsoleColor.Green, "已秒任务: " + instance.task.taskDisplayName);
 #if Developer
