@@ -110,7 +110,7 @@ namespace GGD_Hack.Features
                     currentTask = null;
 
                     //判断是否超过游戏开始时间+延迟
-                    if(Time.time <= doTaskAfterGameStartedIntervalWaitingTime)
+                    if (Time.time <= doTaskAfterGameStartedIntervalWaitingTime)
                     {
                         break;
                     }
@@ -135,19 +135,25 @@ namespace GGD_Hack.Features
                         GameObject tasksList = LobbySceneHandler.Instance.tasksListHandler.tasksList;
 
                         //获取所有子对象
-                        for(int i = 0; i < tasksList.transform.childCount; i++)
+                        for (int i = 0; i < tasksList.transform.childCount; i++)
                         {
                             Transform taskTransform = tasksList.transform.GetChild(i);
                             TaskPrefabHandler taskPrefabHandler = taskTransform.gameObject.GetComponent<TaskPrefabHandler>();
                             GameTask task = taskPrefabHandler?.task;
 
-                            if(task == null)
+                            if (task == null)
                             {
                                 break;
                             }
 
                             //无可交互点，可能是鹈鹕时刻或者猎鹰时刻
-                            if(task?.taskObject?.interactable == null)
+                            if (task?.taskObject?.interactable == null)
+                            {
+                                continue;
+                            }
+
+                            //破坏任务
+                            if (task.isSabotage)
                             {
                                 continue;
                             }
@@ -156,12 +162,13 @@ namespace GGD_Hack.Features
                             break;
                         }
 
-                        if(currentTask != null)
+                        if (currentTask != null)
                         {
                             MelonLogger.Msg(System.ConsoleColor.Green, "已获取到可用任务，即将开始做任务:{0}", currentTask.taskDisplayName);
                             beforePrecursorTrueTime = Time.time + beforePrecursorTrueInterval.Value;
                             state = TasksState.Prepare;
-                        } else
+                        }
+                        else
                         {
 #if Developer
                             MelonLogger.Error("当前没有任务需要完成");
@@ -189,7 +196,7 @@ namespace GGD_Hack.Features
         }
 
         private void PrepareToDoTask()
-        { 
+        {
             //瞬移到任务点
             if (tpToTaskPosition)
             {
@@ -298,7 +305,7 @@ namespace GGD_Hack.Features
             }
         }
 
-        [HarmonyPatch(typeof(InGameEvents),nameof(InGameEvents.Start_Game))]
+        [HarmonyPatch(typeof(InGameEvents), nameof(InGameEvents.Start_Game))]
         class InGameEvents_StartGame
         {
             static void Postfix()

@@ -1,4 +1,5 @@
 ﻿using Handlers.GameHandlers.PlayerHandlers;
+using Handlers.LobbyHandlers;
 using Photon.Pun;
 using System;
 using System.Collections.Generic;
@@ -26,7 +27,21 @@ namespace GGD_Hack.Features
         /// </summary>
         public static void Suicide()
         {
-            SendEventToPlugin.SPECIAL_KILL(7);
+            //判断地图
+            string roomMap = LobbySceneHandler.Instance.roomMap;
+            int mapIndex = int.Parse(roomMap);
+
+            switch (mapIndex)
+            {
+                //沙漠
+                case 8:
+                    //被木乃伊杀死
+                    SendEventToPlugin.SPECIAL_KILL(7);
+                    break;
+                default:
+                    SendEventToPlugin.SPECIAL_KILL(7);
+                    break;
+            }
         }
 
         /*2.17.01
@@ -54,7 +69,17 @@ namespace GGD_Hack
             string[] killedType = new string[1];
             killedType[0] = type.ToString();
 
-            APIs.Photon.PhotonEventAPI.SendEventToPlugin(12, fromStringArray(killedType, 1), false);
+            // 0 DieBySpace（太空中死亡）
+            // 1 DieByTeleporter（通过传送门死亡）
+            // 2 DieByShuttleSabotage（穿梭机破坏死亡）
+            // 3 corpseSplatterPrefab（尸体喷溅效果）
+            // 4 victorianCorpseSplatterPrefab（维多利亚时期尸体喷溅效果）
+            // 5 DropPlayerOnBridge（在桥上掉落死亡）
+            // 6 DieByBoulder（被滚石砸死）
+            // 7 DieByMummy（被木乃伊杀死）
+            // 8 DieByLocusts（被蝗虫杀死）
+
+            APIs.Photon.PhotonEventAPI.SendEventToPlugin(12, fromStringArray(killedType), false);
         }
 
         public static void RECEIVE_KILL()
@@ -71,8 +96,9 @@ namespace GGD_Hack
             APIs.Photon.PhotonEventAPI.SendEventToPlugin(82, null, false);
         }
 
-        public static Il2CppSystem.Object fromStringArray(System.String[] stringArr, int size)
+        public static Il2CppSystem.Object fromStringArray(System.String[] stringArr)
         {
+            int size = stringArr.Length;
             UnhollowerBaseLib.Il2CppStringArray strs = new UnhollowerBaseLib.Il2CppStringArray(size);
 
             for (int i = 0; i < size; i++)

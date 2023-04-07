@@ -3,6 +3,7 @@ using System.Reflection;
 using UnityEngine;
 using System.Collections.Generic;
 using MelonLoader;
+using TMPro;
 
 namespace GGD_Hack.Utils
 {
@@ -39,11 +40,12 @@ namespace GGD_Hack.Utils
                 Rect rect = new Rect(0, 0, texture.width, texture.height);
 
                 Sprite sprite = Sprite.Create(texture, rect, Vector2.zero);
-
+                sprite.name = imageName;
                 spriteCache[imageName] = sprite;
+
+                Object.DontDestroyOnLoad(sprite);
                 return sprite;
             }
-
         }
     }
 }

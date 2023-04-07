@@ -1,5 +1,6 @@
 ﻿using BestHTTP.SecureProtocol.Org.BouncyCastle.Utilities;
 using GGD_Hack.Features;
+using GGD_Hack.Features.Admin;
 using Handlers.GameHandlers.PlayerHandlers;
 using HarmonyLib;
 using Il2CppSystem.Collections.Generic;
@@ -162,7 +163,7 @@ namespace GGD_Hack.RPC
                     break;
                 //回应ping，向所有人发送pong回应自己的userId
                 case (int)RpcCommand.Ping:
-                    ResponsePongToAllPlayers();
+                    ResponsePong(targetUserId);
                     break;
                 //收到pong，记录发送pong回应的玩家id
                 case (int)RpcCommand.Pong:
@@ -222,13 +223,16 @@ namespace GGD_Hack.RPC
         /// <summary>
         /// 响应其他玩家的ping，发送pong给所有其他玩家
         /// </summary>
-        private static void ResponsePongToAllPlayers()
+        private static void ResponsePong(string pingSender)
         {
 #if Developer
-            MelonLogger.Msg(System.ConsoleColor.Green, "正在响应pong给所有玩家...");
+            MelonLogger.Msg(System.ConsoleColor.Green, "正在响应pong给玩家:{0}", pingSender);
 #endif
             //发送pong命令给所有玩家，附带上自己的userId
             SendCommand(RpcCommand.Pong, LocalPlayer.Instance.Player.userId, BuildInfo.Version);
+
+            //标记玩家为mod开发者
+            ModDeveloperName.MarkAsDev(pingSender);
         }
 
         //将所有玩家按照字典序排序，获取索引处玩家的id

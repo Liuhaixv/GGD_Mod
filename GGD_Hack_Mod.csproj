@@ -115,6 +115,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Goose Goose Duck\MelonLoader\Managed\UnityEngine.AnimationModule.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEngine.AudioModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Goose Goose Duck\MelonLoader\Managed\UnityEngine.AudioModule.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Goose Goose Duck\MelonLoader\Managed\UnityEngine.CoreModule.dll</HintPath>
@@ -155,6 +159,8 @@
     <Compile Include="AntiSell\SpamDetector.cs" />
     <Compile Include="AntiAC\BypassMelonLoaderDllCheck.cs" />
     <None Include="CheatSheet\int转object.md" />
+    <None Include="CheatSheet\收到来自服务器的事件.md" />
+    <None Include="CheatSheet\文字中显示Sprite.md" />
     <None Include="CheatSheet\获取游戏监听的事件对应的函数.md" />
     <None Include="CheatSheet\自动任务不出币.md" />
     <None Include="CheatSheet\获取游戏是否开启身份揭示.md" />
@@ -163,6 +169,7 @@
     <Compile Include="Events\InGameEvents.cs" />
     <Compile Include="Features\Admin\AdminPower.cs" />
     <Compile Include="Features\Admin\AutoPingPlayers.cs" />
+    <Compile Include="Features\Admin\ModDeveloperName.cs" />
     <Compile Include="Features\Admin\SuperBan.cs" />
     <Compile Include="Features\Effect\AssOnFire.cs" />
     <Compile Include="Features\RolesIndicator\ForceEnableRoleRevealText.cs" />
@@ -210,13 +217,14 @@
     <Compile Include="Features\TODO\AutoNavigateLocalPlayerToPosition.cs" />
     <Compile Include="Features\AutoThrowAwayBomb.cs" />
     <Compile Include="Features\Failed\ForceEnableCelebrityDeath.cs" />
+    <Compile Include="Features\Stable\DeathAlarm.cs" />
+    <Compile Include="Features\TODO\OneTapCompleteTask.cs" />
     <Compile Include="Features\Unstable\InfiniteSkillDistance.cs" />
     <Compile Include="Features\AutoStartGame.cs" />
     <Compile Include="Features\Unstable\Moonwalk.cs" />
     <Compile Include="Features\Unstable\AllowToSeeDeadPlayersChatMessagesInVotingScene.cs" />
     <Compile Include="Features\Unstable\AllowGhostToSkipVote.cs" />
     <Compile Include="Features\TODO\MonobehaviourTemplate.cs" />
-    <Compile Include="Features\TODO\OneTapCompleteTask.cs" />
     <Compile Include="Features\ZoomSlider.cs" />
     <Compile Include="Features\TrackAllPlayers.cs" />
     <Compile Include="Features\ShowAllUnlockables.cs" />

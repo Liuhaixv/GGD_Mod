@@ -25,7 +25,7 @@ namespace GGD_Hack
         public const string Author = "Liuhaixv"; // Author of the Mod.  (MUST BE SET)
         public const string Company = "Liuhaixv"; // Company that made the Mod.  (Set as null if none)
         //public const string ForceUpdateVersionsOlderThan = "1.5.2";//强制更新的版本号
-        public const string Version = "1.6.7.3"; // Version of the Mod.  (MUST BE SET)
+        public const string Version = "1.6.10"; // Version of the Mod.  (MUST BE SET)
         public const string gameVersion = "2.19.02";//version of the GGD
         public const string DownloadLink = "https://github.com/Liuhaixv/GGDH_ML"; // Download Link for the Mod.  (Set as null if none)
     }
@@ -143,6 +143,10 @@ namespace GGD_Hack
             //初始化小地图坐标记录器
             MinimapRecorder.Init();
 
+            //死亡播报
+            DeathAlarm.Init();
+            //任务列表秒任务
+            OneTapCompleteTask.Init();
             //强制提示网红死亡信息
             //ForceEnableCelebrityDeath.Init();
             //自动扔掉炸弹
