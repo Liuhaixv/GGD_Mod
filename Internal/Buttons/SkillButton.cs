@@ -5,6 +5,11 @@ using Handlers.GameHandlers.PlayerHandlers;
 
 //通过UnityEngine.Events.InvokableCall.Invoke断点跟进追踪方法流，查找按钮点击后被点击的方法
 //所有的带冷却按钮都是通过PlayerButtonController.RegisterCooldownButton来动态注册的，所有没有按钮的静态变量
+
+//这里返回注册好的按钮游戏对象，可以通过修改来实现修改CD
+//游戏先调用RegisterCooldownButton注册按钮，然后再添加了按钮点击事件
+
+//PlayerButtonController__RegisterButton
 namespace GGD_Hack.Internal.Buttons
 {    
     public class KillCooldownButton
@@ -161,12 +166,13 @@ namespace GGD_Hack.Internal.Buttons
     {
 
     }
-    
+
+#if Developer
     //TODO:存在恶性bug，会导致按钮cd未好也能按，导致卡住按钮UI
-    /*[HarmonyPatch(typeof(PlayerButtonController), nameof(PlayerButtonController.RegisterCooldownButton))]
+    [HarmonyPatch(typeof(PlayerButtonController), nameof(PlayerButtonController.RegisterCooldownButton))]
     class RegisterCooldownButton_
     {
-        static void Prefix(PlayerButtonController __instance, UICooldownButton __result, string __0, JCKBEBDEMLN __1, UnityEngine.Transform __2, float __3, bool __4)
+        static void Prefix(PlayerButtonController __instance, UICooldownButton __result, string __0, KLKBPINDIGM __1, UnityEngine.Transform __2, float __3, bool __4)
         {
            //
            //  --------------------
@@ -191,10 +197,10 @@ namespace GGD_Hack.Internal.Buttons
             try
             {
                 string gameObjectName = __0;
-                int buttonType = (int)__1;
+                int keybind = (int)__1;
                 Transform transform = __2;
-                float unknown_float = __3;
-                bool unkown_bool = __4;
+                float cooldownTime = __3;
+                bool noCooldownsOnClient = __4;
 
                 MelonLogger.Msg("================================");
                 MelonLogger.Msg("检测到按钮注册: " + gameObjectName);
@@ -231,8 +237,8 @@ namespace GGD_Hack.Internal.Buttons
                 MelonLogger.Warning(ex.Message);
             }
         }
-    }*/
-
+    }
+#endif
     public enum ButtonType
     {
         Mute,

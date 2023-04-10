@@ -17,9 +17,12 @@ namespace GGD_Hack.Features
     {
         public static AutoStartGame Instance;
         public static MelonPreferences_Entry<bool> Enabled = MelonPreferences.CreateEntry<bool>("GGDH", "Enable_" + nameof(AutoStartGame), false);
+        //游戏结束后重开游戏的延迟
+        public static MelonPreferences_Entry<float> restartGameCooldownTime = MelonPreferences.CreateEntry<float>("GGDH", nameof(AutoStartGame) + "_" + nameof(restartGameCooldownTime), 10.0f);
 
         private static float lastTimeClickedStartGameButton = -1;
         private static float clickButtonInterval = 3.0f;
+        private static float doNotStartGameBeforeTime = -1.0f;
         public AutoStartGame(IntPtr ptr) : base(ptr)
         {
             IngameSettings.AddIngameSettingsEntry(
@@ -54,6 +57,17 @@ namespace GGD_Hack.Features
             static void Postfix(LobbySceneHandler __instance)
             {
                 if (!Enabled.Value) return;
+
+                //更新重开游戏延迟
+                if ((byte)MainManager.Instance?.gameManager?.gameState == (byte)GameData.GameState.InGame) {
+                    doNotStartGameBeforeTime = Time.time + restartGameCooldownTime.Value;
+                }
+
+                //判断是否允许重新开始游戏
+                if (Time.time < doNotStartGameBeforeTime)
+                {
+                    return;
+                }
 
                 //判断游戏是否开始
                 if (__instance.gameStarted) return;

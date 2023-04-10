@@ -85,6 +85,11 @@ namespace GGD_Hack.Events
         {
             MelonLogger.Msg(System.ConsoleColor.Green, "网红死亡事件");
         }
+
+        public static void Server_Send_Role(Il2CppStringArray userIdArray, Il2CppStringArray roleIdArray, Il2CppStringArray taskIdArray)
+        {
+            //TODO
+        }
     }
 
     [HarmonyPatch(typeof(PhotonEventAPI), nameof(PhotonEventAPI.OnEvent), typeof(ExitGames.Client.Photon.EventData))]
@@ -148,9 +153,6 @@ namespace GGD_Hack.Events
                             bool invisible = stringArray[1] == "true";
 
                             InGameEvents.Turn_Invisible(userId, invisible);
-
-                            InGameEvents.Turn_Invisible(userId, invisible);
-
 #if Developer
                             MelonLogger.Msg(System.ConsoleColor.Green, parameters.ToStringFull());
 #endif
@@ -293,6 +295,20 @@ namespace GGD_Hack.Events
                     case EventDataCode.CELEBRITY_DIED:
                         {
                             InGameEvents.Celebrity_Died();
+                            break;
+                        }
+                    case EventDataCode.SERVER_SEND_ROLE:
+                        {
+                            //TODO
+                            MelonLogger.Msg(System.ConsoleColor.Green, parameters.ToStringFull());
+
+                            Il2CppReferenceArray<Il2CppStringArray> stringArrayArray = parameters.Get<Il2CppReferenceArray<Il2CppStringArray>>(245);
+                            Il2CppStringArray userIdArray = stringArrayArray[0];
+                            Il2CppStringArray roleIdArray = stringArrayArray[1];
+                            Il2CppStringArray taskIdArray = stringArrayArray[4];
+
+                            InGameEvents.Server_Send_Role(userIdArray, roleIdArray, taskIdArray);
+
                             break;
                         }
 

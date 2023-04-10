@@ -49,7 +49,7 @@ namespace GGD_Hack.Features
                    new IngameSettings.IngameSettingsEntry()
                    {
                        entry = Enabled,
-                       name_cn = "自动踢人",
+                       name_cn = "自动踢出广告",
                        name_eng = "AutoKicker"
                    }
                 );

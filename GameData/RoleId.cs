@@ -2,7 +2,7 @@
 namespace GGD_Hack.GameData
 {
     enum RoleId
-    {
+    {       
     None = 0,
     Goose = 1,
     Duck = 2,

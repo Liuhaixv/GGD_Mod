@@ -29,9 +29,7 @@ namespace GGD_Hack.Features
         public static async void CheckLatestModVersion()
         {
             if (hasIgnoredUpdate) return;
-#if Developer
-            //WriteCurrentModVersionJsonToDisk();
-#endif
+
             if (latestVersionFromGithub == null)
             {
                 GetLatestVersionFromGithub(true);
