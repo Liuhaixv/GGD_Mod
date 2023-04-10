@@ -215,12 +215,13 @@
     <Compile Include="Features\AutoKicker.cs" />
     <Compile Include="Features\Stable\AutoReady.cs" />
     <Compile Include="Features\EsperBlockSpectate.cs" />
+    <Compile Include="Features\TODO\DecreaseCooldown.cs" />
     <Compile Include="Features\Unstable\AutoTasks.cs" />
     <Compile Include="Features\TODO\AutoNavigateLocalPlayerToPosition.cs" />
     <Compile Include="Features\AutoThrowAwayBomb.cs" />
     <Compile Include="Features\Failed\ForceEnableCelebrityDeath.cs" />
     <Compile Include="Features\Stable\DeathAlarm.cs" />
-    <Compile Include="Features\TODO\AvengerKillButtonToKillButton.cs" />
+    <Compile Include="Features\Unstable\AvengerKillButtonToKillButton.cs" />
     <Compile Include="Features\Unstable\NoCooldown.cs" />
     <Compile Include="Features\OneTapCompleteTask.cs" />
     <Compile Include="Features\Unstable\InfiniteSkillDistance.cs" />
