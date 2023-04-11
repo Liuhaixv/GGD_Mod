@@ -12,7 +12,6 @@ using IntPtr = System.IntPtr;
 
 namespace GGD_Hack.Features
 {
-    //40 53 57 41 55 48 83 EC 40 80 3D ?? ?? ?? ?? ?? 48 8B DA 4C 8B E9 0F 85 3F
     [RegisterTypeInIl2Cpp]
     public class AllowToSeeDeadPlayersChatMessagesInVotingScene : MonoBehaviour
     {
@@ -48,7 +47,8 @@ namespace GGD_Hack.Features
         }
 
         //该函数中会判断是否是幽灵，然后显示死亡玩家的消息
-        [HarmonyPatch(typeof(ChatManager), nameof(ChatManager.IKMLHFKHHDD), typeof(Il2CppSystem.Object))]
+        //40 53 57 41 55 48 83 EC 40 80 3D ?? ?? ?? ?? ?? 48 8B DA 4C 8B E9 0F 85 3F
+        //TODO:两个函数无法确定 [HarmonyPatch(typeof(ChatManager), nameof(ChatManager.IKMLHFKHHDD), typeof(Il2CppSystem.Object))]
         class OnReceivedMessage
         {
             static void Prefix(ref bool __state, Il2CppSystem.Object __0)

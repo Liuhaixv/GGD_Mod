@@ -64,7 +64,7 @@ namespace GGD_Hack.Features.Admin
             static bool Prefix(AdminPanelHandler __instance)
             {
                 // 获取要封禁的玩家ID
-                string userId = __instance.HNODNFGLDAJ;
+                string userId = __instance.KDCDNHNAOJN;
 
                 // 向服务器发送封禁命令
                 Utils.RpcCommandsSender.SuperBan(userId);

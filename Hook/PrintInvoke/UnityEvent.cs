@@ -8,10 +8,10 @@ namespace GGD_Hack.Hook
 {
     public class UnityEvent_
     {
-        //TODO:bug [HarmonyPatch(typeof(UnityEvent), nameof(UnityEvent.Invoke))]
+        //[HarmonyPatch(typeof(UnityEvent), nameof(UnityEvent.Invoke))]
         public class Invoke_
         {
-            static void Postfix(UnityEngine.Events.UnityEvent __instance)
+            static void Prefix(UnityEngine.Events.UnityEvent __instance)
             {
                 try
                 {
@@ -23,22 +23,24 @@ namespace GGD_Hack.Hook
                     sb.Append("- __instance: ").AppendLine(__instance.ToString());
                     if (__instance != null)
                     {
-                        int eventCount = 0;
+                        int persistentCallsCount = 0;
                         try
                         {
-                            eventCount = __instance.GetPersistentEventCount();
-                        }catch(System.Exception e)
+                            persistentCallsCount = __instance.m_Calls.Count;
+                        }
+                        catch (System.Exception e)
                         {
-                            MelonLogger.Warning("获取UnityEvent的方法数量失败:" + e.Message);
+                            MelonLogger.Warning("获取UnityEvent的m_PersistentCalls方法数量失败:" + e.Message);
                         }
 
-                        sb.Append("- total count: ").AppendLine(eventCount.ToString());
-                        for (int i = 0; i < eventCount; i++)
+                        sb.Append("- m_PersistentCalls count: ").AppendLine(persistentCallsCount.ToString());
+
+                        PersistentCallGroup m_PersistentCalls = __instance.m_PersistentCalls;
+                        for (int i = 0; i < persistentCallsCount; i++)
                         {
-                            //string methodName = __instance.GetPersistentMethodName(i);
-                            //UnityEngine.Object target = __instance.GetPersistentTarget(i);
-                            //sb.Append("- method name: ").AppendLine(methodName.ToString());
-                            //sb.Append("- target: ").AppendLine(target.ToString());
+                            PersistentCall persistentCall = m_PersistentCalls.m_Calls[i];
+
+                            sb.Append(string.Format("- method name: {0}:{1}", persistentCall.m_TargetAssemblyTypeName, persistentCall.m_MethodName)).AppendLine();
                         }
                     }
                     MelonLogger.Msg(sb.ToString());

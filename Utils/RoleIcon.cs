@@ -12,7 +12,7 @@ namespace GGD_Hack.Utils
     {
         public static Sprite GetRoleIcon(int roleID)
         {
-            return LobbySceneHandler.Instance?.uIRoleIconHandler.GetRoleIcon((IPLJDOHJOLM)roleID);
+            return LobbySceneHandler.Instance?.uIRoleIconHandler.GetRoleIcon((CONFOOGKOGN)roleID);
         }
     }
 }

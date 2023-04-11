@@ -6,7 +6,7 @@ using Il2CppSystem.Collections;
 using Il2CppSystem.Collections.Generic;
 using MelonLoader;
 using System;
-using System.Diagnostics;
+using Il2CppSystem.Diagnostics;
 using Enum = System.Enum;
 using Exception = System.Exception;
 using Hashtable = Il2CppSystem.Collections.Hashtable;
@@ -108,17 +108,16 @@ namespace GGD_Hack.Hook
                         case (int)EventDataCode.KICK_PLAYER:
                             //shouldBlockEvent = true;
                             break;
+                        case 220:
+                            //shouldBlockEvent = true;
+                            break;
                     }
 
                     //打印追踪栈
                     switch (code)
                     {
                         //case (int)EventDataCode.PropertiesChanged:
-                        case 666666:
-                            StackTrace stackTrace = new StackTrace();
-                            string stackTraceString = stackTrace.ToString();
-                            MelonLogger.Warning(stackTraceString);
-                            break;
+                
                         default:
                             break;
                     }

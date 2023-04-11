@@ -57,8 +57,8 @@ namespace GGD_Hack.Features
                     return;
                 }
 
-                LobbySceneHandler.LAFMNKEBLOE readyState = __instance.readyState;
-                if (readyState != LobbySceneHandler.LAFMNKEBLOE.Ready)
+                LobbySceneHandler.ANEPPLAPGFB readyState = __instance.readyState;
+                if (readyState != LobbySceneHandler.ANEPPLAPGFB.Ready)
                 {
                     //游戏会检测是否鼠标被点击
                     __instance.mouseClicked = true;

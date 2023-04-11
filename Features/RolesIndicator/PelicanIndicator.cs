@@ -20,7 +20,7 @@ namespace GGD_Hack.Features.RolesIndicator
             {
                 if (player != null && !player.isLocal)
                 {
-                    player.spawnedPlayerHandler?.SetPlayerRole(IPLJDOHJOLM.Pelican);
+                    player.spawnedPlayerHandler?.SetPlayerRole(CONFOOGKOGN.Pelican);
                 }
             }
         }
@@ -39,7 +39,7 @@ namespace GGD_Hack.Features.RolesIndicator
                 }
             }
 
-            //playerController.spawnedPlayerHandler.SetPlayerRole(IPLJDOHJOLM.Pelican);
+            //playerController.spawnedPlayerHandler.SetPlayerRole(CONFOOGKOGN.Pelican);
             PluginEventsManager.RevealRoleInternalLink(playerController.userId, (int)GameData.RoleId.Pelican);
 
             MelonLogger.Msg(System.ConsoleColor.Green, "已标记玩家{0}为鹈鹕", playerController.nickname);
@@ -52,7 +52,7 @@ namespace GGD_Hack.Features.RolesIndicator
         /// <returns></returns>
         public static List<PlayerController> GetOtherAlivePlayersNearby(string userId)
         {
-            Vector3 position = PlayerController.playersList[userId].ACGBAGHOFIP;
+            Vector3 position = PlayerController.playersList[userId].BHFCNMOEEMN;
 
             List<PlayerController> playersNearby = new List<PlayerController>();
 
@@ -83,8 +83,8 @@ namespace GGD_Hack.Features.RolesIndicator
             };
 
             //根据和本地玩家的距离升序排序        
-            playersNearby.Sort((p1, p2) => Vector3.Distance(p1.ACGBAGHOFIP, position)
-                                .CompareTo(Vector3.Distance(p2.ACGBAGHOFIP, position)));
+            playersNearby.Sort((p1, p2) => Vector3.Distance(p1.BHFCNMOEEMN, position)
+                                .CompareTo(Vector3.Distance(p2.BHFCNMOEEMN, position)));
 
             return playersNearby;
         }
@@ -104,7 +104,7 @@ namespace GGD_Hack.Features.RolesIndicator
 
             List<PlayerController> playersNearby = GetOtherAlivePlayersNearby(playerEaten);
 
-            Vector3 eatenPosition = PlayerController.playersList[playerEaten].ACGBAGHOFIP;
+            Vector3 eatenPosition = PlayerController.playersList[playerEaten].BHFCNMOEEMN;
 
             if (playersNearby == null || playersNearby.Count == 0)
             {
@@ -121,11 +121,11 @@ namespace GGD_Hack.Features.RolesIndicator
             }
             else
             {
-                float nearstDistance = Vector3.Distance(nearstPlayer.ACGBAGHOFIP, eatenPosition);
+                float nearstDistance = Vector3.Distance(nearstPlayer.BHFCNMOEEMN, eatenPosition);
 
                 PlayerController secondNearstPlayer =  playersNearby.ElementAt(1);
 
-                float secondNearstDistance = Vector3.Distance(secondNearstPlayer.ACGBAGHOFIP, eatenPosition);
+                float secondNearstDistance = Vector3.Distance(secondNearstPlayer.BHFCNMOEEMN, eatenPosition);
 
                 if (secondNearstDistance - nearstDistance > 1f)
                 {

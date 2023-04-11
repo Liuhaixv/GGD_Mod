@@ -54,8 +54,8 @@ namespace GGD_Hack.Features
 
 
         //修改玩家从服务器收到的角色身份
-        //40 53 48 83 EC 40 80 3D ?? ?? ?? ?? ?? 48 8B D9 75 73 48 8D 0D ?? ?? ?? ?? E8 ?? ?? ?? ?? 48 8D 0D ?? ?? ?? ?? E8 ?? ?? ?? ?? 48 8D 0D ?? ?? ?? ?? E8 ?? ?? ?? ?? 48 8D 0D ?? ?? ?? ?? E8 ?? ?? ?? ?? 48 8D 0D ?? ?? ?? ?? E8 ?? ?? ?? ?? 48 8D 0D ?? ?? ?? ?? E8 ?? ?? ?? ?? 48 8D 0D ?? ?? ?? ?? E8 ?? ?? ?? ?? 48 8D 0D ?? ?? ?? ?? E8 ?? ?? ?? ?? 48 8D 0D ?? ?? ?? ?? E8 ?? ?? ?? ?? C6 05 ?? ?? ?? ?? ?? 48 8B 43 18 48 89 6C 24 50 48 89 7C 
-        [HarmonyPatch(typeof(Managers.GameManagers.EventsManagers.PluginEventsManager), nameof(Managers.GameManagers.EventsManagers.PluginEventsManager.KLBECEJIHMI))]
+        //48 89 5C 24 20 56 48 83 EC 20 80 3D ?? ?? ?? ?? ?? 48 8B DA 48 8B F1 0F
+        [HarmonyPatch(typeof(Managers.GameManagers.EventsManagers.PluginEventsManager), nameof(Managers.GameManagers.EventsManagers.PluginEventsManager.MLDCJFEBBLL))]
         class AverageRegisterCooldownButton
         {
             static void Prefix(Managers.GameManagers.EventsManagers.PluginEventsManager __instance, ref Il2CppReferenceArray<Il2CppStringArray> __0)
@@ -100,14 +100,14 @@ namespace GGD_Hack.Features
         [HarmonyPatch(typeof(SpawnedPlayerHandler), nameof(SpawnedPlayerHandler.SetPlayerRole))]
         class SpawnedPlayerHandler_SetPlayerRole
         {
-            static void Prefix(SpawnedPlayerHandler __instance, ref IPLJDOHJOLM __0)
+            static void Prefix(SpawnedPlayerHandler __instance, ref CONFOOGKOGN __0)
             {
                 if (!Enabled.Value) return;
                 if (!__instance.playerController.isLocal) { return; }
 
-                if ((int)__instance.playerController.playerRole.IJOICOIDMHC == (int)GameData.RoleId.Avenger)
+                if ((int)__instance.playerController.playerRole.CEDMLFOKKLC == (int)GameData.RoleId.Avenger)
                 {
-                    __0 = IPLJDOHJOLM.Sheriff;
+                    __0 = CONFOOGKOGN.Sheriff;
                     isAvenger = true;
                 }
                 else
