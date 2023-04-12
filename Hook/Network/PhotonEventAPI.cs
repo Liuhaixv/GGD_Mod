@@ -40,7 +40,7 @@ namespace GGD_Hack.Hook
                     bool shouldBlockEvent = false;
                     int code = __0.Code;
 
-                    string eventName = "";
+                    string eventName = code + "";
 
                     //获取枚举的名字
                     if (System.Enum.IsDefined(typeof(EventDataCode), code))
@@ -99,17 +99,13 @@ namespace GGD_Hack.Hook
                     switch (code)
                     {   //反作弊
                         case (int)EventDataCode.AntiCheat:
-                            //case (int)EventDataCode.PropertiesChanged:
-                            //测试
-                            //case 226:
-                            //case (int)EventDataCode.RECEIVE_KILL:
-                            shouldBlockEvent = true;
+                            //shouldBlockEvent = true;
                             break;
                         case (int)EventDataCode.KICK_PLAYER:
                             //shouldBlockEvent = true;
                             break;
                         case 220:
-                            //shouldBlockEvent = true;
+                            shouldBlockEvent = true;
                             break;
                     }
 

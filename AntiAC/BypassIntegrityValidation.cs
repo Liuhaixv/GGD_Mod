@@ -45,18 +45,31 @@ namespace GGD_Hack.AntiAC
                 MelonLogger.Error("完整性错误弹窗");
             }
         }
-        //[HarmonyPatch(typeof(MAHIKBIKKCD), "NENKBKFEHLA")]
-        class MustReturnFalse
+
+        [HarmonyPatch(typeof(MAHIKBIKKCD), "NENKBKFEHLA")]
+        class True0
         {
             static bool Prefix(ref bool __result)
             {
-                __result = false;
+                __result = true;
+                return false;
+            }
+        }
+
+        //E8 ?? ?? ?? ?? 84 C0 74 07 33 C9 E8 ?? ?? ?? ?? 33 C9
+        [HarmonyPatch(typeof(MAHIKBIKKCD), "FDOPJEHLPHM")]
+        class True1
+        {
+            static bool Prefix(ref bool __result)
+            {
+                __result = true;
                 return false;
             }
         }
 
         //必须返回true
         //48 89 5C 24 08 48 89 74 24 10 57 48 83 EC 20 80 3D ?? ?? ?? ?? ?? 75 13
+        //有逻辑被执行
         //检查EAC是否运行
         [HarmonyPatch(typeof(MAHIKBIKKCD), "LGMJLPFDKIM")]
         class CheckIfEACRunning_32766

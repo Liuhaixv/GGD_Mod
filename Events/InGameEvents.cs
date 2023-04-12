@@ -90,6 +90,11 @@ namespace GGD_Hack.Events
         {
             //TODO
         }
+
+        public static void Anti_Cheat()
+        {
+            MelonLogger.Msg(System.ConsoleColor.Green, "反作弊事件");
+        }
     }
 
     [HarmonyPatch(typeof(PhotonEventAPI), nameof(PhotonEventAPI.OnEvent), typeof(ExitGames.Client.Photon.EventData))]
@@ -115,6 +120,12 @@ namespace GGD_Hack.Events
                     case EventDataCode.START_GAME:
                         {
                             InGameEvents.Start_Game();
+                            break;
+                        }
+                    case EventDataCode.AntiCheat:
+                        {
+                            //TODO:
+                            Il2CppStructArray<byte> stringArray = parameters.Get<Il2CppStructArray<byte>>(245);
                             break;
                         }
                     case EventDataCode.PELICAN_EAT:

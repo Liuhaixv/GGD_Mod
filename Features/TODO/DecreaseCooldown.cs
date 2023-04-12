@@ -11,8 +11,8 @@ namespace GGD_Hack.Features
     public class DecreaseCooldown : MonoBehaviour
     {
         public static DecreaseCooldown Instance;
-        public static MelonPreferences_Entry<bool> Enabled = MelonPreferences.CreateEntry<bool>("GGDH", "Enable_" + nameof(DecreaseCooldown), true);
-        public static MelonPreferences_Entry<float> DecreasedCooldown = MelonPreferences.CreateEntry<float>("GGDH", nameof(DecreaseCooldown) + "_" + nameof(DecreasedCooldown), 3.0f);
+        public static MelonPreferences_Entry<bool> Enabled = MelonPreferences.CreateEntry<bool>("GGDH", "Enable_" + nameof(DecreaseCooldown), false);
+        public static MelonPreferences_Entry<float> DecreasedCooldown = MelonPreferences.CreateEntry<float>("GGDH", nameof(DecreaseCooldown) + "_" + nameof(DecreasedCooldown), 2.0f);
 
         public DecreaseCooldown(IntPtr ptr) : base(ptr)
         {
@@ -20,8 +20,8 @@ namespace GGD_Hack.Features
                                new IngameSettings.IngameSettingsEntry()
                                {
                                    entry = Enabled,
-                                   name_cn =string.Format( "微调CD时间", DecreasedCooldown.Value),
-                                   name_eng = string.Format("Decrease CD(Current value:{0} secs)", DecreasedCooldown.Value),
+                                   name_cn =string.Format( "微调CD时间(测试中)", DecreasedCooldown.Value),
+                                   name_eng = string.Format("Decrease CD(Current value:{0} secs(Testing))", DecreasedCooldown.Value),
                                }
                                           );
         }
