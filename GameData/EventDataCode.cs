@@ -175,7 +175,7 @@ namespace GGD_Hack.GameData
         Debugger = 217,
         AntiCheat = 218,
         Admin = 219,
-        //Photon.Realtime.EventCode
+        EacAuth = 220,
         AuthEvent = 223,
         LobbyStats = 224,
         AppStats = 226,

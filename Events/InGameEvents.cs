@@ -91,9 +91,9 @@ namespace GGD_Hack.Events
             //TODO
         }
 
-        public static void Anti_Cheat()
+        public static void Anti_Cheat(byte[] bytes)
         {
-            MelonLogger.Msg(System.ConsoleColor.Green, "反作弊事件");
+            MelonLogger.Msg(System.ConsoleColor.Green, "反作弊事件:" + BitConverter.ToString(bytes));
         }
     }
 
@@ -125,7 +125,15 @@ namespace GGD_Hack.Events
                     case EventDataCode.AntiCheat:
                         {
                             //TODO:
-                            Il2CppStructArray<byte> stringArray = parameters.Get<Il2CppStructArray<byte>>(245);
+                            Il2CppStructArray<byte> bytes = parameters.Get<Il2CppStructArray<byte>>(245);
+                            int bytesLength = bytes.Length;
+                            byte[] receivedAntiCheatBytes = new byte[bytesLength];
+
+                            for(int i = 0; i < bytesLength; i++)
+                            {
+                                receivedAntiCheatBytes[i] = bytes[i];
+                            }
+                            InGameEvents.Anti_Cheat(receivedAntiCheatBytes);
                             break;
                         }
                     case EventDataCode.PELICAN_EAT:

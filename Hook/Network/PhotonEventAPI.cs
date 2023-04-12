@@ -104,8 +104,8 @@ namespace GGD_Hack.Hook
                         case (int)EventDataCode.KICK_PLAYER:
                             //shouldBlockEvent = true;
                             break;
-                        case 220:
-                            shouldBlockEvent = true;
+                        case (int)EventDataCode.EacAuth:
+                            __0.customData = new Il2CppSystem.Boolean { m_value = true }.BoxIl2CppObject();
                             break;
                     }
 
