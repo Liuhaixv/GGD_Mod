@@ -153,6 +153,7 @@
     <Compile Include="AntiAC\BypassEacChecking.cs" />
     <Compile Include="AntiAC\BypassIntegrityValidation.cs" />
     <Compile Include="AntiAC\DeobfuscateString.cs" />
+    <Compile Include="AntiAC\EOS.cs" />
     <Compile Include="AntiSell\ChangeVersionText.cs" />
     <Compile Include="AntiSell\HackTranslation.cs" />
     <Compile Include="AntiSell\MessageSensor.cs" />
@@ -160,6 +161,7 @@
     <Compile Include="AntiSell\SpamDetector.cs" />
     <Compile Include="AntiAC\BypassMelonLoaderDllCheck.cs" />
     <None Include="CheatSheet\int转object.md" />
+    <None Include="CheatSheet\EAC函数.md" />
     <None Include="CheatSheet\角色按钮注册.md" />
     <None Include="CheatSheet\收到来自服务器的事件.md" />
     <None Include="CheatSheet\文字中显示Sprite.md" />
@@ -208,6 +210,7 @@
     <Compile Include="Features\RemoteKillPlayer.cs" />
     <Compile Include="Features\SilenceAllPlayers.cs" />
     <Compile Include="Features\Test\CloseDoor.cs" />
+    <Compile Include="Features\Test\PrintAllDlls.cs" />
     <Compile Include="Features\Test\RPC.cs" />
     <Compile Include="Features\Test\ShowImage.cs" />
     <Compile Include="Features\DisableSandstorm.cs" />
@@ -235,6 +238,7 @@
     <Compile Include="Features\TrackAllPlayers.cs" />
     <Compile Include="Features\ShowAllUnlockables.cs" />
     <Compile Include="Features\VigilanteInfiniteKill.cs" />
+    <Compile Include="EOS\AntiCheatClient.cs" />
     <Compile Include="GameData\EventDataCode.cs" />
     <Compile Include="GameData\IntegrityError.cs" />
     <Compile Include="GameData\GameState.cs" />
@@ -243,6 +247,7 @@
     <Compile Include="Hook\BodyHandler.cs" />
     <Compile Include="Hook\CheatingManager.cs" />
     <Compile Include="Hook\Debug\Debug.cs" />
+    <Compile Include="Hook\Debug\FromBase64String.cs" />
     <Compile Include="Hook\IncreaseSkillRange.cs" />
     <Compile Include="Hook\PrintInvoke\InvokableCall.cs" />
     <Compile Include="Hook\Network\PhotonCallbacksAPI.cs" />

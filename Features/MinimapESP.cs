@@ -161,7 +161,7 @@ namespace GGD_Hack.Features
                     //sphere.color = black;
                 }
                 //鹈鹕绿色
-                else if (playerController.playerRole.CEDMLFOKKLC == CONFOOGKOGN.Pelican)
+                else if (playerController.playerRole.BELBKBCFPIL == AEMEBPDOAPE.Pelican)
                 {
                     Color green = Color.green;
 
@@ -251,7 +251,7 @@ namespace GGD_Hack.Features
 
                 //获取PlayerController对应的坐标
                 PlayerController playerController = PlayerController.playersList[userId];
-                Vector3 position = playerController.BHFCNMOEEMN;
+                Vector3 position = playerController.CIPMDPLLDAL;
 
                 //玩家死亡
                 if (playerController.timeOfDeath != 0)

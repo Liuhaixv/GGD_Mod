@@ -30,19 +30,35 @@ namespace GGD_Hack.AntiAC
             {
                 //System.Collections.Generic.List<string> list = AccessTools.GetMethodNames(typeof(AKCCGGKHPIA));
 
-                return typeof(LMDCNGHFDAI).GetMethods()
+                return typeof(GEKKDAMDHNC).GetMethods()
                     .Where(method => method.ReturnType == typeof(string))//返回值为string的方法
                     .Cast<MethodBase>();
             }
 
             static void Postfix(ref string __result)
             {
-                //MelonLogger.Msg("游戏正在检查非法DLL名称：" + __result);
-                if (__result == "MelonLoader.dll")
+                string base64Decoded = null;
+
+                try
                 {
-                    MelonLogger.Msg("游戏即将检测到非法DLL: MelonLoader.dll");
+                    base64Decoded = System.Text.Encoding.ASCII.GetString(System.Convert.FromBase64String(__result.Replace(",", "")));
+                }
+                catch (Exception ex)
+                {
+                    base64Decoded = null;
+                }
+                
+                MelonLogger.Msg(System.ConsoleColor.Yellow, "游戏正在检查字符串:{0}Base64解码:\"{1}\"",
+                                                 __result,
+                                                 base64Decoded != null ? base64Decoded : "无"
+                                                 );
+
+                if (base64Decoded?.Contains( "MelonLoader") ?? false)
+                {
+                    MelonLogger.Msg("游戏即将检测到非法DLL: {0}",base64Decoded);
                     // 修改返回值
-                    __result = "LodasMnfks.dll";
+                    __result = System.Convert.ToBase64String(
+                        System.Text.Encoding.ASCII.GetBytes("f" + base64Decoded));
                     MelonLogger.Msg("已成功修改DLL名称返回值!");
                 }
             }
@@ -82,7 +98,7 @@ namespace GGD_Hack.AntiAC
         /// 这个类专门负责检查指定路径是否存在某些文件，然后ForceCrash
         /// </summary>
         ///48 83 EC 38 33 C9 E8 ?? ?? ?? ?? 33 C9 E8 ?? ?? ?? ?? 33
-        [HarmonyPatch(typeof(NAFLPKNFMAM), nameof(NAFLPKNFMAM.EDLONKGDHDO))]
+        [HarmonyPatch(typeof(DPNBEKDCLIE), nameof(DPNBEKDCLIE.KOLPGPMALKJ))]
         class PreloadCheckPatch
         {
             static bool Prefix()

@@ -1,0 +1,12 @@
+﻿判断EAC运行
+EOS_Platform_GetAntiCheatClientInterface
+
+EOS_Initialize
+
+RWFzeU,FudGlDaGVhdC,9TZXR0aW5ncy,5qc29u
+->去掉逗号后base64解码为EasyAntiCheat/Settings.json
+
+EOS_AntiCheatClient_BeginSession
+EOS_AntiCheatClient_UnregisterPeer
+EOS_AntiCheatClient_PollStatus
+EOS_AntiCheatClient_RemoveNotifyPeerAuthStatusChanged

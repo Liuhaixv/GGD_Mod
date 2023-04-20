@@ -16,11 +16,13 @@ namespace GGD_Hack.Features
     //作用为在射击后重新激活点击射击的按钮
     //被AssassinPanelHandler_??????????___ShowPanel_b__0调用
     //48 83 EC 28 48 8B 41 18 48 85 C0 74 13 0F
-    [HarmonyPatch(typeof(AssassinPanelHandler), nameof(AssassinPanelHandler.HDHMIAPOBPJ), new System.Type[] { typeof(CONFOOGKOGN) })]
+    //TODO:
+    /*
+    [HarmonyPatch(typeof(AssassinPanelHandler), nameof(AssassinPanelHandler.HDHMIAPOBPJ), new System.Type[] { typeof(AEMEBPDOAPE) })]
     public class AssasinInfiniteBullets
     {
         //射击后将按钮改为可交互
-        static void Postfix(AssassinPanelHandler __instance, CONFOOGKOGN __0)
+        static void Postfix(AssassinPanelHandler __instance, AEMEBPDOAPE __0)
         {
             try
             {
@@ -40,7 +42,7 @@ namespace GGD_Hack.Features
                 MelonLogger.Warning(ex.Message);
             }
         }
-    }
+    }*/
 #endif
 
     /*
@@ -62,38 +64,38 @@ namespace GGD_Hack.Features
     [HarmonyPatch(typeof(PlayerRolesManager), nameof(PlayerRolesManager.GetPossibleAssassinTargets))]
     public class EnableToShootAllRoles
     {
-        static void Postfix(ref UnhollowerBaseLib.Il2CppStructArray<CONFOOGKOGN> __result)
+        static void Postfix(ref UnhollowerBaseLib.Il2CppStructArray<AEMEBPDOAPE> __result)
         {
             try
             {
                 const int rolesNum = 18;
 
-                UnhollowerBaseLib.Il2CppStructArray<CONFOOGKOGN> temp = new UnhollowerBaseLib.Il2CppStructArray<CONFOOGKOGN>(__result.Count + rolesNum);
+                UnhollowerBaseLib.Il2CppStructArray<AEMEBPDOAPE> temp = new UnhollowerBaseLib.Il2CppStructArray<AEMEBPDOAPE>(__result.Count + rolesNum);
 
                 for (int i = 0; i < __result.Count; i++)
                 {
                     temp[i] = __result[i];
                 }
-                temp[__result.Count + 0] = CONFOOGKOGN.Cannibal;
-                temp[__result.Count + 1] = CONFOOGKOGN.Morphling;
-                temp[__result.Count + 2] = CONFOOGKOGN.Silencer;
-                temp[__result.Count + 3] = CONFOOGKOGN.Professional;
-                temp[__result.Count + 4] = CONFOOGKOGN.Spy;
-                temp[__result.Count + 5] = CONFOOGKOGN.Hitman;
-                temp[__result.Count + 6] = CONFOOGKOGN.Snitch;
-                temp[__result.Count + 7] = CONFOOGKOGN.Party;
-                temp[__result.Count + 8] = CONFOOGKOGN.Demolitionist;
-                temp[__result.Count + 9] = CONFOOGKOGN.IdentityThief;
-                temp[__result.Count + 10] = CONFOOGKOGN.Ninja;
-                temp[__result.Count + 11] = CONFOOGKOGN.Undertaker;
-                temp[__result.Count + 12] = CONFOOGKOGN.Invisibility;
-                temp[__result.Count + 13] = CONFOOGKOGN.SerialKiller;
-                temp[__result.Count + 14] = CONFOOGKOGN.Warlock;
-                temp[__result.Count + 15] = CONFOOGKOGN.EsperDuck;
-                temp[__result.Count + 16] = CONFOOGKOGN.Goose;
-                temp[__result.Count + 17] = CONFOOGKOGN.Bounty;
+                temp[__result.Count + 0] = AEMEBPDOAPE.Cannibal;
+                temp[__result.Count + 1] = AEMEBPDOAPE.Morphling;
+                temp[__result.Count + 2] = AEMEBPDOAPE.Silencer;
+                temp[__result.Count + 3] = AEMEBPDOAPE.Professional;
+                temp[__result.Count + 4] = AEMEBPDOAPE.Spy;
+                temp[__result.Count + 5] = AEMEBPDOAPE.Hitman;
+                temp[__result.Count + 6] = AEMEBPDOAPE.Snitch;
+                temp[__result.Count + 7] = AEMEBPDOAPE.Party;
+                temp[__result.Count + 8] = AEMEBPDOAPE.Demolitionist;
+                temp[__result.Count + 9] = AEMEBPDOAPE.IdentityThief;
+                temp[__result.Count + 10] = AEMEBPDOAPE.Ninja;
+                temp[__result.Count + 11] = AEMEBPDOAPE.Undertaker;
+                temp[__result.Count + 12] = AEMEBPDOAPE.Invisibility;
+                temp[__result.Count + 13] = AEMEBPDOAPE.SerialKiller;
+                temp[__result.Count + 14] = AEMEBPDOAPE.Warlock;
+                temp[__result.Count + 15] = AEMEBPDOAPE.EsperDuck;
+                temp[__result.Count + 16] = AEMEBPDOAPE.Goose;
+                temp[__result.Count + 17] = AEMEBPDOAPE.Bounty;
 
-                //temp[__result.Count + 3] = CONFOOGKOGN.None;
+                //temp[__result.Count + 3] = AEMEBPDOAPE.None;
 
                 __result = temp;
             }

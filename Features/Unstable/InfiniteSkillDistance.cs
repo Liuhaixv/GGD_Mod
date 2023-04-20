@@ -82,12 +82,12 @@ namespace GGD_Hack.Features
 
                 //仅限以下角色启用
                 {
-                    CONFOOGKOGN playerRoleId = localPlayerController.playerRole.CEDMLFOKKLC;
-                    if (playerRoleId != CONFOOGKOGN.Pigeon
-                        && playerRoleId != CONFOOGKOGN.Detective
-                        && playerRoleId != CONFOOGKOGN.Stalker
-                        && playerRoleId != CONFOOGKOGN.Demolitionist
-                         && playerRoleId != CONFOOGKOGN.EsperDuck)
+                    AEMEBPDOAPE playerRoleId = localPlayerController.playerRole.BELBKBCFPIL;
+                    if (playerRoleId != AEMEBPDOAPE.Pigeon
+                        && playerRoleId != AEMEBPDOAPE.Detective
+                        && playerRoleId != AEMEBPDOAPE.Stalker
+                        && playerRoleId != AEMEBPDOAPE.Demolitionist
+                         && playerRoleId != AEMEBPDOAPE.EsperDuck)
                     {
 #if Developer
                         MelonLogger.Error("玩家角色不符合无限距离");

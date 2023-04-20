@@ -93,7 +93,7 @@ namespace GGD_Hack.Events
 
         public static void Anti_Cheat(byte[] bytes)
         {
-            MelonLogger.Msg(System.ConsoleColor.Green, "反作弊事件:" + BitConverter.ToString(bytes));
+            MelonLogger.Msg(System.ConsoleColor.Green, "反作弊事件:{0}", BitConverter.ToString(bytes));
         }
     }
 
@@ -122,6 +122,8 @@ namespace GGD_Hack.Events
                             InGameEvents.Start_Game();
                             break;
                         }
+                    //2.20.00
+                    //E8 ?? ?? ?? ?? 48 8B 15 ?? ?? ?? ?? 48 8B C8 E8 ?? ?? ?? ?? 48 8B F8 48 85 C0 0F 84 C7 00 00 00
                     case EventDataCode.AntiCheat:
                         {
                             //TODO:
@@ -129,7 +131,7 @@ namespace GGD_Hack.Events
                             int bytesLength = bytes.Length;
                             byte[] receivedAntiCheatBytes = new byte[bytesLength];
 
-                            for(int i = 0; i < bytesLength; i++)
+                            for (int i = 0; i < bytesLength; i++)
                             {
                                 receivedAntiCheatBytes[i] = bytes[i];
                             }

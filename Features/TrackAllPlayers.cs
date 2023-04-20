@@ -34,7 +34,7 @@ namespace GGD_Hack.Features
                 if (playerController.isGhost) continue;
                 
                 //添加箭头追踪
-                TaskTargetingHandler.Instance.TargetPlayer(playerController, TargetHandler.DKICHEPCMLF.Stalk);
+                TaskTargetingHandler.Instance.TargetPlayer(playerController, TargetHandler.FOOCLCPKBNA.Stalk);
             }
         }
     }

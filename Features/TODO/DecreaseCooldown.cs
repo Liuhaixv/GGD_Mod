@@ -45,7 +45,7 @@ namespace GGD_Hack.Features
         [HarmonyPatch(typeof(PlayerButtonController), nameof(PlayerButtonController.RegisterCooldownButton))]
         class RegisterCooldownButton_
         {
-            static void Prefix(PlayerButtonController __instance, UICooldownButton __result, string __0, JLACBPCNIOP __1, UnityEngine.Transform __2, ref float __3, bool __4)
+            static void Prefix(PlayerButtonController __instance, UICooldownButton __result, string __0, EHEJJHBFJIB __1, UnityEngine.Transform __2, ref float __3, bool __4)
             {
                 if (!Enabled.Value) return;
                 //

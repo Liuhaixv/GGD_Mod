@@ -12,6 +12,7 @@ namespace GGD_Hack.GameData
         static Dictionary<int, string> errCodes = new Dictionary<int, string>
         {
             { 0, "Platform was not initialized at the time of connecting"},
+            { 2, "Easy Anti-Cheat Hash Catalogue not found"},
             { 32765, "Platform was not initialized at the time of connecting" },
             { 32766, "EasyAntiCheat is not running" },
             { 32767, "Failed to obtain application configuration" },
