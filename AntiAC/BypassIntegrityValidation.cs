@@ -1,5 +1,4 @@
-﻿#if false
-using MelonLoader;
+﻿using MelonLoader;
 using UnhollowerRuntimeLib;
 using UnityEngine;
 using HarmonyLib;
@@ -37,7 +36,7 @@ namespace GGD_Hack.AntiAC
         }
 
         //48 89 5C 24 20 66 89 4C
-        //[HarmonyPatch(typeof(MAHIKBIKKCD), nameof(MAHIKBIKKCD.NCFKMGBFCKL))]
+        [HarmonyPatch(typeof(FJFANEGEFDG), nameof(FJFANEGEFDG.LBDGEKDEPOA))]
         class IntegrityErrorPanel
         {
             static void Postfix()
@@ -57,7 +56,7 @@ namespace GGD_Hack.AntiAC
 
             static void Postfix(ref bool __result)
             {
-                __result = true; 
+                __result = true;
             }
         }
 
@@ -77,11 +76,12 @@ namespace GGD_Hack.AntiAC
             }
         }
 
+        //2.20.1
         //必须返回true
-        //48 89 5C 24 08 48 89 74 24 10 57 48 83 EC 20 80 3D ?? ?? ?? ?? ?? 75 13
         //有逻辑被执行
         //检查EAC是否运行
-        [HarmonyPatch(typeof(MAHIKBIKKCD), "LGMJLPFDKIM")]
+        //48 89 5C 24 08 48 89 74 24 10 57 48 83 EC 20 80 3D ?? ?? ?? ?? ?? 75 13
+        //[HarmonyPatch(typeof(FJFANEGEFDG), "CCCKCJPNPPI")]
         class CheckIfEACRunning_32766
         {
             static bool Prefix(ref bool __result)
@@ -91,10 +91,11 @@ namespace GGD_Hack.AntiAC
             }
         }
 
+        //2.20.01
         //必须返回true
         //Failed to obtain application configuration
-        //48 89 7C 24 10 55 48 8D AC 24 70
-        //[HarmonyPatch(typeof(MAHIKBIKKCD), "NKCHIINMLHO")]
+        //E8 ?? ?? ?? ?? 84 C0 0F 84 B3 02 00 00 40 38 3D
+        //[HarmonyPatch(typeof(FJFANEGEFDG), "CDFDIOHJBNM")]
         class ObtainApplicationConfiguration_32767
         {
             static bool Prefix(ref bool __result)
@@ -109,67 +110,30 @@ namespace GGD_Hack.AntiAC
             }
         }
 
-        //必须返回true
-        //48 89 5C 24 20 56 48 83 EC 30 80 3D ?? ?? ?? ?? ?? 48 8B D9 75 43
-        //[HarmonyPatch(typeof(MAHIKBIKKCD), "GEAFKOFAGHN")]
-        class A_32765
-        {
-            static bool Prefix(ref bool __result)
-            {
-                __result = true;
-                return true;
-            }
-
-            static void Postfix(ref bool __result)
-            {
-                __result = true;
-            }
-        }
-
-        //必须返回true
-        //48 89 5C 24 20 56 48 83 EC 30 80 3D ?? ?? ?? ?? ?? 48 8B D9 75 43
-        //[HarmonyPatch(typeof(MAHIKBIKKCD), "OBAJCFOEHGE")]
-        class HandleAntiCheatEvent_2
-        {
-            static bool Prefix()
-            {
-                MelonLogger.Msg(System.ConsoleColor.Green, "正在处理事件220");
-                return true;
-            }
-
-            static void Postfix()
-            {
-                MelonLogger.Msg(System.ConsoleColor.Green, "已处理完事件220");
-            }
-        }        
-        
-        [HarmonyPatch(typeof(MAHIKBIKKCD), "GJAJMEGOHLP")]
+        //2.20.1
+        //EOS_Connect_AddNotifyAuthExpiration
+        //40 53 48 83 EC 20 80 3D ?? ?? ?? ?? ?? 48 8B D9 75 1F 48 8D 0D ?? ?? ?? ?? E8 ?? ?? ?? ?? 48 8D 0D ?? ?? ?? ?? E8 ?? ?? ?? ?? C6 05 ?? ?? ?? ?? ?? 8B 43 08 48
+        [HarmonyPatch(typeof(FJFANEGEFDG), "DCCDNKODPOC")]
         class IntegerityError2
         {
-            static bool Prefix()
+            static void Postfix()
             {
-                MelonLogger.Msg(System.ConsoleColor.Green, "错误代码2");
-                return false;
+                MelonLogger.Msg(System.ConsoleColor.Green, "RUNTIME:错误代码32765");
             }
         }
-        
+
 
 
         //必须返回true
         //40 53 48 83 EC 40 80 3D ?? ?? ?? ?? ?? 48 8B D9 75 67 48 8D 0D ?? ?? ?? ?? E8 ?? ?? ?? ?? 48 8D 0D ?? ?? ?? ?? E8 ?? ?? ?? ?? 48 8D 0D ?? ?? ?? ?? E8 ?? ?? ?? ?? 48 8D 0D ?? ?? ?? ?? E8 ?? ?? ?? ?? 48 8D 0D ?? ?? ?? ?? E8 ?? ?? ?? ?? 48 8D 0D ?? ?? ?? ?? E8 ?? ?? ?? ?? 48 8D 0D ?? ?? ?? ?? E8 ?? ?? ?? ?? 48 8D 0D ?? ?? ?? ?? E8 ?? ?? ?? ?? C6 05 ?? ?? ?? ?? ?? 80
         //bind violationCallbackDelegate
-        //[HarmonyPatch(typeof(MAHIKBIKKCD), "MCIKPEOPEBJ")]
+        //[HarmonyPatch(typeof(FJFANEGEFDG), "JAHJBHCJHDB")]
         class BindViolationCallbackDelegate_32765
         {
             static bool Prefix(ref bool __result)
             {
                 __result = true;
-                return true;
-            }
-
-            static void Postfix(ref bool __result)
-            {
-                __result = true;
+                return false;
             }
         }
 
@@ -188,6 +152,18 @@ namespace GGD_Hack.AntiAC
                 __result = true;
             }
         }
+
+        //检查EAC的启动项是否包含-EOS_FORCE_ANTICHEATCLIENTNULL
+        //通过EOS_Platform_GetAntiCheatClientInterface获取EAC实例，判断是否为null
+        //E8 ?? ?? ?? ?? 84 C0 0F 84 3C 01 00 00 33 D2 48 8D 4C 24 38
+        [HarmonyPatch(typeof(FJFANEGEFDG), "CCCKCJPNPPI")]
+        class CheckEACCommandline_And_EACClientInterface
+        {
+            static bool Prefix(ref bool __result)
+            {
+                __result = true;
+                return false;
+            }
+        }
     }
 }
-#endif

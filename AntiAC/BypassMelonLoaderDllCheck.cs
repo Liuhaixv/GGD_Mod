@@ -23,7 +23,7 @@ namespace GGD_Hack.AntiAC
         /// 修改所有方法
         /// https://harmony.pardeike.net/articles/annotations.html#patching-multiple-methods
 
-        [HarmonyPatch]
+        //[HarmonyPatch]
         private static class MelonLoaderFileExsistsCheckPatch
         {
             static IEnumerable<MethodBase> TargetMethods()

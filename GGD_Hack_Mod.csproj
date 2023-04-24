@@ -249,6 +249,7 @@
     <Compile Include="Hook\Debug\Debug.cs" />
     <Compile Include="Hook\Debug\FromBase64String.cs" />
     <Compile Include="Hook\IncreaseSkillRange.cs" />
+    <Compile Include="Hook\Network\LoadBalancingClient.cs" />
     <Compile Include="Hook\PrintInvoke\InvokableCall.cs" />
     <Compile Include="Hook\Network\PhotonCallbacksAPI.cs" />
     <Compile Include="Hook\Network\PhotonNetwork.cs" />

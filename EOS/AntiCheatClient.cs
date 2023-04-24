@@ -1,5 +1,4 @@
-﻿#if false
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,12 +21,12 @@ namespace GGD_Hack.EOS
             this.Mode = Mode;
         }
 
-        public static implicit operator BeginSessionOptions(CHLHFLEEPBB v)
+        public static implicit operator BeginSessionOptions(JMDPPJDHNKC v)
         {
             return new BeginSessionOptions(
-                    v.EBNFFOIFMEF,
-                    v.ICIPMCBLNIM,
-                    (AntiCheatClientMode)v.DIPIKMNAJNB
+                    v.FPGKDHKEIOA,
+                    v.EAJHLEKONDM,
+                    (AntiCheatClientMode)v.KJBEAIPBDDK
                 );
         }
 
@@ -48,4 +47,3 @@ namespace GGD_Hack.EOS
         PeerToPeer = 2
     }
 }
-#endif

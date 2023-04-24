@@ -1,5 +1,4 @@
-﻿#if false
-using HarmonyLib;
+﻿using HarmonyLib;
 using GGD_Hack.EOS;
 using MelonLoader;
 using System.Collections.Generic;
@@ -18,7 +17,7 @@ namespace GGD_Hack.AntiAC
             {
                 //System.Collections.Generic.List<string> list = AccessTools.GetMethodNames(typeof(AKCCGGKHPIA));
 
-                return typeof(LMDCNGHFDAI).GetMethods()
+                return typeof(NNCHJGNDAIB).GetMethods()
                     //.Where(method => method.ReturnType == typeof(string))//返回值为string的方法
                     .Cast<MethodBase>();
             }
@@ -31,7 +30,7 @@ namespace GGD_Hack.AntiAC
             }
         }
 
-        [HarmonyPatch(typeof(OJKAAKLKJAI), nameof(OJKAAKLKJAI.PHFNHOJBOGO))]
+        //[HarmonyPatch(typeof(NNCHJGNDAIB), nameof(NNCHJGNDAIB.PHFNHOJBOGO))]
         class EOS_AntiCheatClient_AddNotifyMessageToServer
         {
             static void Postfix()
@@ -40,7 +39,16 @@ namespace GGD_Hack.AntiAC
             }
         }
 
-        [HarmonyPatch(typeof(OJKAAKLKJAI), nameof(OJKAAKLKJAI.PDEFPLPMPEL))]
+        //[HarmonyPatch(typeof(NNCHJGNDAIB), nameof(NNCHJGNDAIB.PHFNHOJBOGO))]
+        class EOS_AntiCheatClient_AddNotifyPeerActionRequired
+        {
+            static void Postfix()
+            {
+                MelonLogger.Msg(System.ConsoleColor.Green, "EOS:{0}", "EOS_AntiCheatClient_AddNotifyPeerActionRequired");
+            }
+        }
+
+        [HarmonyPatch(typeof(NNCHJGNDAIB), nameof(NNCHJGNDAIB.DIKBAIEBEMG))]
         class EOS_AntiCheatClient_ReceiveMessageFromServer
         {
             static void Postfix()
@@ -49,7 +57,7 @@ namespace GGD_Hack.AntiAC
             }
         }
 
-        [HarmonyPatch(typeof(OJKAAKLKJAI), nameof(OJKAAKLKJAI.DKBINPOOBEP))]
+        //[HarmonyPatch(typeof(NNCHJGNDAIB), nameof(NNCHJGNDAIB.DKBINPOOBEP))]
         class EOS_AntiCheatClient_RemoveNotifyMessageToServer
         {
             static void Postfix()
@@ -60,17 +68,27 @@ namespace GGD_Hack.AntiAC
 
         //EOS_HAntiCheatClient Handle
         //EOS_AntiCheatClient_BeginSessionOptions* Options
-        [HarmonyPatch(typeof(OJKAAKLKJAI), nameof(OJKAAKLKJAI.GNOFJOJHLJD))]
+        [HarmonyPatch(typeof(NNCHJGNDAIB), nameof(NNCHJGNDAIB.GCGILGHGGLF))]
         class EOS_AntiCheatClient_BeginSession
         {
-            static void Postfix(CHLHFLEEPBB __1)
+            static void Postfix(DJJFBMKJIBJ __result, JMDPPJDHNKC __1)
             {
                 BeginSessionOptions options = __1;
-                MelonLogger.Msg(System.ConsoleColor.Green, "EOS:{0}\n{1}", "EOS_AntiCheatClient_BeginSession", options);
+                string result = __result.ToString();
+                MelonLogger.Msg(System.ConsoleColor.Green, "EOS:{0}\n{1}\nResult:{2}", "EOS_AntiCheatClient_BeginSession", options, result);
             }
         }
 
-        [HarmonyPatch(typeof(OJKAAKLKJAI), nameof(OJKAAKLKJAI.DFOPFKEGKAB))]
+        //[HarmonyPatch(typeof(NNCHJGNDAIB), nameof(NNCHJGNDAIB.DKBINPOOBEP))]
+        class EOS_AntiCheatClient_EndSession
+        {
+            static void Postfix()
+            {
+                MelonLogger.Msg(System.ConsoleColor.Green, "EOS:{0}", "EOS_AntiCheatClient_EndSession");
+            }
+        }
+
+        //[HarmonyPatch(typeof(NNCHJGNDAIB), nameof(NNCHJGNDAIB.DFOPFKEGKAB))]
         class EOS_AntiCheatClient_AddNotifyClientIntegrityViolated
         {
             static void Postfix()
@@ -80,4 +98,3 @@ namespace GGD_Hack.AntiAC
         }
     }
 }
-#endif
